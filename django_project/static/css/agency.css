@@ -866,3 +866,12 @@ img::-moz-selection {
 body {
     webkit-tap-highlight-color: #fed136;
 }
+
+ul.pendingSess, ul.scheduledSess {
+    list-style-type: none;
+}
+
+button.edit {
+    
+}
+
