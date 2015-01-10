@@ -1,29 +1,27 @@
 from django.shortcuts import render, render_to_response
 from django.views.generic.base import TemplateView
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-<<<<<<< HEAD
 from hack.forms import UserForm, UserProfileForm
 from django.template import RequestContext
+from django.contrib.auth import authenticate, login
 
-=======
 from .models import Class
 from .build_classes import scrape_classes
 
-#new imports, twil update
+#new imports, twil update 
 from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
->>>>>>> b67a8ec21a90a257bb616b9dcda87e5c9fcfa55b
 
 class IndexView(TemplateView):
-  template_name = 'index.html'
+	template_name = 'index.html'
 
 def test(request):
 	return render_to_response('base.html', {'test': 1})
 
 @twilio_view
 def sms(request):
-<<<<<<< HEAD
+
 	twiml = '<Response><Message>Hey Study Student!</Message></Response>'
 	return HttpResponse(twiml, content_type='text/xml')
 
@@ -43,11 +41,12 @@ def register(request):
         # Note that we make use of both UserForm and UserProfileForm.
 
         #these are the ones we added on top of default reg for django
-        phone = request.POST.get('phone')
-        lastname = request.POST.get('lastname')
-        firstname = request.POST.get('firstname')
+        #phone = request.POST.get('phone')
+        #firstname = request.POST.get('firstname')
+        #lastname = request.POST.get('lastname')
 
         user_form = UserForm(data=request.POST)
+        print request.POST
         profile_form = UserProfileForm(data=request.POST)
 
         # If the two forms are valid...
@@ -69,7 +68,7 @@ def register(request):
             # PUT IN LOGIC FOR THE BOOLEANS AND THE PHONE NUMBER
             # Did the user provide a profile picture?
             # If so, we need to get it from the input form and put it in the UserProfile model.
-            #if 'picture' in request.FILES:
+            # if 'picture' in request.FILES:
             #    profile.picture = request.FILES['picture']
 
             # Now we save the UserProfile model instance.
@@ -101,15 +100,13 @@ def register(request):
             'register.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
             context)
-
-=======
-	r = Response()
-	r.message('Hello from your Django app!')
-	return r
+	#r = Response()
+	#r.message('Hello from your Django app!')
+	#return r
 
 def build_classes(request):
 	classes = scrape_classes()
 	for class_ in classes:
 		Class(cid=class_).save()
 	return render_to_response('build.html', {'classes': Class.objects.all()})
->>>>>>> b67a8ec21a90a257bb616b9dcda87e5c9fcfa55b
+
