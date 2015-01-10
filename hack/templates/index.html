@@ -133,7 +133,9 @@
 					    <input type="text" class="accountInfo Email" name="Email" value="samwoods@ucsc.edu" disabled><br>
 			            </td> 
 				    <td>
-					    <button type="button" class="edit Email">Edit</button>
+					    <button type="button" class="edit Email">
+						    <span class="button-text">Edit</span>
+					    </button>
 			            </td>
 			    </tr>
                             <tr>
@@ -142,7 +144,9 @@
 	    				    <input type="text" class="accountInfo Password" name="Password" value="******" disabled><br>
     			 	    </td> 
 				    <td>
-					    <button type="button" class="edit Password">Edit</button>
+					    <button type="button" class="edit Password">
+						    <span class="button-text">Edit</span>
+					    </button>
     				    </td>
   			    </tr>
   		 	    <tr>
@@ -151,7 +155,9 @@
 					    <input type="text" class="accountInfo PhoneNumber" name="Phone Number" value="888-888-8888" disabled><br>
 				    </td> 
 				    <td>
-					    <button type="button" class="edit PhoneNumber">Edit</button>
+					    <button type="button" class="edit PhoneNumber">
+						    <span class="button-text">Edit</span>
+					    </button>
     				    </td>
   			    </tr>
   			    <tr>
@@ -161,7 +167,9 @@
 		                            <input type="checkbox" class="accountInfo Notification" value="phone" disabled>Notify me by text<br>
                                     </td>
 				    <td>
-					    <button type="button" class="edit Notification">Edit</button>
+					    <button type="button" class="edit Notification">
+						    <span class="button-text">Edit</span>
+					    </button>
     				    </td>
                             <tr>
                     </table>
@@ -218,10 +226,17 @@
     <script>
         console.log("document ready\n");
 	$("button.edit").click(function() {
-	   if ($(this).hasClass("Username")) {
+	   // if the option is disabled
+	   if (!$(this).hasClass("Save")){
+	       $(this).parent().closest('td').prev().children('input').prop('disabled', false);
+	       $(this).children("span").text("Save");
+	   // if the option is enabled
+	   } else {
+	       // add code to update database
+	       $(this).parent().closest('td').prev().children('input').prop('disabled', true);
+	       $(this).children("span").text("Edit");
 	   }
-	   var buttonId = $(this).attr("id");
-	   console.log(buttonId);
+	   $(this).toggleClass("Save");
 	});
     </script>
 
