@@ -139,11 +139,15 @@
             <div class="row text-center">
                 <div class="col-xs-6">
                     <h3 class="service-heading">Pending Sessions</h3>
-		    <p class="text-muted">CMPS 104A</p>
+		    <ul class="pendingSess">
+		    	<li class="text-muted">CMPS 104A</li>
+		    </ul>
                 </div>
                 <div class="col-xs-6">
                     <h3 class="service-heading">Scheduled Sessions</h3>
-                    <p class="text-muted">CMPS 130</p>
+		    <ul class="scheduledSess">
+                    <li class="text-muted">CMPS 130</li>
+	            </ul>
                 </div>
             </div>
         </div>
@@ -155,7 +159,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">My Schedule</h2>
-                    <h3 class="section-subheading text-muted">Sync with Google Calendar</h3>
+                    <button type="button" class="importCal">Import Google Calendar</button>
                 </div>
             </div>
         </div>
@@ -177,7 +181,9 @@
 					    <input type="text" class="accountInfo Email" name="Email" value="samwoods@ucsc.edu" disabled><br>
 			            </td> 
 				    <td>
-					    <button type="button" class="edit Email">Edit</button>
+					    <button type="button" class="edit Email">
+						    <span class="button-text">Edit</span>
+					    </button>
 			            </td>
 			    </tr>
                             <tr>
@@ -186,7 +192,9 @@
 	    				    <input type="text" class="accountInfo Password" name="Password" value="******" disabled><br>
     			 	    </td> 
 				    <td>
-					    <button type="button" class="edit Password">Edit</button>
+					    <button type="button" class="edit Password">
+						    <span class="button-text">Edit</span>
+					    </button>
     				    </td>
   			    </tr>
   		 	    <tr>
@@ -195,7 +203,9 @@
 					    <input type="text" class="accountInfo PhoneNumber" name="Phone Number" value="888-888-8888" disabled><br>
 				    </td> 
 				    <td>
-					    <button type="button" class="edit PhoneNumber">Edit</button>
+					    <button type="button" class="edit PhoneNumber">
+						    <span class="button-text">Edit</span>
+					    </button>
     				    </td>
   			    </tr>
   			    <tr>
@@ -205,7 +215,9 @@
 		                            <input type="checkbox" class="accountInfo Notification" value="phone" disabled>Notify me by text<br>
                                     </td>
 				    <td>
-					    <button type="button" class="edit Notification">Edit</button>
+					    <button type="button" class="edit Notification">
+						    <span class="button-text">Edit</span>
+					    </button>
     				    </td>
                             <tr>
                     </table>
@@ -437,10 +449,17 @@
     <script>
         console.log("document ready\n");
 	$("button.edit").click(function() {
-	   if ($(this).hasClass("Username")) {
+	   // if the option is disabled
+	   if (!$(this).hasClass("Save")){
+	       $(this).parent().closest('td').prev().children('input').prop('disabled', false);
+	       $(this).children("span").text("Save");
+	   // if the option is enabled
+	   } else {
+	       // add code to update database
+	       $(this).parent().closest('td').prev().children('input').prop('disabled', true);
+	       $(this).children("span").text("Edit");
 	   }
-	   var buttonId = $(this).attr("id");
-	   console.log(buttonId);
+	   $(this).toggleClass("Save");
 	});
     </script>
 

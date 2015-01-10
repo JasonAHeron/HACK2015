@@ -883,6 +883,7 @@ body {
     webkit-tap-highlight-color: #fed136;
 }
 
+
 //for modal
 #overlay {
      visibility: hidden;
@@ -968,3 +969,12 @@ body {
     background-color: #fed136;
 
 }
+
+ul.pendingSess, ul.scheduledSess {
+    list-style-type: none;
+}
+
+button.edit {
+    
+}
+
