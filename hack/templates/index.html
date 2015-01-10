@@ -130,38 +130,38 @@
 			    <tr>
 				    <td>Email</td>
 				    <td>
-					    <input type="text" class="accountInfo" name="Email" value="samwoods@ucsc.edu" disabled><br>
+					    <input type="text" class="accountInfo Email" name="Email" value="samwoods@ucsc.edu" disabled><br>
 			            </td> 
 				    <td>
-					    <button type="button" class="edit" id="Email">Edit</button>
+					    <button type="button" class="edit Email">Edit</button>
 			            </td>
 			    </tr>
                             <tr>
 				    <td>Password</td>
    				    <td>
-	    				    <input type="text" class="accountInfo" name="Password" value="******" disabled><br>
+	    				    <input type="text" class="accountInfo Password" name="Password" value="******" disabled><br>
     			 	    </td> 
 				    <td>
-					    <button type="button" class="edit" id="Password">Edit</button>
+					    <button type="button" class="edit Password">Edit</button>
     				    </td>
   			    </tr>
   		 	    <tr>
     				    <td>Phone Number</td>
     				    <td>
-					    <input type="text" class="accountInfo" name="Phone Number" value="888-888-8888" disabled><br>
+					    <input type="text" class="accountInfo PhoneNumber" name="Phone Number" value="888-888-8888" disabled><br>
 				    </td> 
 				    <td>
-					    <button type="button" class="edit" id="PhoneNumber">Edit</button>
+					    <button type="button" class="edit PhoneNumber">Edit</button>
     				    </td>
   			    </tr>
   			    <tr>
 	  			    <td>Notification Settings</td>
 	  			    <td>
-					    <input type="checkbox" name="notification" value="email" checked disabled>Notify me by email<br>
-		                            <input type="checkbox" name="notification" value="phone" disabled>Notify me by text<br>
+					    <input type="checkbox" class="accountInfo Notification" value="email" checked disabled>Notify me by email<br>
+		                            <input type="checkbox" class="accountInfo Notification" value="phone" disabled>Notify me by text<br>
                                     </td>
 				    <td>
-					    <button type="button" class="edit" id="Notification">Edit</button>
+					    <button type="button" class="edit Notification">Edit</button>
     				    </td>
                             <tr>
                     </table>
@@ -218,6 +218,8 @@
     <script>
         console.log("document ready\n");
 	$("button.edit").click(function() {
+	   if ($(this).hasClass("Username")) {
+	   }
 	   var buttonId = $(this).attr("id");
 	   console.log(buttonId);
 	});
