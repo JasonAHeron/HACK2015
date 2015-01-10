@@ -3,14 +3,13 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Agency - Start Bootstrap Theme</title>
+    <title>Study Session Scheduler</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
@@ -19,7 +18,7 @@
     <link href="{% static "css/agency.css" %}" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="{ % static "font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -31,6 +30,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
 
 </head>
 
@@ -132,34 +132,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Services</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading">My Sessions</h2>
+		    <!--<h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>-->
                 </div>
             </div>
             <div class="row text-center">
-                <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading">E-Commerce</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                <div class="col-xs-6">
+                    <h3 class="service-heading">Pending Sessions</h3>
+		    <p class="text-muted">CMPS 104A</p>
                 </div>
-                <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading">Responsive Design</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                </div>
-                <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading">Web Security</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                <div class="col-xs-6">
+                    <h3 class="service-heading">Scheduled Sessions</h3>
+                    <p class="text-muted">CMPS 130</p>
                 </div>
             </div>
         </div>
@@ -170,106 +154,61 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Portfolio</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/roundicons.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Round Icons</h4>
-                        <p class="text-muted">Graphic Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/startup-framework.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Startup Framework</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/treehouse.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Treehouse</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/golden.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Golden</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/escape.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Escape</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/dreams.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Dreams</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
+                    <h2 class="section-heading">My Schedule</h2>
+                    <h3 class="section-subheading text-muted">Sync with Google Calendar</h3>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- User Settings Section -->
+    <!-- Account Settings Section -->
     <section id="settings">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">User Settings</h2>
+                    <h2 class="section-heading">Account Settings</h2>
                 </div>
+            </div>
+	    <div class="row">
+		    <table style="width:100%">
+			    <tr>
+				    <td>Email</td>
+				    <td>
+					    <input type="text" class="accountInfo Email" name="Email" value="samwoods@ucsc.edu" disabled><br>
+			            </td> 
+				    <td>
+					    <button type="button" class="edit Email">Edit</button>
+			            </td>
+			    </tr>
+                            <tr>
+				    <td>Password</td>
+   				    <td>
+	    				    <input type="text" class="accountInfo Password" name="Password" value="******" disabled><br>
+    			 	    </td> 
+				    <td>
+					    <button type="button" class="edit Password">Edit</button>
+    				    </td>
+  			    </tr>
+  		 	    <tr>
+    				    <td>Phone Number</td>
+    				    <td>
+					    <input type="text" class="accountInfo PhoneNumber" name="Phone Number" value="888-888-8888" disabled><br>
+				    </td> 
+				    <td>
+					    <button type="button" class="edit PhoneNumber">Edit</button>
+    				    </td>
+  			    </tr>
+  			    <tr>
+	  			    <td>Notification Settings</td>
+	  			    <td>
+					    <input type="checkbox" class="accountInfo Notification" value="email" checked disabled>Notify me by email<br>
+		                            <input type="checkbox" class="accountInfo Notification" value="phone" disabled>Notify me by text<br>
+                                    </td>
+				    <td>
+					    <button type="button" class="edit Notification">Edit</button>
+    				    </td>
+                            <tr>
+                    </table>
             </div>
         </div>
     </section>
@@ -301,6 +240,7 @@
             </div>
         </div>
     </footer>
+
 
     <!-- Portfolio Modals -->
     <!-- Use the modals below to showcase details about your portfolio projects! -->
@@ -493,6 +433,16 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="{% static "js/agency.js" %}"></script>
+
+    <script>
+        console.log("document ready\n");
+	$("button.edit").click(function() {
+	   if ($(this).hasClass("Username")) {
+	   }
+	   var buttonId = $(this).attr("id");
+	   console.log(buttonId);
+	});
+    </script>
 
 </body>
 
