@@ -12,6 +12,15 @@ body {
 .text-muted {
     color: #777;
 }
+.text-mutedSession{
+    color: #777;
+    border-color: #fed136;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 15px;
+    padding: 5px 5px 5px 5px;
+    vertical-align:center;
+}
 
 .text-primary {
     color: #fed136;
@@ -42,7 +51,7 @@ a:hover,
 a:focus,
 a:active,
 a.active {
-    color: #fec503;
+    color: #23527c;
 }
 
 h1,
@@ -129,6 +138,7 @@ fieldset[disabled] .btn-primary.active {
     background-color: #fed136;
 }
 
+
 .btn-xl:hover,
 .btn-xl:focus,
 .btn-xl:active,
@@ -210,6 +220,8 @@ fieldset[disabled] .btn-xl.active {
     font-weight: 400;
     letter-spacing: 1px;
     color: #fff;
+    background-color:black;
+    //background-color: rgba(0, 0, 0, 0.6);
 }
 
 .navbar-default .nav li a:hover,
@@ -253,7 +265,7 @@ fieldset[disabled] .btn-xl.active {
 
     .navbar-default.navbar-shrink {
         padding: 10px 0;
-        background-color: #222;
+        background-color: black;
     }
 
     .navbar-default.navbar-shrink .navbar-brand {
@@ -263,7 +275,7 @@ fieldset[disabled] .btn-xl.active {
 
 header {
     text-align: center;
-    color: #fff;
+    //color: #fff;
     background-attachment: scroll;
     background-image: url(../img/redwoods2.jpg);
     background-position: center center;
@@ -278,6 +290,7 @@ header {
 header .intro-text {
     padding-top: 100px;
     padding-bottom: 50px;
+    color: #fff;
 }
 
 header .intro-text .intro-lead-in {
@@ -286,8 +299,20 @@ header .intro-text .intro-lead-in {
     font-size: 22px;
     font-style: italic;
     line-height: 22px;
+    border-width: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
 }
 
+.intro-lead-in1 {
+    margin-bottom: 25px;
+    font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 22px;
+    font-weight:bold;
+    text-align:center;
+    line-height: 22px;
+    color: #000;
+}
 header .intro-text .intro-heading {
     margin-bottom: 25px;
     text-transform: uppercase;
@@ -348,6 +373,7 @@ section h3.section-subheading {
 
 .service-heading {
     margin: 15px 0;
+    vertical-align:center;
     text-transform: none;
 }
 
@@ -866,3 +892,116 @@ img::-moz-selection {
 body {
     webkit-tap-highlight-color: #fed136;
 }
+
+    
+//for modal
+#overlay {
+     visibility: hidden;
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     text-align:center;
+     z-index: 1000;
+}
+#overlay div {
+     width:300px;
+     margin: 100px auto;
+     background-color: #fff;
+     border:1px solid #000;
+     padding:15px;
+     text-align:center;
+}
+
+.modalDialog {
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999;
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+
+.modalDialog:target {
+    opacity:1;
+    pointer-events: auto;
+}
+
+.modalDialog > div {
+    width: 550px;
+    position: relative;
+    margin: 10% auto;
+    padding: 20px 20px 13px 20px;
+    border-radius: 10px;
+    background: #fff;
+    background: -moz-linear-gradient(#fff, #fed136);
+    background: -webkit-linear-gradient(#fff, #fed136);
+    background: -o-linear-gradient(#fff, #fed136);
+}
+
+
+.createSessionText {
+    //text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 250;
+    letter-spacing: 1px;
+    color: #000;
+}
+.submitButton{
+    //text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 250;
+    letter-spacing: 1px;
+    color: #000;
+    //margin:0 auto;
+       //padding : 15px 30px 14px 30px;
+    margin  : 5px auto;
+    display : block;
+    width   : 250px;
+}
+.btn-x2 {
+    padding: 15px 25px;
+    border-color: #fed136;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #000;
+    background-color: #fed136;
+
+}
+
+ul.pendingSess, ul.scheduledSess {
+    list-style-type: none;
+    vertical-align:center;
+    margin:5px auto;
+    display:block;
+}
+
+button.edit {
+    width: 45px;
+}
+
+.schedule td div {
+	opacity: 0;
+}
+.schedule td {
+	background: blue;
+	width: 2em;
+}
+.schedule td.highlighted {
+	background: red;
+}
+.schedule td.selected, .schedule td:hover {
+	background: yellow;
+}
+
