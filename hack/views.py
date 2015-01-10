@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from hack.forms import UserForm, UserProfileForm
 from django.template import RequestContext
 
+
 class IndexView(TemplateView):
   template_name = 'index.html'
 
@@ -24,10 +25,18 @@ def register(request):
     # Set to False initially. Code changes value to True when registration succeeds.
     registered = False
 
+    #get all of the fields that the user typed in
+
     # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
+
+        #these are the ones we added on top of default reg for django
+        phone = request.POST.get('phone')
+        lastname = request.POST.get('lastname')
+        firstname = request.POST.get('firstname')
+
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
 
@@ -59,11 +68,17 @@ def register(request):
             # Update our variable to tell the template registration was successful.
             registered = True
 
+            user = authenticate (username=request.POST['username'], password=request.POST['password'])
+            login(request, user)
+            return HttpResponseRedirect('/')
+
         # Invalid form or forms - mistakes or something else?
         # Print problems to the terminal.
         # They'll also be shown to the user.
         else:
-            print user_form.errors, profile_form.errors
+			print "THERE WAS AN ERROR"
+			print user_form.errors, profile_form.errors
+			render_to_response('register.html', context)
 
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
