@@ -13,8 +13,8 @@ from .build_classes import scrape_classes
 from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
 
-class IndexView(TemplateView):
-	template_name = 'index.html'
+def index_view(request):
+	return render_to_response('index.html', {'classes': Class.objects.all()})
 
 def test(request):
 	return render_to_response('base.html', {'test': 1})
