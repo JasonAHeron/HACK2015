@@ -25,4 +25,4 @@ def build_classes(request):
 	classes = scrape_classes()
 	for class_ in classes:
 		Class(cid=class_).save()
-	return render_to_response('base.html', {'classes': Class.objects.all()})
+	return render_to_response('build.html', {'classes': Class.objects.all()})
