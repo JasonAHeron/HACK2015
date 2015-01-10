@@ -3,6 +3,7 @@ from django.views.generic.base import TemplateView
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from hack.forms import UserForm, UserProfileForm
+from django.template import RequestContext
 
 class IndexView(TemplateView):
   template_name = 'index.html'
@@ -72,6 +73,7 @@ def register(request):
 
     # Render the template depending on the context.
     return render_to_response(
-            'rango/register.html',
+            'register.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
             context)
+
