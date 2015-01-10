@@ -985,6 +985,7 @@ ul.pendingSess, ul.scheduledSess {
     vertical-align:center;
     margin:5px auto;
     display:block;
+    padding:0;
 }
 
 button.edit {
@@ -993,15 +994,39 @@ button.edit {
 
 .schedule td div {
 	opacity: 0;
+
 }
 .schedule td {
-	background: blue;
-	width: 2em;
+	background:#fed136 ;
+	width: 10em;
+    border-bottom:2pt solid black;
+    border-left:2pt solid black;
+    border-right:2pt solid black;
+    border-top:2pt solid black;
+
+}
+.schedule th {
+    text-align:center;
+
 }
 .schedule td.highlighted {
-	background: red;
+	background: #610B0B;
 }
 .schedule td.selected, .schedule td:hover {
-	background: yellow;
+	background: black;
+}
+
+.container1{
+    padding-top:10px;
+    padding-bottom:10px;
+    margin-right:60px;
+    margin-left:60px;
+    color: #777;
+    border-color: #fed136;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 15px;
+    //padding: 5px 5px 5px 5px;
+    vertical-align:center;
 }
 
