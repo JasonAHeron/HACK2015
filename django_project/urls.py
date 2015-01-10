@@ -11,6 +11,5 @@ urlpatterns = patterns('',
 
     # Twilio URLs
     url(r'^sms/$', v.sms),
-    url(r'^ring/$', v.ring),
 )
 
