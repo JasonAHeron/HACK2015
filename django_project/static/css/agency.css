@@ -12,6 +12,15 @@ body {
 .text-muted {
     color: #777;
 }
+.text-mutedSession{
+    color: #777;
+    border-color: #fed136;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 15px;
+    padding: 5px 5px 5px 5px;
+    vertical-align:center;
+}
 
 .text-primary {
     color: #fed136;
@@ -364,6 +373,7 @@ section h3.section-subheading {
 
 .service-heading {
     margin: 15px 0;
+    vertical-align:center;
     text-transform: none;
 }
 
@@ -883,7 +893,7 @@ body {
     webkit-tap-highlight-color: #fed136;
 }
 
-
+    
 //for modal
 #overlay {
      visibility: hidden;
@@ -972,6 +982,9 @@ body {
 
 ul.pendingSess, ul.scheduledSess {
     list-style-type: none;
+    vertical-align:center;
+    margin:5px auto;
+    display:block;
 }
 
 button.edit {
