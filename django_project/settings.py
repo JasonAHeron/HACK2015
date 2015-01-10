@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hack',
+    'django_twilio',
+    'south',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,3 +114,6 @@ TEMPLATE_DIRS = (
         'templates',
     ),
 )
+
+TWILIO_ACCOUNT_SID = 'ACe5e1624beb9d42623af561bdc50544dc'
+TWILIO_AUTH_TOKEN = 'ACa198b3532f5d2fcd47c28e355eb02a0b'
