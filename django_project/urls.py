@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^test/',v.test),
     # Registration Page
     url(r'^register/$', v.register, name='register'),
+    url(r'^build/',v.build_classes),
 
     # Twilio URLs
     url(r'^sms/$', v.sms),
