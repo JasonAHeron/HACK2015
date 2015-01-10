@@ -16,3 +16,7 @@ class UserProfile(models.Model):
 class Class(models.Model):
 	cid = models.CharField(max_length=50, default="Empty Class")
 
+
+class Request(models.Model):
+	cls = models.ForeignKey(Class)
+
