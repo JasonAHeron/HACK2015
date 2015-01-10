@@ -975,6 +975,20 @@ ul.pendingSess, ul.scheduledSess {
 }
 
 button.edit {
-    
+    width: 45px;
+}
+
+.schedule td div {
+	opacity: 0;
+}
+.schedule td {
+	background: blue;
+	width: 2em;
+}
+.schedule td.highlighted {
+	background: red;
+}
+.schedule td.selected, .schedule td:hover {
+	background: yellow;
 }
 
