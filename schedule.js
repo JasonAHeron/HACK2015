@@ -21,13 +21,11 @@ function init() {
 				draggable.innerHTML = "&nbsp;";
 				draggable.setAttribute( "draggable", "true" );
 				draggable.ondragstart = function(e){ onScheduleDragStart( e ); }
-				//draggable.ondrag = function(e){ onDragEnd( e ); }
 				draggable.ondragend = function(e){ onScheduleDragEnd( e ); }
 				draggable.ondragover = function(e){ onScheduleDragOver( e ); }
 				draggable.ondrop = function(e){ event.preventDefault(); }
 				draggable.col = j;
 				draggable.row = i;
-				draggable.innerHTML = i;
 				td.appendChild( draggable );
 			}
 			table.appendChild( tr );
@@ -42,18 +40,15 @@ var schedule_drag_row_to = 0;
 
 function onScheduleDragStart( e ) {
 	var cell = e.target.parentNode;
-	//console.log( getMethods(cell).join("\n") );
 	e.dataTransfer.dropEffect = "none";
 	schedule_table = cell.parentNode.parentNode;
 	schedule_drag_col = e.target.col;
 	schedule_drag_row = e.target.row;
 	schedule_drag_row_to = e.target.row;
 	cell.setAttribute( "class", "selected" );
-	//event.preventDefault();
 }
 
 function onScheduleDragEnd( e ) {
-	//onScheduleDragOver( e );
 	var highlight = !e.target.parentNode.highlighted;
 	var from = 0;
 	var to = 0;
@@ -105,3 +100,7 @@ function scheduleColorCells( from, to, select ) {
 		else cell.removeAttribute( "class" )
 	}
 };
+
+/*function scheduleGetData(	schedule ) {
+	schedule.firstChild
+}*/
