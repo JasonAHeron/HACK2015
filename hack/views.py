@@ -17,8 +17,9 @@ from twilio.rest import TwilioRestClient
 
 def index_view(request):
     send_message()
-    if request.POST.get('new_sesh'):
+    if request.POST.get('approveSchedule'):
         print request.POST.get('people')
+	print request
         print request.POST.get('gender')
         print request.POST.get('time')
     context = RequestContext(request)
