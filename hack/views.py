@@ -334,6 +334,15 @@ def send_email(sendtoemail, firstname):
     msg.attach_alternative(html_content, "text/html")
     msg.send() #make this on another threading
 
+def send_session_email(sendtoemail, day, starthour):
+    subject = 'You have just been added to a new UCSC Study Session!'
+    from_email = 'learnallthethings1@gmail.com'
+    html_content = render_to_string('emailSession.html', {'varname':'value', 'studyday':day, 'starthour':starthour})
+    text_content = strip_tags(html_content) 
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [sendtoemail])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send() #make this on another threading
+
 def build_classes(request):
     classes = scrape_classes()
     for class_ in classes:
