@@ -22,6 +22,7 @@
     <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link href="{% static "css/registration.css" %}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -139,21 +140,52 @@
 
 <!-- Login Modal Start -->
 <div class="modal fade" id="login_modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-dialog">
+     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Modal title</h4>
       </div>
       <div class="modal-body">
-        <p>One fine body&hellip;</p>
+        <div class="container">
+           
+           <div class="col-xs-6">
+              <form method="post" id="loginform">
+              {% csrf_token %}
+                <h2>Please Sign In</h2>
+                <hr class="colorgraph">
+                
+                <div class="form-group">
+                    <input type="username" name="username" id="username" class="form-control input-lg" placeholder="Email Address">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+                </div>
+                <span class="button-checkbox">
+                    <a href="" class="btn btn-link pull-right">Forgot Password?</a>
+                </span>
+                <hr class="colorgraph">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+
+                    <button type="submit" class="btn btn-lg btn-success btn-block" id="signin" value=1 name="signin">Sign In</button>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <a href="/register/" class="btn btn-lg btn-primary btn-block">Register</a>
+                    </div>
+                </div>
+                </form>
+           </div>
+
+        </div>
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
+    </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <!-- Login Modal End -->
@@ -318,7 +350,7 @@
 
     <!-- Contact Form JavaScript -->
     <script src="{% static "js/jqBootstrapValidation.js" %}"></script>
-    <script src="{% static "js/contact_me.js" %}"></script>
+    <!--<script src="{% static "js/contact_me.js" %}"></script>-->
 
     <!-- Custom Theme JavaScript -->
     <script src="{% static "js/agency.js" %}"></script>

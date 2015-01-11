@@ -14,7 +14,13 @@ from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
 
 def index_view(request):
-	return render_to_response('index.html', {'classes': Class.objects.all()})
+    print request
+    context = RequestContext(request)
+    if request.POST.get('signin'):
+        print "THE CONDITION WAS ACCEPTED"
+        user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
+        login(request, user)
+    return render_to_response('index.html', {'classes': Class.objects.all()}, context)
 
 def test(request):
 	return render_to_response('base.html', {'test': 1})
