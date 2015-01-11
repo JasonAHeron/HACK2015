@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
-
     # The additional attributes we wish to include.
     phone = models.CharField(max_length = 30)
     # Override the __unicode__() method to return out something meaningful!
@@ -16,14 +15,9 @@ class UserProfile(models.Model):
 class Class(models.Model):
 	cid = models.CharField(max_length=50, default="Empty Class")
 
-
-class ucMap(models.Model):
-	user = models.ForeignKey(User)
-	cclass = models.ForeignKey(Class)
-
-
 class Request(models.Model):
 	cls = models.ForeignKey(Class)
+	user = models.ForeignKey(User)
 
-
-#class Session(models.Model):
+class Session(models.Model):
+	length = models.IntegerField(default=0)

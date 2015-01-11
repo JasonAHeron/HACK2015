@@ -108,9 +108,10 @@
         <a href="#close" title="Close" class="close">X</a>
         <div class="intro-lead-in1">Create Study Session</div>
         <div class="createSessionText">
-        Select a Class:&nbsp;<select>
-                          <option value ="cmps5j">CMPS 5J</option>
-                        </select><br><br>
+	<div class="ui-widget">
+  <label for="classSelector">Select a Class: </label>
+  <input id="classSelector">
+</div>
         Minimum Time for a Study Session (Please Select One):<br>
         <input type="radio" name ="time" value=".5">&nbsp;.5 hr&nbsp;
         <input type="radio" name ="time" value="1" checked>&nbsp;1 hr&nbsp;
@@ -382,6 +383,8 @@
     <script src="{% static "js/schedule.js" %}"></script>
     <script src="{% static "js/update.js" %}"></script>
 
+    <script src="{% static "js/jquery-ui.js" %}"></script>
+
     <script>
     $(document).ready(function() {
 	scheduleInit();
@@ -419,6 +422,11 @@
 	       $(this).children("span").text("Edit");
 	   }
 	   $(this).toggleClass("Save");
+	});
+
+	var availableClasses = {{classes|safe}};
+	$("#classSelector").autocomplete({
+	   source: availableClasses
 	});
     });
     </script>
