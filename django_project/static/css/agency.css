@@ -1067,27 +1067,44 @@ button.edit {
 }
 .schedule td div {
 	opacity: 0;
-	height: 4px;
-	font-size: 4px;
-}
-.schedule td {
-	background:#fed136 ;
-	width: 10em;
-	border-bottom: 1pt solid #AAA;
-	border-left: 2pt solid black;
-	border-right: 2pt solid black;
+	height: 9px;
+	font-size: 9px;
 }
 .schedule th {
 	text-align: center;
 }
+.schedule td {
+	background:#FED136;
+	width: 10em;
+	border-left: 2pt solid black;
+	border-right: 2pt solid black;
+}
+.schedule tr:nth-child(4n+1) td:nth-child(odd),
+.schedule tr:nth-child(4n+2) td:nth-child(even),
+.schedule tr:nth-child(4n+3) td:nth-child(even),
+.schedule tr:nth-child(4n+4) td:nth-child(odd) {
+	background: #CBA72B;
+}
 .schedule td.highlighted {
 	background: #610B0B;
 }
-.schedule td.selected, .schedule td:hover {
-	background: black;
+.schedule tr:nth-child(4n+1) td.highlighted:nth-child(odd),
+.schedule tr:nth-child(4n+2) td.highlighted:nth-child(even),
+.schedule tr:nth-child(4n+3) td.highlighted:nth-child(even),
+.schedule tr:nth-child(4n+4) td.highlighted:nth-child(odd) {
+	background: #4E0909;
 }
-.schedule tr:nth-child(odd), .schedule tr:nth-child(odd) td {
-	border-bottom: 1pt solid black;
+.schedule td.selected, .schedule td:hover {
+	background: #714615;
+}
+.schedule tr:nth-child(4n+1) td.selected:nth-child(odd),
+.schedule tr:nth-child(4n+2) td.selected:nth-child(even),
+.schedule tr:nth-child(4n+3) td.selected:nth-child(even),
+.schedule tr:nth-child(4n+4) td.selected:nth-child(odd) {
+	background: #5A3811;
+}
+.schedule tr:first-child, .schedule tr:last-child {
+	border-bottom: 2pt solid black;
 }
 .schedule th:first-child {
 	/*width: 5em;*/
