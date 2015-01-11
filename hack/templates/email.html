@@ -1,0 +1,60 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Study Session Scheduler</title>
+
+    <!-- jquery-ui -->
+    <link href="{% static "css/jquery-ui.css" %}" rel="stylesheet"> 
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static "css/agency.css" %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static "font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link href="{% static "css/registration.css" %}" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+
+</head>
+  <body>
+    <p style="word-wrap:break-word;">Hello Fellow Banana Slug!<br>
+       Welcome to your UCSC Study Session Scheduler!  We are so happy that you have chosen to be a better student by deciding to
+       join a study group.  If you haven't already, please visit our website to create requests for study groups.  
+       <br>
+       To submit a request to form a study group:
+          1. After clicking "Log In" and entering your email address and password, click "Create a New Study Session".
+          2. Next to "Select a Class", enter the name of the class that you would like to form a study group.
+          3. Select the minimum time for a study session (the minimum amount of time you wish to study).
+          4. Select the minimum number of people in a study session (a minimum of 2 would mean you and at least one other person).
+          5. Select any potential locations of the study session.  For locations on or off campus, email addresses of the members
+             of a study session will be shared so that a study location can be agreed upon.
+          6. Select how often you would like to meet.  Once a week recurrence will automatically check for study sessions times
+             every week.
+          7. Select "next"
+          8. On the following screen, click and drag on the calendar to select times that you are unavailable.  As you select these
+             times, the blocks will turn red.
+          9.  After you have selected all the times that you are not available, select "Create New Study Session".
+
+    </p>
+  </body>
+</html>
