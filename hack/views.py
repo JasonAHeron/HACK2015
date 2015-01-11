@@ -7,6 +7,7 @@ from django.template import RequestContext
 from django.contrib.auth import authenticate, login
 from .models import Class
 from .build_classes import scrape_classes
+from django.contrib.auth.views import logout
 
 #new imports, twil update 
 from django_twilio.decorators import twilio_view
@@ -24,6 +25,10 @@ def index_view(request):
             return render_to_response('issues.html', {'user_form': request.POST.get('username'), 'password':request.POST.get('password')}, context)
         else:
             login(request, user)
+    if request.POST.get('logout'):
+        print "TRYING TO LOGOUT"
+        logout(request)
+        return HttpResponseRedirect("")
     return render_to_response('index.html', {'classes': Class.objects.all()}, context)
 
 
