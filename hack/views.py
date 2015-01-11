@@ -91,10 +91,10 @@ def rest_view(request):
     action = dict.get( 'action' ) if 'action' in dict else ''
     if action == 'create':
         dct = json.loads(request.POST.get('data'))
-        print dct
         cid = dct.get('class')
         people = dct.get('minUsers')
-        #gender = dct.get('gender')
+        schedule = json.dumps(dct.get('schedule'))
+        print schedule
         time = dct.get('minTime')
         class_ = Class.objects.filter(cid=cid)
         Request(cls=class_[0], user=current_user, time=time, people=people).save()
