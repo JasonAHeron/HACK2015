@@ -14,10 +14,11 @@ def find_requests_class(class_name):
 def create_session(people, time, length):
 	S = Session(length=length, start=time)
 	S.save()
+	#emails()
 	print "STARTING LOOP"
 	for person in people.split(','):
-		U = User.objects.filter(username=person)
-		print U
-		R = Request.objects.filter(user=U)
+		R = Request.objects.filter(id=int(person))
+		#U = User.objects.filter(username=person)
 		R.session = S
+		print R
 		R.save()
