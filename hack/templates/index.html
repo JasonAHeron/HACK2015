@@ -10,6 +10,10 @@
     <meta name="author" content="">
 
     <title>Study Session Scheduler</title>
+
+    <!-- jquery-ui -->
+    <link href="{% static "css/jquery-ui.css" %}" rel="stylesheet">
+
     <!-- Bootstrap Core CSS -->
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 
@@ -110,9 +114,9 @@
         <div class="intro-lead-in1">Create Study Session</div>
         <div class="createSessionText">
 	<div class="ui-widget">
-  <label for="classSelector">Select a Class: </label>
-  <input id="classSelector">
-</div>
+            <label for="classSelector">Select a Class: </label>
+            <input id="classSelector">
+        </div>
         Minimum Time for a Study Session (Please Select One):<br>
         <input type="radio" name ="time" value=".5">&nbsp;.5 hr&nbsp;
         <input type="radio" name ="time" value="1" checked>&nbsp;1 hr&nbsp;
@@ -252,60 +256,20 @@
             </div>
             <div class="row text-center">
                 <div class="col-xs-6">
-                    <h3 class="service-heading">&nbsp;&nbsp;&nbsp;&nbsp;Pending Sessions</h3>
-
-        		    <ul class="pendingSess">
-        		    	<li class="text-mutedSession">Empty</li>
-                            <div data-role="content" id="Div1" class="accordion">
-                            <div id="accordion" data-role="collapsible-set"/>
-                            </div>
-                        
-        		    </ul>
+                    <h3 class="service-heading">Pending Sessions</h3>
+        	    <ul class="pendingSess">
+                        <div data-role="content" id="Div1" class="accordion">
+                        <div id="accordion" data-role="collapsible-set"/>
+                        </div>
+        	    </ul>
                 </div>
                 <div class="col-xs-6">
-                    <h3 class="service-heading">&nbsp;&nbsp;&nbsp;&nbsp;Scheduled Sessions</h3>
-
+                    <h3 class="service-heading">Scheduled Sessions</h3>
 		    <ul class="scheduledSess">
-            <li class="text-mutedSession">Empty</li>
-                <!--    <div class="scheduledSessionTable">
-                        <tr>
-                            <td id="classScheduledName">
-                                Class 
-                            </td>
-                            <td id="classScheduledTime">
-                                Time
-                            </td>
-                            <td id="classScheduledLoc">
-                                Location
-                            </td>
-                        </tr>
-                         <tr>
-                            <td id="classScheduled1">
-                                Test1
-                            </td>
-                            <td id="classScheduled1">
-                                Test2
-                            </td>
-                            <td id="classScheduled1">
-                                Test3
-                            </td>
-                            <td id="classScheduledDelete">
-                                <input type="button" class="edit leaveGroupBtn" onclick="alert('You are leaving this study group.')" value="Can't Make Session&#x00AThis Week">
-                            </td>
-                            <td>
-                                <input type="button" class=" edit deleteGroupBtn" onclick="alert('You are deleting this study group')" value="Remove Session&#x00APermanently">
-                            </td>
-                        </tr>
-                </div>
-	            </ul>
-            </div>-->
-                <br>
-        		<ul class="scheduledSess">
-                            <li class="text-mutedSession">CMPS 130</li>
-        	        </ul>
-
-
-                    <ul class="pendingSess"></ul>
+                        <div data-role="content" id="Div2" class="accordion">
+                        <div id="accordion" data-role="collapsible-set"/>
+                        </div>
+        	    </ul>
                 </div>
             </div>
         </div>
