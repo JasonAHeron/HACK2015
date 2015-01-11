@@ -30,7 +30,7 @@ def index_view(request):
         logout(request)
         return HttpResponseRedirect("")
     return render_to_response('index.html', {'classes': Class.objects.all()}, context)
-        login(request, user)
+    login(request, user)
     solution = []
     for c_object in Class.objects.all():
         solution.append("{}".format(c_object.cid))
