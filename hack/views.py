@@ -133,6 +133,7 @@ def create_schedule(list_of_users):
                    print "HERE ARE THE FRIENDS:"
                    print old_guy_day[newg_start_time]
                    create_session(old_guy_day[newg_start_time], newg_start_time, newguy_min_time)
+                   return None
     print "END OF FUNCITON"
 
 def index_view(request):
