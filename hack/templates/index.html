@@ -142,9 +142,9 @@
         <input type="radio" name ="people" value="10">&nbsp;10&nbsp;
         <br><br>
         Meeting Locations (Please Check All That Apply):<br>
-        <input type="checkbox" name="location" value="library">&nbsp;Automatically reserve a Room in McHenry or S&E library.<br>
-        <input type="checkbox" name="location" value="oncampus">&nbsp;I'm willing to meet anywhere on campus.<br>
-        <input type="checkbox" name="location" value="offcampus">&nbsp;I'm willing to meet anywhere off campus.<br><br>
+        <input type="checkbox" name="location-library">&nbsp;Automatically reserve a Room in McHenry or S&E library.<br>
+        <input type="checkbox" name="location-oncampus">&nbsp;I'm willing to meet anywhere on campus.<br>
+        <input type="checkbox" name="location-offcampus">&nbsp;I'm willing to meet anywhere off campus.<br><br>
         How Often Do You Want to Meet?<br>
         <input type="radio" name ="recurrence" value="once" checked>&nbsp;One Time
         <input type="radio" name ="recurrence" value="weekly">&nbsp;Once a Week (recurring)
@@ -186,7 +186,7 @@
     <div>
         <a href="#close" title="Close" class="close">X</a>
         <div class="intro-lead-in1">Privacy Policy</div>
-	<div class="termsOfUseTexts">
+	<div class="privacyPolicyText">
 	    <p>
 	       Phone numbers will not be shared with anyone.  Emails will be shared for study session locations that are on or off campus
            so that students can establish a meeting location. 
@@ -200,8 +200,26 @@
     <div>
         <a href="#close" title="Close" class="close">X</a>
         <div class="intro-lead-in1">Terms of Use</div>
-	<div class="termsOfUseTexts">
-		<p>Interactions between students should reflect a growth mindset.  A growth (or incremental) mindset reflects one's beliefs about intelligence or ability and how it develops.  A growth mindset reflects an emphasis on effort and task relevant behaviors such as practice and other cognitive efforts as the catalyst for intelligence and ability.  The growth mindset is aligned with the notion of brain plasticity.  That is, the capacity of the brain to reorganize itself via neural pathways and synapses through efforts and action with respect to given tasks.  Hence by engaging in certain actions we can enhance the brain's capabilities. </p>	
+	<div class="termsOfUseText">
+		<p>Interactions between students should reflect a growth mindset.  A growth (or incremental) mindset reflects one's beliefs about intelligence or ability and how it develops.  A growth mindset reflects an emphasis on effort and task relevant behaviors such as practice and other cognitive efforts as the catalyst for intelligence and ability.  The growth mindset is aligned with the notion of brain plasticity.  That is, the capacity of the brain to reorganize itself via neural pathways and synapses through efforts and action with respect to given tasks.  Hence by engaging in certain actions we can enhance the brain's capabilities. Interactions between students should convey high expectations and support for learning.  High expectations and supportive interactions reflect the following.</p>	
+	<p>1. Believing and conveying that one's capabilities are not limited to or bound by one's current level of understanding.</p>
+	<p>2. Giving individuals the time and room to formulate their own thoughts, opinions and responses (e.g., when in study sessions).</p>
+		<p>3. Reframing statements when others are unclear of the meaning.</p>
+		<p>4. Prompting others to develop their ideas through questioning.</p>
+		<p>5. Recognizing the value of others' ideas and adding to them as necessary to enhance understanding of concepts and methods.</p>
+		<p>6. Providing positive and encouraging feedback to show others what you appreciate about how they approached tasks.</p>
+		<p>Student interactions should avoid stereotypes through words and deeds.  This is enhanced by the following.</p>
+		<p>1. Utilizing multiple and diverse role models.  This may involve speakers, individuals contributing to study sessions or group knowledge, and examples of content.</p>
+		<p>2. Avoid bringing up students' group identities (e.g., gender, ethnicity and race) during study sessions especially.</p>
+		<p>3. Treat others as individuals.  Get to know who they are on a personal level.</p>
+		<p>4. Recognize that many students need safe spaces where they can express their vulnerabilities (e.g., not understanding the content, feeling confused) without having to worry about being stereotyped by others.</p>
+<p>5. Understand there is power in numbers as when multiple members of one minority or underrepresented group are in a class.  This reduces feelings of being potentially pigeonholed due to one's group membership and stereotyped.</p>
+<p>6. Understand that academic achievements are the result of past efforts and exposures. Understand and convey the growth mindset as described previously in other words.</p>
+<p>7. Make clear as necessary the distinction between current and future ability as indicated bythe growth mindset information.  Future success is not guaranteed because of current success.  Future failures or stumbling blocks are not inevitable because of current failures or stumbling blocks.</p>
+<p>8. Convey that individuals are more than their test scores or current level of performances. They are individuals, with hobbies, lives, and the like.</p>
+<p>9. Convey that difficulty with new or unfamiliar topics is to be expected and part of the normal learning curve or process.</p>
+<p>10. Provide positive feedback to fellow students.  This includes the belief that individuals are capable of meeting high performance standards.</p>
+<p>More information about this topic can be found at the following link, http://www.reducingstereotypethreat.org/reduce.html</p>
 	</div>
     </div>
 </div>
@@ -436,7 +454,7 @@
 
     <script>
     $(document).ready(function() {
-	scheduleInit();
+			scheduleInit();
     //scheduledSessions();
     //var elem=document.getElementById("pageLogout")
     //elem.style.color=yellow;
@@ -491,8 +509,26 @@
 	});
 
 	$("button.submitSchedule").click(function() {
-	    // do stuff on sumbit
-	    closeFunction();
+		var dict = {};
+		dict['schedule'] = scheduleGetData( document.getElementById( 'openScheduleModal' ).getElementsByClassName( 'schedule' ).item() );
+		dict['class'] = $('#classSelector').val();
+		dict['minTime'] = $('input[name=time]:checked', '#classForm').val();
+		dict['minUsers'] = $('input[name=people]:checked', '#classForm').val();
+		dict['location'] = ( $('input[name=location-library]', '#classForm').prop( 'checked' ) ? 1 : 0 ) +
+			( $('input[name=location-oncampus]', '#classForm').prop( 'checked' ) ? 2 : 0 ) +
+			( $('input[name=location-offcampus]', '#classForm').prop( 'checked' ) ? 4 : 0 );
+		var str = escape( JSON.stringify( dict ) );
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+				updateSessions();
+			}
+		}
+		xmlhttp.open( 'POST', 'rest', true );
+		//xmlhttp.responseType = 'json'
+		xmlhttp.send( '?action=create&data=' + str );
+		console.log( str );
+    closeFunction();
 	});
     });
     </script>
