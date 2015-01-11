@@ -13,9 +13,10 @@ import json
 #new imports, twil update 
 from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
-
+from twilio.rest import TwilioRestClient
 
 def index_view(request):
+    send_message()
     if request.POST.get('new_sesh'):
         print request.POST.get('people')
         print request.POST.get('gender')
@@ -52,6 +53,17 @@ def sms(request):
     r = Response()
     r.message(name)
     return r
+
+def send_message():
+    # Your Account Sid and Auth Token from twilio.com/user/account
+    account_sid = "ACe5e1624beb9d42623af561bdc50544dc"
+    auth_token  = "ACa198b3532f5d2fcd47c28e355eb02a0b"
+    client = TwilioRestClient(account_sid, auth_token)
+ 
+    message = client.messages.create(body="Jenny please?! I love you <3",
+    to="16508687814",
+    from_="16503999494")
+    print message.sid
 
 def rest_view(request):
 	current_user = request.user
