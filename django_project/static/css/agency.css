@@ -1119,3 +1119,7 @@ button.edit {
     padding:15px;
     display:none;
 }
+
+ul.ui-autocomplete {
+    z-index: 100000; !important
+}
