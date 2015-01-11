@@ -118,7 +118,7 @@
         <div class="createSessionText">
 	<div class="ui-widget">
             <label for="classSelector">Select a Class: </label>
-            <input id="classSelector" name="class" value=0>
+            <input id="classSelector" name="class" value="0" class="ui-autocomplete-input" autocomplete="off">
         </div>
         Minimum Time for a Study Session (Please Select One):<br>
         <input type="radio" name ="time" value=".5">&nbsp;.5 hr&nbsp;
@@ -149,13 +149,8 @@
         <input type="radio" name ="recurrence" value="once" checked>&nbsp;One Time
         <input type="radio" name ="recurrence" value="weekly">&nbsp;Once a Week (recurring)
         <br><br>
-        What Gender Do You Prefer to Study With?<br>
-        <input type="radio" name ="gender" value="men" checked>&nbsp;Men
-        <input type="radio" name ="gender" value="women">&nbsp;Women
-        <input type="radio" name="gender" value="both">&nbsp;Both Men and Women
-        <br><br>
     </div>
-    <button type="button" class="moveToSchedule" name="approveSchedule" value="1"> Next </button>
+    <button type="button" class="btn-x4 moveToSchedule" name="approveSchedule" value="1"> Next </button>
     </div>
 
 </div>
@@ -175,8 +170,8 @@
     <div>
         <button class="close" onclick="closeFunction()">X</button>
         <div class="intro-lead-in1">Create Study Session</div>
-        <div class="schedule" style="height: 600px;"></div>
-	<button type="button" class="submitSchedule"> Create New Study Session </button>
+        <div class="schedule" style="height: 350px;"></div><br>
+	<button type="button" class="btn-x4 submitSchedule"> Create New Study Session </button>
     </div>
 </div>
 
@@ -230,7 +225,7 @@
      <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Modal title</h4>
+        <h4 class="modal-title">LOGIN</h4>
       </div>
       <div class="modal-body">
         <div class="container">

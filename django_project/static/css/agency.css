@@ -979,6 +979,20 @@ body {
     background-color: #fed136;
 
 }
+.btn-x4 {
+    //padding: 5px 25px;
+    margin-left:120px;
+    border-color: black;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #000;
+    background-color: white;
+
+}
+
 .btn-sign{
     margin-right:auto;
 
@@ -1198,8 +1212,9 @@ ul.ui-autocomplete {
 
 /*------ Weekly Schedule --------*/
 div.schedule{
+    //height:20px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    //overflow-y: scroll;
 }
 
 /*---- Terms of Use Modal -----*/
