@@ -21,3 +21,5 @@ class Request(models.Model):
 
 class Session(models.Model):
 	length = models.IntegerField(default=0)
+	start = models.DateField()
+	location = models.CharField(max_length = 100)
