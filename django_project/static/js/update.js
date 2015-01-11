@@ -10,22 +10,19 @@ function updateSessions() {
 			scheduledList.empty();
 			var i = 0;
 			data.forEach( function( item ) {
-			//create buttons to skip session or delete session
-			var element=document.createElement("button");
-			element.type='button';
-            element.value='buttonDelete'+i;
-			element.name='buttonDelete' + i;
-			element.innerHTML='Cannot Make Session This Week';
-			element.setAttribute('class','edit leaveGroupBtn');
-			element.style.width="200px";
-			//but.setAttribute("onclick",callJavascriptFunction);
-			//working here
-/*but.onclick= callJavascriptFunction;
-document.getElementById("but").onclick=callJavascriptFunction;*/
-			var mybr = document.createElement('br');
-
-
-
+				//create buttons to skip session or delete session
+				var element=document.createElement("button");
+				element.type='button';
+				element.value='buttonDelete' + i;
+				element.name='buttonDelete' + i;
+				element.innerHTML='Cannot Make Session This Week';
+				element.setAttribute('class','edit leaveGroupBtn');
+				element.style.width="200px";
+				//but.setAttribute("onclick",callJavascriptFunction);
+				//working here
+				/*but.onclick= callJavascriptFunction;
+				document.getElementById("but").onclick=callJavascriptFunction;*/
+				var mybr = document.createElement('br');
 				//create accordion
 				var title = $('<a></a>')
 					.addClass( 'accordion-section-title' )

@@ -2,6 +2,8 @@ function scheduleInit() {
 	var schedules = document.getElementsByClassName( "schedule" );
 	for ( sch = 0; sch < schedules.length; ++sch ) {
 		var table = document.createElement( "table" );
+		table.setAttribute( "draggable", "true" );
+		table.ondragstart = function(e){ if (!e.done) return false; };
 		schedules.item( sch ).appendChild( table );
 		var tr = document.createElement( "tr" );
 		tr.innerHTML = "<th>&nbsp;</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>";
@@ -12,7 +14,9 @@ function scheduleInit() {
 			if ( hours == 0 ) hours += 12;
 			if ( hours < 10 ) hours = "0" + hours;
 			var td = document.createElement( "th" );
-			td.innerHTML = hours + ':' + ( i%2 ? '3' : '0' ) + "0 " + ( i < 24 ? 'A' : 'P' ) + 'M'+"&nbsp;";
+			if ( i%2 == 0 ) {
+				td.innerHTML = '<span>' + hours + ':00&nbsp;' + ( i < 24 ? 'A' : 'P' ) + 'M</span><span>' + hours + ':30&nbsp;' + ( i < 24 ? 'A' : 'P' ) + 'M</span>';
+			}
 			tr.appendChild( td );
 			for ( j = 0; j < 7; ++j ) {
 				td = document.createElement( "td" );
@@ -44,6 +48,7 @@ function onScheduleDragStart( e ) {
 	schedule_dragging = true;
 	var cell = e.target.parentNode;
 	if ( e.dataTransfer != null ) {
+		e.done = true;
 		e.dataTransfer.dropEffect = "none";
 	}
 	schedule_table = cell.parentNode.parentNode;
@@ -51,6 +56,7 @@ function onScheduleDragStart( e ) {
 	schedule_drag_row = e.target.row;
 	schedule_drag_row_to = e.target.row;
 	cell.setAttribute( "class", "selected" );
+	//return false;
 }
 
 function onScheduleDragEnd( e ) {

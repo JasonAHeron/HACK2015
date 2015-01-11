@@ -1020,28 +1020,44 @@ button.edit {
     width: 45px;
 }
 
+.schedule tr {
+	height: 4px;
+}
 .schedule td div {
 	opacity: 0;
-
+	height: 4px;
+	font-size: 4px;
 }
 .schedule td {
 	background:#fed136 ;
 	width: 10em;
-    border-bottom:2pt solid black;
-    border-left:2pt solid black;
-    border-right:2pt solid black;
-    border-top:2pt solid black;
-
+	border-bottom: 1pt solid #AAA;
+	border-left: 2pt solid black;
+	border-right: 2pt solid black;
 }
 .schedule th {
-    text-align:center;
-
+	text-align: center;
 }
 .schedule td.highlighted {
 	background: #610B0B;
 }
 .schedule td.selected, .schedule td:hover {
 	background: black;
+}
+.schedule tr:nth-child(odd), .schedule tr:nth-child(odd) td {
+	border-bottom: 1pt solid black;
+}
+.schedule th:first-child {
+	/*width: 5em;*/
+	height: 10px;
+	display: flex;
+}
+.schedule span {
+	font-size: 8px;
+	position: relative;
+}
+.schedule span:last-child {
+	top: 10px;
 }
 
 .container1{
