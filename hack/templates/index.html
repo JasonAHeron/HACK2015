@@ -102,12 +102,6 @@
         <a href="#close" title="Close" class="close">X</a>
         <div class="intro-lead-in1">Create Study Session</div>
         <div class="createSessionText">
-        <!--Select a Class:&nbsp;<select>
-        					{%for class in classes%}
-                          <option value ={{class.cid}}>{{class.cid}}</option>
-                          	{% endfor %}
-                        </select><br><br>
-        -->
 	<div class="ui-widget">
   <label for="classSelector">Select a Class: </label>
   <input id="classSelector">
@@ -425,7 +419,7 @@
 	   $(this).toggleClass("Save");
 	});
 
-	var availableClasses = {{classes}};
+	var availableClasses = {{classes|safe}};
 	$("#classSelector").autocomplete({
 	   source: availableClasses
 	});

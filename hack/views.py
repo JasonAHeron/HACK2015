@@ -22,7 +22,6 @@ def index_view(request):
     solution = []
     for c_object in Class.objects.all():
         solution.append("{}".format(c_object.cid))
-    print solution
     return render_to_response('index.html', {'classes': solution}, context)
 
 def test(request):
