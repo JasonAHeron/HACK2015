@@ -24,6 +24,7 @@ class Request(models.Model):
     user = models.ForeignKey(User)
     time = models.FloatField()
     people = models.IntegerField()
+    phone = models.CharField(max_length= 30)
     schedule = models.CharField(max_length= 999)
 
     def brit_dump(self):
@@ -34,6 +35,7 @@ class Request(models.Model):
         overall['id'] = str(self.user.username)
         overall['minT'] = self.time
         overall['minP'] = self.people
+        overall['phone'] = self.phone
         #dct['phone'] = UserProfile.objects.filter(user=self.user).phone
         #print dct['phone']
         return overall

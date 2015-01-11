@@ -21,7 +21,7 @@ SECRET_KEY = 'Yx6f6TAM0qzUb0HmACqjgYDgPzp87X3Tl4tO2DDDCXs5qQv8ap'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+AUTH_PROFILE_MODULE = 'hack.UserProfile'
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []

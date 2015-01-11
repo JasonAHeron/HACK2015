@@ -132,6 +132,7 @@ def create_schedule(list_of_users):
 def index_view(request):
     context = RequestContext(request)
     current_user = request.user
+
     if current_user.is_active:
         S = Schedule.objects.filter(user=current_user)
         if len(S) > 0:
@@ -187,6 +188,8 @@ def send_message():
 
 def rest_view(request):
     current_user = request.user
+    profile = current_user.get_profile()
+    phone = profile.phone
 
     if request.method == 'GET':
         dict = request.GET
@@ -203,11 +206,12 @@ def rest_view(request):
         schedule = str(dct.get('schedule'))
         time = dct.get('minTime')
         class_ = Class.objects.filter(cid=cid)
-        R = Request(schedule=schedule, cls=class_[0], user=current_user, time=time, people=people)
+        R = Request(phone=phone, schedule=schedule, cls=class_[0], user=current_user, time=time, people=people)
         R.save()
 
         #brit, sara querry
-        #create_schedule(find_requests_class(cid))
+        create_schedule(find_requests_class(cid))
+
 
     if action == 'schedule':
         dct = json.loads(dict.get('data'))
