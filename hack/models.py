@@ -18,13 +18,16 @@ class Class(models.Model):
 class Request(models.Model):
     cls = models.ForeignKey(Class)
     user = models.ForeignKey(User)
-    time = models.DecimalField(decimal_places=2, max_digits=5)
+    time = models.FloatField()
     people = models.IntegerField()
     schedule = models.CharField(max_length= 999)
 
     def brit_dump(self):
         dct = eval(self.schedule)
-        dct['id'] = self.user.email
+        dct = dict((k.encode('ascii'), v) for (k, v) in dct.items())  
+        dct['id'] = str(self.user.username)
+        dct['minT'] = self.time
+        dct['minP'] = self.people
         return dct
 
 
