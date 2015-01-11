@@ -83,14 +83,14 @@ def rest_view(request):
 	
 	action = dict.get( 'action' ) if 'action' in dict else ''
 	if action == 'update':
-	#	requests = Request.objects.filter(user=current_user.id)
-	#	sol = []
-	#	for request in requests:
-	#		dict = {}
-	#		dict['name'] = request.cls.cid
-	#		sol.append(dict)
-	#	content = json.dumps(sol)
-		content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
+		requests = Request.objects.filter(user=current_user.id)
+		sol = []
+		for request in requests:
+			dict = {}
+			dict['name'] = request.cls.cid
+			sol.append(dict)
+		content = json.dumps(sol)
+	#	content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
 	else:
 		content = '';
 	response = HttpResponse(content_type = 'text/json')
