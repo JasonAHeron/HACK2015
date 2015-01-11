@@ -56,13 +56,15 @@ def sms(request):
 def send_message():
     # Your Account Sid and Auth Token from twilio.com/user/account
     account_sid = "ACe5e1624beb9d42623af561bdc50544dc"
-    auth_token  = "ACa198b3532f5d2fcd47c28e355eb02a0b"
+    auth_token  = "d6fe80ae0da4aea45bed7c47e5a5dfc3"
     client = TwilioRestClient(account_sid, auth_token)
  
-    message = client.messages.create(body="Jenny please?! I love you <3",
-        to="+16508687814", 
-        from_="+16503999494")
-    print message.sid
+    d = {'brittany':"+16508687814", 'jason':"+13109917156"}
+    for key, value in d.iteritems():
+        message = client.messages.create(body="Hey %s. You are signed up for a study group!" % (key),
+            to = value, 
+            from_="+16503999494")
+        print message.sid
 
 def rest_view(request):
 	current_user = request.user
