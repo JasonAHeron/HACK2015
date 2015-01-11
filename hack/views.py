@@ -19,10 +19,9 @@ def index_view(request):
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
-        
         if not user or not user.is_active:
             print "Sorry, that login was invalid. Please try again."
-            return render_to_response('issues.html', {'user_form': request.POST.get('username'), 'password':request.POST.get('password')}, context)
+            return render_to_response('issues.html', {'username': request.POST.get('username'), 'password':request.POST.get('password')}, context)
         else:
             login(request, user)
     if request.POST.get('logout'):
@@ -37,7 +36,7 @@ def index_view(request):
     return render_to_response('index.html', {'classes': solution}, context)
 
 def issues(request):
-    return render_to_response('register.html', context)
+    return render_to_response('index.html', context)
 
 def test(request):
 	return render_to_response('base.html', {'test': 1})
