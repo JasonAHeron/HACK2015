@@ -47,23 +47,6 @@ def create_schedule(list_of_users):
     new_guy = list_of_users[len(list_of_users)-1]
     print new_guy
 
-    '''
-    yo = "{'username': 'coolcat1@ucsc.edu', u'minTime': u'1', u'location': 0, u'minUsers': u'2', u'class': u'AMS 80B', u'schedule': {u'1421308800000': [1,2,5,10],  u'1421222400000': [],  u'1421395200000': [], u'1421136000000': [], u'1420963200000': [], u'1421481600000': [], u'1421049600000': []}}"
-    yo = re.sub('[u]','',yo)
-    yo_d = ast.literal_eval(yo)
-    old_guys.append(yo_d)
-
-    yo = "{'username': 'coolcat2@ucsc.edu', u'minTime': u'1', u'location': 0, u'minUsers': u'2', u'class': u'AMS 80B', u'schedule': {u'1421308800000': [1,3,5,8],  u'1421222400000': [],  u'1421395200000': [], u'1421136000000': [], u'1420963200000': [], u'1421481600000': [], u'1421049600000': []}}"
-    yo = re.sub('[u]','',yo)
-    yo_d = ast.literal_eval(yo)
-    old_guys.append(yo_d)
-
-    yo = "{'username': 'coolcat3@ucsc.edu', u'minTime': u'1', u'location': 0, u'minUsers': u'2', u'class': u'AMS 80B', u'schedule': {u'1421308800000': [3,4,5,12],  u'1421222400000': [],  u'1421395200000': [], u'1421136000000': [], u'1420963200000': [], u'1421481600000': [], u'1421049600000': []}}"
-    yo = re.sub('[u]','',yo)
-    yo_d = ast.literal_eval(yo)
-    old_guys.append(yo_d)
-    '''
-
     #convert string to a dictionary
     #yoyo_d = ast.literal_eval(yoyo)
     days_of_week = []
@@ -147,22 +130,8 @@ def create_schedule(list_of_users):
 
 
 def index_view(request):
-    #send_message()
-    if request.POST.get('approveSchedule'):
-        print request.POST.get('people')
-    print request
-    print request.POST.get('gender')
-    print request.POST.get('time')
     context = RequestContext(request)
-    current_user = request.user
-    if request.POST.get('approveSchedule'):
-        cid = request.POST.get('class')
-        people = request.POST.get('people')
-        gender = request.POST.get('gender')
-        time = request.POST.get('time')
-        class_ = Class.objects.filter(cid=cid)
-        Request(cls=class_[0], user=current_user, time=time, people=people).save()
-
+    #send_message()
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
@@ -217,23 +186,7 @@ def rest_view(request):
         dict = request.POST
     else:
         dict = {}
-    
-    action = dict.get( 'action' ) if 'action' in dict else ''
-    if action == 'update':
-        requests = Request.objects.filter(user=current_user.id)
-        sol = []
-    for request in requests:
-        dict = {}
-        dict['name'] = request.cls.cid
-        sol.append(dict)
-        content = json.dumps(sol)
-    #    content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
-    else:
-        content = '';
-        response = HttpResponse(content_type = 'text/json')
-        response.content = content
-    return response
-	
+    	
     action = dict.get( 'action' ) if 'action' in dict else ''
     if action == 'create':
         dct = json.loads(request.POST.get('data'))
