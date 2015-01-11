@@ -1130,3 +1130,10 @@ div.schedule{
     overflow-x: hidden;
     overflow-y: scroll;
 }
+
+/*---- Terms of Use Modal -----*/
+div.termsOfUseText{
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
