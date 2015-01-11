@@ -16,8 +16,10 @@ class Class(models.Model):
 	cid = models.CharField(max_length=50, default="Empty Class")
 
 class Request(models.Model):
-	cls = models.ForeignKey(Class)
-	user = models.ForeignKey(User)
+    cls = models.ForeignKey(Class)
+    user = models.ForeignKey(User)
+    time = models.DecimalField(decimal_places=2, max_digits=5)
+    people = models.IntegerField()
 
 class Session(models.Model):
 	length = models.IntegerField(default=0)

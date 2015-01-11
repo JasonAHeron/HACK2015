@@ -16,13 +16,16 @@ from twilio.twiml import Response
 from twilio.rest import TwilioRestClient
 
 def index_view(request):
-    #send_message()
-    if request.POST.get('approveSchedule'):
-        print request.POST.get('people')
-	print request
-        print request.POST.get('gender')
-        print request.POST.get('time')
     context = RequestContext(request)
+    current_user = request.user
+    if request.POST.get('approveSchedule'):
+        cid = request.POST.get('class')
+        people = request.POST.get('people')
+        gender = request.POST.get('gender')
+        time = request.POST.get('time')
+        class_ = Class.objects.filter(cid=cid)
+        Request(cls=class_[0], user=current_user, time=time, people=people).save()
+
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
@@ -80,14 +83,14 @@ def rest_view(request):
 	
 	action = dict.get( 'action' ) if 'action' in dict else ''
 	if action == 'update':
-	#	requests = Request.objects.filter(user=current_user.id)
-	#	sol = []
-	#	for request in requests:
-	#		dict = {}
-	#		dict['name'] = request.cls.cid
-	#		sol.append(dict)
-	#	content = json.dumps(sol)
-		content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
+		requests = Request.objects.filter(user=current_user.id)
+		sol = []
+		for request in requests:
+			dict = {}
+			dict['name'] = request.cls.cid
+			sol.append(dict)
+		content = json.dumps(sol)
+	#	content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
 	else:
 		content = '';
 	response = HttpResponse(content_type = 'text/json')
@@ -96,7 +99,6 @@ def rest_view(request):
 	
 def register(request):
     # Like before, get the request's context.
-    #send_message()
     context = RequestContext(request)
 
     # A boolean value for telling the template whether the registration was successful.
