@@ -18,7 +18,7 @@ class Class(models.Model):
 class Request(models.Model):
     cls = models.ForeignKey(Class)
     user = models.ForeignKey(User)
-    time = models.DecimalField()
+    time = models.DecimalField(decimal_places=2, max_digits=5)
     people = models.IntegerField()
 
 class Session(models.Model):
