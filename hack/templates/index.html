@@ -12,7 +12,7 @@
     <title>Study Session Scheduler</title>
 
     <!-- jquery-ui -->
-    <link href="{% static "css/jquery-ui.css" %}" rel="stylesheet">
+    <link href="{% static "css/jquery-ui.css" %}" rel="stylesheet"> 
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
@@ -68,14 +68,14 @@
                     <li>
                         <a class="page-scroll" href="#settings">Account Settings</a>
                     </li>
-           <!-- <form method="post">-->
+                    <li>
+           <form method="post">
             {% csrf_token %}
-                 <!--<div class="form-group">
-			         <button type="submit" name="logout" id="logout" value=1 class="logout btn-x2">Logout</button>
-                </div>-->
-                <li>
-                <a href="#logout" name="logout" id="logout" value=1 class="pagelogout" style="background-color:#fed136">Logout</a>
-            <!--</form>-->
+                 <div class="form-group">
+			         <button type="submit" name="logout" id="logout" value=1 class="logout btn-x3">Logout</button>
+                </div>
+               
+            </form>
                     </li>
 		    {% else %}
 		    <li>
@@ -107,7 +107,8 @@
 <!-- MODALS -->
 
     <!-- Class Scheduler Modal -->
-<form id="classForm">
+<form id="classForm" method="post">
+{% csrf_token %}
 <div id="openModal" class="modalDialog">
     <div>
         <!--<p title="Close" class="close" onclick="closeFunction()">X</p>
@@ -117,7 +118,7 @@
         <div class="createSessionText">
 	<div class="ui-widget">
             <label for="classSelector">Select a Class: </label>
-            <input id="classSelector">
+            <input id="classSelector" name="class" value=0>
         </div>
         Minimum Time for a Study Session (Please Select One):<br>
         <input type="radio" name ="time" value=".5">&nbsp;.5 hr&nbsp;
@@ -154,7 +155,7 @@
         <input type="radio" name="gender" value="both">&nbsp;Both Men and Women
         <br><br>
     </div>
-        <input type="button" class="submitButton" onclick="alert('Your Study Session Has Been Submitted!')" value="Create My Study Session">
+    <button type="button" class="moveToSchedule" name="approveSchedule" value="1"> Next </button>
     </div>
 
 </div>
@@ -162,12 +163,22 @@
 
 <script>
     function closeFunction(){
-        if (confirm("Are you sure you want to close this window?") == true) {
+        //if (confirm("Are you sure you want to close this window?") == true) {
             //<a href="#close"></a> 
             window.location.href = '#close';
-        }
+        //}
 }
 </script>
+
+<!-- Schedule Modal -->
+<div id="openScheduleModal" class="modalDialog">
+    <div>
+        <button class="close" onclick="closeFunction()">X</button>
+        <div class="intro-lead-in1">Create Study Session</div>
+        <div class="schedule" style="height: 600px;"></div>
+	<button type="button" class="submitSchedule"> Create New Study Session </button>
+    </div>
+</div>
 
 
 <!-- Privacy Modal -->
@@ -222,14 +233,14 @@
                 </span>
                 <hr class="colorgraph">
                 <div class="row">
+                     <!--<div class="col-xs-6 col-sm-6 col-md-6">
+                       <!-- <a href="/register/" class="btn btn-lg btn-primary btn-block">Register</a>-->
+                    <!--</div>-->
                     <div class="col-xs-6 col-sm-6 col-md-6">
 
-                    <button type="submit" class="btn btn-lg btn-success btn-block" id="signin" value=1 name="signin">Sign In</button>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block btn-sign" id="signin" value=1 name="signin">Sign In</button>
                     </div>
 
-                    <div class="col-xs-6 col-sm-6 col-md-6">
-                        <a href="/register/" class="btn btn-lg btn-primary btn-block">Register</a>
-                    </div>
                 </div>
                 </form>
            </div>
@@ -237,9 +248,9 @@
         </div>
       </div>
 
-      <div class="modal-footer">
+      <!--<div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      </div>-->
     </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -279,7 +290,7 @@
     </section>
 
     <!-- Schedule Section -->
-    <section id="schedule" class="bg-light-gray">
+    <section id="schedule" >
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -467,8 +478,21 @@
 	});
 
 	var availableClasses = {{classes|safe}};
+	console.log($("#classSelector"));
 	$("#classSelector").autocomplete({
-	   source: availableClasses
+	   source: availableClasses,
+	   disabled: false
+	});
+
+	$("button.moveToSchedule").click(function() {
+	   console.log( $("#classSelector").prop("value"));
+           closeFunction();
+           window.location.href = '#openScheduleModal';
+	});
+
+	$("button.submitSchedule").click(function() {
+	    // do stuff on sumbit
+	    closeFunction();
 	});
     });
     </script>

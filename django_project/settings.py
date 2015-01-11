@@ -117,3 +117,9 @@ TEMPLATE_DIRS = (
 
 TWILIO_ACCOUNT_SID = 'ACe5e1624beb9d42623af561bdc50544dc'
 TWILIO_AUTH_TOKEN = 'ACa198b3532f5d2fcd47c28e355eb02a0b'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'learnallthethings1@gmail.com'
+EMAIL_HOST_PASSWORD = 'hackucsc'
+EMAIL_PORT = 587

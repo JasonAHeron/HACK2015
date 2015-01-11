@@ -10,13 +10,34 @@ from .build_classes import scrape_classes
 from django.contrib.auth.views import logout
 import json
 
+#email 
+import threading
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
+
 #new imports, twil update 
 from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
-
+from twilio.rest import TwilioRestClient
 
 def index_view(request):
+    #send_message()
+    if request.POST.get('approveSchedule'):
+        print request.POST.get('people')
+	print request
+        print request.POST.get('gender')
+        print request.POST.get('time')
     context = RequestContext(request)
+    current_user = request.user
+    if request.POST.get('approveSchedule'):
+        cid = request.POST.get('class')
+        people = request.POST.get('people')
+        gender = request.POST.get('gender')
+        time = request.POST.get('time')
+        class_ = Class.objects.filter(cid=cid)
+        Request(cls=class_[0], user=current_user, time=time, people=people).save()
+
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
@@ -29,8 +50,7 @@ def index_view(request):
         print "TRYING TO LOGOUT"
         logout(request)
         return HttpResponseRedirect("")
-    return render_to_response('index.html', {'classes': Class.objects.all()}, context)
-    login(request, user)
+
     solution = []
     for c_object in Class.objects.all():
         solution.append("{}".format(c_object.cid))
@@ -50,6 +70,19 @@ def sms(request):
     r.message(name)
     return r
 
+def send_message():
+    # Your Account Sid and Auth Token from twilio.com/user/account
+    account_sid = "ACe5e1624beb9d42623af561bdc50544dc"
+    auth_token  = "d6fe80ae0da4aea45bed7c47e5a5dfc3"
+    client = TwilioRestClient(account_sid, auth_token)
+ 
+    d = {'brittany':"+16508687814", 'jason':"+13109917156"}
+    for key, value in d.iteritems():
+        message = client.messages.create(body="Hey %s. You are signed up for a study group!" % (key),
+            to = value, 
+            from_="+16503999494")
+        print message.sid
+
 def rest_view(request):
 	current_user = request.user
 
@@ -62,14 +95,14 @@ def rest_view(request):
 	
 	action = dict.get( 'action' ) if 'action' in dict else ''
 	if action == 'update':
-	#	requests = Request.objects.filter(user=current_user.id)
-	#	sol = []
-	#	for request in requests:
-	#		dict = {}
-	#		dict['name'] = request.cls.cid
-	#		sol.append(dict)
-	#	content = json.dumps(sol)
-		content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
+		requests = Request.objects.filter(user=current_user.id)
+		sol = []
+		for request in requests:
+			dict = {}
+			dict['name'] = request.cls.cid
+			sol.append(dict)
+		content = json.dumps(sol)
+	#	content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
 	else:
 		content = '';
 	response = HttpResponse(content_type = 'text/json')
@@ -85,9 +118,10 @@ def register(request):
     registered = False
 
     #get all of the fields that the user typed in
-
+    print "REGISTER VIEW CALLED"
     # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
+        print "REGISTER POST CALLED"
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
 
@@ -104,7 +138,7 @@ def register(request):
         if user_form.is_valid() and profile_form.is_valid():
             # Save the user's form data to the database.
             user = user_form.save()
-
+            print "NEW USER IN THE MAKING"
             # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.
             user.set_password(user.password)
@@ -130,6 +164,8 @@ def register(request):
 
             user = authenticate (username=request.POST['username'], password=request.POST['password'])
             login(request, user)
+            send_email(request.POST['username'], request.POST['first_name'])
+            #thread1.start()
             return HttpResponseRedirect('/')
 
         # Invalid form or forms - mistakes or something else?
@@ -154,6 +190,15 @@ def register(request):
 	#r = Response()
 	#r.message('Hello from your Django app!')
 	#return r
+
+def send_email(sendtoemail, firstname):
+    subject = 'Welcome Banana Slug to Team SexyMagic Study time!'
+    from_email = 'learnallthethings1@gmail.com'
+    html_content = render_to_string('index.html', {'varname':'value', 'first_name':firstname})
+    text_content = strip_tags(html_content) 
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [sendtoemail])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send() #make this on another threading
 
 def build_classes(request):
 	classes = scrape_classes()

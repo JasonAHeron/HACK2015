@@ -20,6 +20,7 @@ function scheduleInit() {
 				var draggable = document.createElement( "div" );
 				draggable.innerHTML = "&nbsp;";
 				draggable.setAttribute( "draggable", "true" );
+				draggable.onmouseup = function(e){ onScheduleMouseUp( e ); }
 				draggable.ondragstart = function(e){ onScheduleDragStart( e ); }
 				draggable.ondragend = function(e){ onScheduleDragEnd( e ); }
 				draggable.ondragover = function(e){ onScheduleDragOver( e ); }
@@ -33,14 +34,18 @@ function scheduleInit() {
 	}
 }
 
+var schedule_dragging = false;
 var schedule_table = null;
 var schedule_drag_col = 0;
 var schedule_drag_row = 0;
 var schedule_drag_row_to = 0;
 
 function onScheduleDragStart( e ) {
+	schedule_dragging = true;
 	var cell = e.target.parentNode;
-	e.dataTransfer.dropEffect = "none";
+	if ( e.dataTransfer != null ) {
+		e.dataTransfer.dropEffect = "none";
+	}
 	schedule_table = cell.parentNode.parentNode;
 	schedule_drag_col = e.target.col;
 	schedule_drag_row = e.target.row;
@@ -49,6 +54,8 @@ function onScheduleDragStart( e ) {
 }
 
 function onScheduleDragEnd( e ) {
+	console.log( "Drag End" );
+	schedule_dragging = false;
 	var highlight = !e.target.parentNode.highlighted;
 	var from = 0;
 	var to = 0;
@@ -92,6 +99,14 @@ function onScheduleDragOver( e ) {
 	return false;
 }
 
+function onScheduleMouseUp( e ) {
+	console.log( "MouseUp" );
+	if ( !schedule_dragging ) {
+		onScheduleDragStart( e );
+		onScheduleDragEnd( e );
+	}
+}
+
 function scheduleColorCells( from, to, select ) {
 	for ( ; from <= to; ++from ) {
 		var cell = schedule_table.childNodes[ from + 1 ].childNodes[ schedule_drag_col + 1 ];
@@ -101,6 +116,31 @@ function scheduleColorCells( from, to, select ) {
 	}
 };
 
-/*function scheduleGetData(	schedule ) {
-	schedule.firstChild
-}*/
+
+function scheduleGetData(	schedule ) {
+	schedule = schedule.childNodes[ 0 ]
+	var date = new Date();
+	date.setHours( 0, 0, 0, 0 );
+	while ( date.getDay() > 0 )
+		date.setDate( date.getDate() - 1 )
+	dict = {};
+	for ( i = 0; i < 7; ++i ) {
+		var on = false;
+		var periods = [];
+		for ( j = 0; j < 48; ++j ) {
+			var highlighted = schedule.childNodes[ j + 1 ].childNodes[ i + 1 ].highlighted
+			if ( highlighted && !on ) {
+				on = true;
+				periods.push( j );
+			} else if ( !highlighted && on ) {
+				on = false;
+				periods.push( j );
+			}
+		}
+		if ( on ) periods.push( 47 );
+		dict[ date.getTime() ] = periods;
+		date.setDate( date.getDate() + 1 );
+	}
+	return dict;
+}
+
