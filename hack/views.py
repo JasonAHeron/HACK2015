@@ -20,10 +20,13 @@ def index_view(request):
     current_user = request.user
 
     if request.POST.get('new_sesh'):
+        print request
+        cid = request.POST.get('class')
         people = request.POST.get('people')
         gender = request.POST.get('gender')
         time = request.POST.get('time')
-        Request(user=current_user,time=time, people=people).save()
+        class_ = Class.objects.filter(cid=cid)
+        Request(cls=class_.id, user=current_user, time=time, people=people).save()
 
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
