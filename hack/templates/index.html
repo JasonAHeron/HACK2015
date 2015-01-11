@@ -65,7 +65,7 @@
                         <a class="page-scroll" href="#settings">Account Settings</a>
 			<button type="button" class="logout btn-x2">Logout</button>
                     </li>
-		    {% else }
+		    {% else %}
 		    <li>
 		       <a class="page-scroll" href="#about">About this Site</a>
 		    </li>
@@ -92,7 +92,10 @@
         </div>
     </header>
 
-    <!-- Class Form -->
+<!-- MODALS -->
+
+    <!-- Class Scheduler Modal -->
+{% if user.is_authenticated %}
 <form id="classForm">
 <div id="openModal" class="modalDialog">
     <div>
@@ -137,9 +140,10 @@
 
 </div>
 </form>
--->
+{% endif %}
 
 
+<!-- Privacy Modal -->
 <div id="openPrivacyPolicyModal" class="modalDialog">
     <div>
         <a href="#close" title="Close" class="close">X</a>
@@ -152,6 +156,7 @@
     </div>
 </div>
 
+<!-- Terms Modal -->
 <div id="openTermsOfUseModal" class="modalDialog">
     <div>
         <a href="#close" title="Close" class="close">X</a>
@@ -161,6 +166,7 @@
 	</div>
     </div>
 </div>
+
 <!-- Login Modal Start -->
 <div class="modal fade" id="login_modal">
     <div class="modal-dialog">
@@ -210,25 +216,13 @@
     </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <!-- Login Modal End -->
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-	    <div class="row">
-		    <div class="col-lg-12 text-center">
-			    <h2 class="section-heading">About This Site</h2>
-	            </div>
-             </div>
-	     <div class="row text-center">
-		     <p> This website was made by team Sexy Magic whos members are Brittany Arthur, Jeremy Criquet, Jason Heron, Sofia Herrero, Remington Maxwell, and Sara Woods. Study Scheduler is designed to find study session times for you and other students in your class. It tries to find times that allow for an adequate amount of study time with  </p>
-	     </div>
-	</div>
-    </section>
 
+
+<!-- SCROLL PAGE BODY -->
+{% if user.is_authenticated %}
     <!-- Study Sessions Section -->
-    <!-- User Page
     <section id="sessions">
         <div class="container">
             <div class="row">
@@ -248,10 +242,8 @@
             </div>
         </div>
     </section>
-    -->
 
     <!-- Schedule Section -->
-    <!-- User Page
     <section id="schedule" class="bg-light-gray">
         <div class="container">
             <div class="row">
@@ -263,10 +255,8 @@
             </div>
         </div>
     </section>
-    -->
 
     <!-- Account Settings Section -->
-    <!-- User Page
     <section id="settings">
         <div class="container">
             <div class="row">
@@ -325,8 +315,26 @@
             </div>
         </div>
     </section>
-    -->
 
+    {% else %}
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+	    <div class="row">
+		    <div class="col-lg-12 text-center">
+			    <h2 class="section-heading">About This Site</h2>
+	            </div>
+             </div>
+	     <div class="row text-center">
+		     <p> This website was made by team Sexy Magic whos members are Brittany Arthur, Jeremy Criquet, Jason Heron, Sofia Herrero, Remington Maxwell, and Sara Woods. Study Scheduler is designed to find study session times for you and other students in your class. It tries to find times that allow for an adequate amount of study time with  </p>
+	     </div>
+	</div>
+    </section>
+
+    {% endif %}
+
+    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="row">
