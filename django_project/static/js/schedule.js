@@ -1,8 +1,8 @@
 function scheduleInit() {
 	var schedules = document.getElementsByClassName( "schedule" );
-	for ( i = 0; i < schedules.length; ++i ) {
+	for ( sch = 0; sch < schedules.length; ++sch ) {
 		var table = document.createElement( "table" );
-		schedules.item( i ).appendChild( table );
+		schedules.item( sch ).appendChild( table );
 		var tr = document.createElement( "tr" );
 		tr.innerHTML = "<th>&nbsp;</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>";
 		table.appendChild( tr );

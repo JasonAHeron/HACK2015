@@ -140,9 +140,9 @@
         <input type="radio" name ="people" value="10">&nbsp;10&nbsp;
         <br><br>
         Meeting Locations (Please Check All That Apply):<br>
-        <input type="checkbox" name="location" value="library">&nbsp;Automatically reserve a Room in McHenry or S&E library.<br>
-        <input type="checkbox" name="location" value="oncampus">&nbsp;I'm willing to meet anywhere on campus.<br>
-        <input type="checkbox" name="location" value="offcampus">&nbsp;I'm willing to meet anywhere off campus.<br><br>
+        <input type="checkbox" name="location-library">&nbsp;Automatically reserve a Room in McHenry or S&E library.<br>
+        <input type="checkbox" name="location-oncampus">&nbsp;I'm willing to meet anywhere on campus.<br>
+        <input type="checkbox" name="location-offcampus">&nbsp;I'm willing to meet anywhere off campus.<br><br>
         How Often Do You Want to Meet?<br>
         <input type="radio" name ="recurrence" value="once" checked>&nbsp;One Time
         <input type="radio" name ="recurrence" value="weekly">&nbsp;Once a Week (recurring)
@@ -432,7 +432,7 @@
 
     <script>
     $(document).ready(function() {
-	scheduleInit();
+			scheduleInit();
     //scheduledSessions();
         console.log("document ready\n");
 	$("button.edit").click(function() {
@@ -484,8 +484,26 @@
 	});
 
 	$("button.submitSchedule").click(function() {
-	    // do stuff on sumbit
-	    closeFunction();
+		var dict = {};
+		dict['schedule'] = scheduleGetData( document.getElementById( 'openScheduleModal' ).getElementsByClassName( 'schedule' ).item() );
+		dict['class'] = $('#classSelector').val();
+		dict['minTime'] = $('input[name=time]:checked', '#classForm').val();
+		dict['minUsers'] = $('input[name=people]:checked', '#classForm').val();
+		dict['location'] = ( $('input[name=location-library]', '#classForm').prop( 'checked' ) ? 1 : 0 ) +
+			( $('input[name=location-oncampus]', '#classForm').prop( 'checked' ) ? 2 : 0 ) +
+			( $('input[name=location-offcampus]', '#classForm').prop( 'checked' ) ? 4 : 0 );
+		var str = escape( JSON.stringify( dict ) );
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+				updateSessions();
+			}
+		}
+		xmlhttp.open( 'POST', 'rest', true );
+		//xmlhttp.responseType = 'json'
+		xmlhttp.send( '?action=create&data=' + str );
+		console.log( str );
+    closeFunction();
 	});
     });
     </script>
