@@ -16,11 +16,15 @@ from twilio.twiml import Response
 
 
 def index_view(request):
-    if request.POST.get('new_sesh'):
-        print request.POST.get('people')
-        print request.POST.get('gender')
-        print request.POST.get('time')
     context = RequestContext(request)
+    current_user = request.user
+
+    if request.POST.get('new_sesh'):
+        people = request.POST.get('people')
+        gender = request.POST.get('gender')
+        time = request.POST.get('time')
+        Request(user=current_user,time=time, people=people).save()
+
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
