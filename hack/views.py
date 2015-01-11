@@ -14,6 +14,7 @@ import json
 from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
 
+
 def index_view(request):
     context = RequestContext(request)
     if request.POST.get('signin'):
@@ -43,9 +44,11 @@ def test(request):
 
 @twilio_view
 def sms(request):
-
-	twiml = '<Response><Message>Hey Study Student!</Message></Response>'
-	return HttpResponse(twiml, content_type='text/xml')
+    name = request.POST.get('Body', '')
+    msg = 'Hey %s, how are you today?' % (name)
+    r = Response()
+    r.message(name)
+    return r
 
 def rest_view(request):
 	current_user = request.user
