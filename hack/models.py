@@ -28,6 +28,8 @@ class Request(models.Model):
         dct['id'] = str(self.user.username)
         dct['minT'] = self.time
         dct['minP'] = self.people
+        #dct['phone'] = UserProfile.objects.filter(user=self.user).phone
+        #print dct['phone']
         return dct
 
 

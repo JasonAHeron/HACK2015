@@ -67,12 +67,14 @@
                     </li>
                     <li>
                         <a class="page-scroll" href="#settings">Account Settings</a>
-
-            <form method="post">
+                    </li>
+                    <li>
+           <form method="post">
             {% csrf_token %}
                  <div class="form-group">
-               <button type="submit" name="logout" id="logout" value=1 class="logout btn-x2">Logout</button>
+                  <button type="submit" name="logout" id="logout" value=1 class="logout btn-x3">Logout</button>
                 </div>
+               
             </form>
                     </li>
         {% else %}
@@ -116,7 +118,7 @@
         <div class="createSessionText">
   <div class="ui-widget">
             <label for="classSelector">Select a Class: </label>
-            <input id="classSelector" name="class" value=0>
+            <input id="classSelector" name="class" value="">
         </div>
         Minimum Time for a Study Session (Please Select One):<br>
         <input type="radio" name ="time" value=".5">&nbsp;.5 hr&nbsp;
@@ -181,11 +183,15 @@
 
 <!-- Privacy Modal -->
 <div id="openPrivacyPolicyModal" class="modalDialog">
-  <div>
-    <a href="#close" title="Close" class="close">X</a>
-    <div class="intro-lead-in1">Privacy Policy</div>
-    <div class="privacyPolicyText">
-      <p>Phone numbers and emails will not be shared with anyone.</p>  
+    <div>
+        <a href="#close" title="Close" class="close">X</a>
+        <div class="intro-lead-in1">Privacy Policy</div>
+  <div class="privacyPolicyText">
+      <p>
+         Phone numbers will not be shared with anyone.  Emails will be shared for study session locations that are on or off campus
+           so that students can establish a meeting location. 
+     </p>
+  </div>
     </div>
   </div>
 </div>
@@ -246,14 +252,14 @@
                 </span>
                 <hr class="colorgraph">
                 <div class="row">
+                     <!--<div class="col-xs-6 col-sm-6 col-md-6">
+                       <!-- <a href="/register/" class="btn btn-lg btn-primary btn-block">Register</a>-->
+                    <!--</div>-->
                     <div class="col-xs-6 col-sm-6 col-md-6">
 
-                    <button type="submit" class="btn btn-lg btn-success btn-block" id="signin" value=1 name="signin">Sign In</button>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block btn-sign" id="signin" value=1 name="signin">Sign In</button>
                     </div>
 
-                    <div class="col-xs-6 col-sm-6 col-md-6">
-                        <a href="/register/" class="btn btn-lg btn-primary btn-block">Register</a>
-                    </div>
                 </div>
                 </form>
            </div>
@@ -261,9 +267,9 @@
         </div>
       </div>
 
-      <div class="modal-footer">
+      <!--<div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      </div>-->
     </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -303,7 +309,7 @@
     </section>
 
     <!-- Schedule Section -->
-    <section id="schedule" class="bg-light-gray">
+    <section id="schedule" >
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -332,53 +338,53 @@
                 </div>
             </div>
       <div class="row">
-        <table style="width:50%" align="center">
-          <tr>
-            <td>Email</td>
-            <td>
-              <input type="text" class="accountInfo Email" name="Email" value="samwoods@ucsc.edu" disabled><br>
-                  </td> 
-            <td>
-              <button type="button" class="edit Email">
-                <span class="button-text">Edit</span>
-              </button>
-                  </td>
-          </tr>
-                            <tr>
-            <td>Password</td>
-               <td>
-                  <input type="text" class="accountInfo Password" name="Password" value="******" disabled><br>
-                 </td> 
-            <td>
-              <button type="button" class="edit Password">
-                <span class="button-text">Edit</span>
-              </button>
-                </td>
-            </tr>
+         <table style="width:50%" align="center">
              <tr>
-                <td>Phone Number</td>
-                <td>
-              <input type="text" class="accountInfo PhoneNumber" name="Phone Number" value="888-888-8888" disabled><br>
-            </td> 
-            <td>
-              <button type="button" class="edit PhoneNumber">
-                <span class="button-text">Edit</span>
-              </button>
-                </td>
-            </tr>
-            <tr>
-              <td>Notification Settings</td>
+                 <td>Email</td>
+           <td>
+             <input type="text" class="accountInfo Email" name="Email" value="{{ user.email }}" disabled><br>
+           </td> 
+           <td>
+                <button type="button" class="edit Email">
+              <span class="button-text">Edit</span>
+          </button>
+           </td>
+       </tr>
+                   <tr>
+           <td>Password</td>
               <td>
+                   <input type="text" class="accountInfo Password" name="Password" hint="******" disabled><br>
+               </td> 
+           <td>
+               <button type="button" class="edit Password">
+                   <span class="button-text">Edit</span>
+         </button>
+               </td>
+         </tr>
+         <tr>
+               <td>Phone Number</td>
+               <td>
+               <input type="text" class="accountInfo PhoneNumber" name="Phone Number" value="{{ user.phone }}" disabled><br>
+           </td> 
+           <td>
+               <button type="button" class="edit PhoneNumber">
+                   <span class="button-text">Edit</span>
+         </button>
+               </td>
+         </tr>
+         <tr>
+             <td>Notification Settings</td>
+             <td>
               <input type="checkbox" class="accountInfo Notification emailNotify" value="email" checked disabled>Notify me by email<br>
-                                <input type="checkbox" class="accountInfo Notification textNotify" value="phone" disabled>Notify me by text<br>
-                                    </td>
-            <td>
+              <input type="checkbox" class="accountInfo Notification textNotify" value="phone" disabled>Notify me by text<br>
+                      </td>
+          <td>
               <button type="button" class="edit Notification">
-                <span class="button-text">Edit</span>
-              </button>
-                </td>
-                            <tr>
-                    </table>
+                  <span class="button-text">Edit</span>
+        </button>
+              </td>
+                  <tr>
+                </table>
             </div>
         </div>
     </section>
@@ -394,7 +400,8 @@
               </div>
              </div>
        <div class="row text-center">
-         <p> This website was made by team Sexy Magic whos members are Brittany Arthur, Jeremy Criquet, Jason Heron, Sofia Herrero, Remington Maxwell, and Sara Woods. Study Scheduler is designed to find study session times for you and other students in your class. It tries to find times that allow for an adequate amount of study time with  </p>
+         <p> This website was made by team Sexy Magic whose members are Brittany Arthur, Jeremy Criquet, Jason Heron, Sofia Herrero, Remington Maxwell, and Sara Woods. Study Scheduler is designed to find study session times for you and other students in your class. It tries to find times that allow for an adequate amount of study time with the ability to reserve rooms
+             in the library or form study groups at on and off campus locations. </p>
        </div>
   </div>
     </section>
@@ -497,7 +504,7 @@
                closeFunction();
                window.location.href = '#openScheduleModal';
       });
-			
+      
       $("button.submitRequest").click(function() {
         var dict = {};
         var schedule = scheduleGetData( document.getElementById( 'openScheduleModal' ).getElementsByClassName( 'schedule' ).item() );
@@ -529,7 +536,7 @@
         xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=create&data=' + str );
         closeFunction();
       });
-			
+      
       $("#buttonSubmitSchedule").click(function() {
         var dict = {};
         var schedule = scheduleGetData( document.getElementById( 'openScheduleModal' ).getElementsByClassName( 'schedule' ).item() );
