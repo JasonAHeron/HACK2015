@@ -5,8 +5,9 @@ from django.views.decorators.csrf import csrf_exempt
 from hack.forms import UserForm, UserProfileForm
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login
-from .models import Class
+from .models import Class, Request
 from .build_classes import scrape_classes
+import json
 
 #new imports, twil update 
 from django_twilio.decorators import twilio_view
@@ -31,6 +32,8 @@ def sms(request):
 	return HttpResponse(twiml, content_type='text/xml')
 
 def rest_view(request):
+	current_user = request.user
+
 	if request.method == 'GET':
 		dict = request.GET
 	elif request.method == 'POST':
@@ -40,10 +43,16 @@ def rest_view(request):
 	
 	action = dict.get( 'action' ) if 'action' in dict else ''
 	if action == 'update':
-		content = '[{"name":"CMPS 101"},{"name":"CMPS 104A"},{"name":"CMPS 111"},{"name":"CMPS 130","session":"blah"}]'
+		requests = Request.objects.filter(user=current_user.id)
+		sol = []
+		for request in requests:
+			dict = {}
+			dict['name'] = request.cls.cid
+			sol.append(dict)
+		content = json.dumps(sol)
 	else:
 		content = '';
-	response = HttpResponse( content_type = 'text/json' )
+	response = HttpResponse(content_type = 'text/json')
 	response.content = content
 	return response
 	
