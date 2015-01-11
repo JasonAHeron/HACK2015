@@ -9,6 +9,7 @@ from .models import Class, Request
 from .build_classes import scrape_classes
 from django.contrib.auth.views import logout
 import json
+from .database_magic import find_requests_class
 
 #email 
 import threading
@@ -93,11 +94,13 @@ def rest_view(request):
         dct = json.loads(request.POST.get('data'))
         cid = dct.get('class')
         people = dct.get('minUsers')
-        schedule = json.dumps(dct.get('schedule'))
-        print schedule
+        schedule = str(dct.get('schedule'))
         time = dct.get('minTime')
         class_ = Class.objects.filter(cid=cid)
-        Request(cls=class_[0], user=current_user, time=time, people=people).save()
+        R = Request(schedule=schedule, cls=class_[0], user=current_user, time=time, people=people)
+        R.save()
+        find_requests_class(cid)
+
     if action == 'update':
         requests = Request.objects.filter(user=current_user.id)
         sol = []
@@ -106,7 +109,6 @@ def rest_view(request):
             dict['name'] = request.cls.cid
             sol.append(dict)
         content = json.dumps(sol)
-    #   content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
     else:
         content = '';
     response = HttpResponse(content_type = 'text/json')

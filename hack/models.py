@@ -20,6 +20,13 @@ class Request(models.Model):
     user = models.ForeignKey(User)
     time = models.DecimalField(decimal_places=2, max_digits=5)
     people = models.IntegerField()
+    schedule = models.CharField(max_length= 999)
+
+    def brit_dump(self):
+        dct = eval(self.schedule)
+        dct['id'] = self.user.email
+        return dct
+
 
 class Session(models.Model):
 	length = models.IntegerField(default=0)
