@@ -102,11 +102,16 @@
         <a href="#close" title="Close" class="close">X</a>
         <div class="intro-lead-in1">Create Study Session</div>
         <div class="createSessionText">
-        Select a Class:&nbsp;<select>
+        <!--Select a Class:&nbsp;<select>
         					{%for class in classes%}
                           <option value ={{class.cid}}>{{class.cid}}</option>
                           	{% endfor %}
                         </select><br><br>
+        -->
+	<div class="ui-widget">
+  <label for="classSelector">Select a Class: </label>
+  <input id="classSelector">
+</div>
         Minimum Time for a Study Session (Please Select One):<br>
         <input type="radio" name ="time" value=".5">&nbsp;.5 hr&nbsp;
         <input type="radio" name ="time" value="1" checked>&nbsp;1 hr&nbsp;
@@ -379,6 +384,8 @@
     <script src="{% static "js/schedule.js" %}"></script>
     <script src="{% static "js/update.js" %}"></script>
 
+    <script src="{% static "js/jquery-ui.js" %}"></script>
+
     <script>
     $(document).ready(function() {
 	scheduleInit();
@@ -416,6 +423,11 @@
 	       $(this).children("span").text("Edit");
 	   }
 	   $(this).toggleClass("Save");
+	});
+
+	var availableClasses = {{classes}};
+	$("#classSelector").autocomplete({
+	   source: availableClasses
 	});
     });
     </script>
