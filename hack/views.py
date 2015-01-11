@@ -5,7 +5,6 @@ from django.views.decorators.csrf import csrf_exempt
 from hack.forms import UserForm, UserProfileForm
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login
-
 from .models import Class
 from .build_classes import scrape_classes
 
@@ -14,7 +13,13 @@ from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
 
 def index_view(request):
-	return render_to_response('index.html', {'classes': Class.objects.all()})
+    print request
+    context = RequestContext(request)
+    if request.POST.get('signin'):
+        print "THE CONDITION WAS ACCEPTED"
+        user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
+        login(request, user)
+    return render_to_response('index.html', {'classes': Class.objects.all()}, context)
 
 def test(request):
 	return render_to_response('base.html', {'test': 1})
@@ -25,6 +30,23 @@ def sms(request):
 	twiml = '<Response><Message>Hey Study Student!</Message></Response>'
 	return HttpResponse(twiml, content_type='text/xml')
 
+def rest_view(request):
+	if request.method == 'GET':
+		dict = request.GET
+	elif request.method == 'POST':
+		dict = request.POST
+	else:
+		dict = {}
+	
+	action = dict.get( 'action' ) if 'action' in dict else ''
+	if action == 'update':
+		content = '[{"name":"CMPS 101"},{"name":"CMPS 104A"},{"name":"CMPS 111"},{"name":"CMPS 130","session":"blah"}]'
+	else:
+		content = '';
+	response = HttpResponse( content_type = 'text/json' )
+	response.content = content
+	return response
+	
 def register(request):
     # Like before, get the request's context.
     context = RequestContext(request)
@@ -109,4 +131,3 @@ def build_classes(request):
 	for class_ in classes:
 		Class(cid=class_).save()
 	return render_to_response('build.html', {'classes': Class.objects.all()})
-
