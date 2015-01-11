@@ -10,13 +10,19 @@ from .build_classes import scrape_classes
 from django.contrib.auth.views import logout
 import json
 
+#email 
+import threading
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
+
 #new imports, twil update 
 from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
 from twilio.rest import TwilioRestClient
 
 def index_view(request):
-    send_message()
+    #send_message()
     if request.POST.get('approveSchedule'):
         print request.POST.get('people')
 	print request
@@ -104,9 +110,10 @@ def register(request):
     registered = False
 
     #get all of the fields that the user typed in
-
+    print "REGISTER VIEW CALLED"
     # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
+        print "REGISTER POST CALLED"
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
 
@@ -123,7 +130,7 @@ def register(request):
         if user_form.is_valid() and profile_form.is_valid():
             # Save the user's form data to the database.
             user = user_form.save()
-
+            print "NEW USER IN THE MAKING"
             # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.
             user.set_password(user.password)
@@ -149,6 +156,8 @@ def register(request):
 
             user = authenticate (username=request.POST['username'], password=request.POST['password'])
             login(request, user)
+            send_email(request.POST['username'], request.POST['first_name'])
+            #thread1.start()
             return HttpResponseRedirect('/')
 
         # Invalid form or forms - mistakes or something else?
@@ -173,6 +182,15 @@ def register(request):
 	#r = Response()
 	#r.message('Hello from your Django app!')
 	#return r
+
+def send_email(sendtoemail, firstname):
+    subject = 'Welcome Banana Slug to Team SexyMagic Study time!'
+    from_email = 'learnallthethings1@gmail.com'
+    html_content = render_to_string('index.html', {'varname':'value', 'first_name':firstname})
+    text_content = strip_tags(html_content) 
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [sendtoemail])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send() #make this on another threading
 
 def build_classes(request):
 	classes = scrape_classes()
