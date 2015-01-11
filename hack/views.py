@@ -67,6 +67,7 @@ def rest_view(request):
 			dict['name'] = request.cls.cid
 			sol.append(dict)
 		content = json.dumps(sol)
+		#content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
 	else:
 		content = '';
 	response = HttpResponse(content_type = 'text/json')
