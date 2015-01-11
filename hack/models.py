@@ -23,14 +23,16 @@ class Request(models.Model):
     schedule = models.CharField(max_length= 999)
 
     def brit_dump(self):
+        overall = {}
         dct = eval(self.schedule)
         dct = dict((k.encode('ascii'), v) for (k, v) in dct.items())  
-        dct['id'] = str(self.user.username)
-        dct['minT'] = self.time
-        dct['minP'] = self.people
+        overall['schedule'] = dct
+        overall['id'] = str(self.user.username)
+        overall['minT'] = self.time
+        overall['minP'] = self.people
         #dct['phone'] = UserProfile.objects.filter(user=self.user).phone
         #print dct['phone']
-        return dct
+        return overall
 
 
 class Session(models.Model):
