@@ -132,7 +132,11 @@ def create_schedule(list_of_users):
 def index_view(request):
     context = RequestContext(request)
     current_user = request.user
-    S = Schedule.objects.filter(user=current_user)
+    if current_user.is_active:
+        S = Schedule.objects.filter(user=current_user)
+        schedule = json.loads(S[0].schedule)
+    else:
+        schedule = None
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
@@ -149,7 +153,7 @@ def index_view(request):
     solution = []
     for c_object in Class.objects.all():
         solution.append("{}".format(c_object.cid))
-    return render_to_response('index.html', {'classes': solution, 'schedule': json.loads(S[0].schedule)}, context)
+    return render_to_response('index.html', {'classes': solution, 'schedule': schedule}, context)
 
 def issues(request):
     return render_to_response('index.html', context)
@@ -207,7 +211,7 @@ def rest_view(request):
         if Schedule.objects.filter(user=current_user).exists():
             Schedule.objects.filter(user=current_user).delete()
         S = Schedule(user=current_user, schedule=dct).save()
-        
+
         '''
     elif action == 'email':
         print dict['data']
