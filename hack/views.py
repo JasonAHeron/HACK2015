@@ -9,7 +9,7 @@ from .models import Class, Request, UserProfile, Schedule
 from .build_classes import scrape_classes
 from django.contrib.auth.views import logout
 import json
-from .database_magic import find_requests_class
+from .database_magic import find_requests_class, create_session
 
 #email 
 import threading
@@ -132,6 +132,7 @@ def create_schedule(list_of_users):
                    print newg_start_time
                    print "HERE ARE THE FRIENDS:"
                    print old_guy_day[newg_start_time]
+                   create_session(old_guy_day[newg_start_time], newg_start_time, newguy_min_time)
     print "END OF FUNCITON"
 
 def index_view(request):
@@ -217,6 +218,8 @@ def rest_view(request):
 
         #brit, sara querry
         create_schedule(find_requests_class(cid))
+
+
 
 
     if action == 'schedule':

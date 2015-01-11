@@ -1,4 +1,4 @@
-from .models import Class, Request
+from .models import Class, Request, Session
 
 def find_requests_class(class_name):
 	solution = []
@@ -7,3 +7,13 @@ def find_requests_class(class_name):
 	for request in R:
 		solution.append(request.brit_dump())
 	return solution
+
+
+def create_session(people, time, length):
+	Session(length=length, start=time).save()
+	for person in people:
+		U = User.objects.filter(username=person)
+		print U
+		R = Request.objects.filter(User=U)
+		R.session = S
+		R.save()

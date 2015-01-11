@@ -19,7 +19,12 @@ class Schedule(models.Model):
     user = models.ForeignKey(User)
     schedule = models.CharField(max_length= 999)
 
+class Session(models.Model):
+    length = models.IntegerField(default=0)
+    start = models.IntegerField(default=0)
+
 class Request(models.Model):
+    session = models.ForeignKey(Session, null=True)
     cls = models.ForeignKey(Class)
     user = models.ForeignKey(User)
     time = models.FloatField()
@@ -39,8 +44,3 @@ class Request(models.Model):
         #dct['phone'] = UserProfile.objects.filter(user=self.user).phone
         #print dct['phone']
         return overall
-
-class Session(models.Model):
-	length = models.IntegerField(default=0)
-	start = models.DateField()
-	location = models.CharField(max_length = 100)
