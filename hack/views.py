@@ -34,7 +34,7 @@ def rest_view(request):
 	
 	action = dict.get( 'action' ) if 'action' in dict else ''
 	if action == 'update':
-		content = '[{"name":"CMPS 101"},{"name":"CMPS 104A"},{"name":"CMPS 111"},{"name":"CMPS 130","session":"blah"}]'
+		content = '[{"name":"CMPS 101"},{"name":"CMPS 104A"},{"name":"CMPS 111"},{"name":"CMPS 130","session":"blah"}, {"name":"CMPS 112","session":"blah"}]'
 	else:
 		content = '';
 	response = HttpResponse( content_type = 'text/json' )

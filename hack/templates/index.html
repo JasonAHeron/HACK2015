@@ -223,15 +223,19 @@
                     <h3 class="service-heading">&nbsp;&nbsp;&nbsp;&nbsp;Pending Sessions</h3>
 
         		    <ul class="pendingSess">
-        		    	<li class="text-mutedSession">CMPS 104A</li>
+        		    	<li class="text-mutedSession">Empty</li>
+                            <div data-role="content" id="Div1" class="accordion">
+                            <div id="accordion" data-role="collapsible-set"/>
+                            </div>
+                        
         		    </ul>
                 </div>
                 <div class="col-xs-6">
                     <h3 class="service-heading">&nbsp;&nbsp;&nbsp;&nbsp;Scheduled Sessions</h3>
 
 		    <ul class="scheduledSess">
-                    <div class="scheduledSessionTable">
-                        <table style="width:100%">
+            <li class="text-mutedSession">Empty</li>
+                <!--    <div class="scheduledSessionTable">
                         <tr>
                             <td id="classScheduledName">
                                 Class 
@@ -260,10 +264,9 @@
                                 <input type="button" class=" edit deleteGroupBtn" onclick="alert('You are deleting this study group')" value="Remove Session&#x00APermanently">
                             </td>
                         </tr>
-                    </table>
                 </div>
 	            </ul>
-            </div>
+            </div>-->
                 <br>
         		  <!--  <ul class="scheduledSess">
                             <li class="text-mutedSession">CMPS 130</li>
@@ -417,7 +420,7 @@
     <script>
     $(document).ready(function() {
 	scheduleInit();
-    scheduledSessions();
+    //scheduledSessions();
         console.log("document ready\n");
 	$("button.edit").click(function() {
 	   // if the option is disabled
