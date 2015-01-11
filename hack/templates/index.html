@@ -67,12 +67,14 @@
                     </li>
                     <li>
                         <a class="page-scroll" href="#settings">Account Settings</a>
-
-            <form method="post">
+                    </li>
+                    <li>
+           <form method="post">
             {% csrf_token %}
                  <div class="form-group">
-			         <button type="submit" name="logout" id="logout" value=1 class="logout btn-x2">Logout</button>
+			         <button type="submit" name="logout" id="logout" value=1 class="logout btn-x3">Logout</button>
                 </div>
+               
             </form>
                     </li>
 		    {% else %}
@@ -186,7 +188,8 @@
         <div class="intro-lead-in1">Privacy Policy</div>
 	<div class="privacyPolicyText">
 	    <p>
-	       Phone numbers and emails will not be shared with anyone. 
+	       Phone numbers will not be shared with anyone.  Emails will be shared for study session locations that are on or off campus
+           so that students can establish a meeting location. 
 	   </p>	
 	</div>
     </div>
@@ -248,14 +251,14 @@
                 </span>
                 <hr class="colorgraph">
                 <div class="row">
+                     <!--<div class="col-xs-6 col-sm-6 col-md-6">
+                       <!-- <a href="/register/" class="btn btn-lg btn-primary btn-block">Register</a>-->
+                    <!--</div>-->
                     <div class="col-xs-6 col-sm-6 col-md-6">
 
-                    <button type="submit" class="btn btn-lg btn-success btn-block" id="signin" value=1 name="signin">Sign In</button>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block btn-sign" id="signin" value=1 name="signin">Sign In</button>
                     </div>
 
-                    <div class="col-xs-6 col-sm-6 col-md-6">
-                        <a href="/register/" class="btn btn-lg btn-primary btn-block">Register</a>
-                    </div>
                 </div>
                 </form>
            </div>
@@ -263,9 +266,9 @@
         </div>
       </div>
 
-      <div class="modal-footer">
+      <!--<div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      </div>-->
     </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -305,7 +308,7 @@
     </section>
 
     <!-- Schedule Section -->
-    <section id="schedule" class="bg-light-gray">
+    <section id="schedule" >
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -396,7 +399,8 @@
 	            </div>
              </div>
 	     <div class="row text-center">
-		     <p> This website was made by team Sexy Magic whos members are Brittany Arthur, Jeremy Criquet, Jason Heron, Sofia Herrero, Remington Maxwell, and Sara Woods. Study Scheduler is designed to find study session times for you and other students in your class. It tries to find times that allow for an adequate amount of study time with  </p>
+		     <p> This website was made by team Sexy Magic whose members are Brittany Arthur, Jeremy Criquet, Jason Heron, Sofia Herrero, Remington Maxwell, and Sara Woods. Study Scheduler is designed to find study session times for you and other students in your class. It tries to find times that allow for an adequate amount of study time with the ability to reserve rooms
+             in the library or form study groups at on and off campus locations. </p>
 	     </div>
 	</div>
     </section>
@@ -452,6 +456,9 @@
     $(document).ready(function() {
 			scheduleInit();
     //scheduledSessions();
+    //var elem=document.getElementById("pageLogout")
+    //elem.style.color=yellow;
+    
         console.log("document ready\n");
 	$("button.edit").click(function() {
 	   // if the option is disabled
