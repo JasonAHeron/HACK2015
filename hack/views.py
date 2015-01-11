@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from hack.forms import UserForm, UserProfileForm
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login
-from .models import Class, Request
+from .models import Class, Request, UserProfile, Schedule
 from .build_classes import scrape_classes
 from django.contrib.auth.views import logout
 import json
@@ -131,7 +131,12 @@ def create_schedule(list_of_users):
 
 def index_view(request):
     context = RequestContext(request)
-    #send_message()
+    current_user = request.user
+    if current_user.is_active:
+        S = Schedule.objects.filter(user=current_user)
+        schedule = json.loads(S[0].schedule)
+    else:
+        schedule = None
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
@@ -148,7 +153,7 @@ def index_view(request):
     solution = []
     for c_object in Class.objects.all():
         solution.append("{}".format(c_object.cid))
-    return render_to_response('index.html', {'classes': solution}, context)
+    return render_to_response('index.html', {'classes': solution, 'schedule': schedule}, context)
 
 def issues(request):
     return render_to_response('index.html', context)
@@ -197,8 +202,24 @@ def rest_view(request):
         class_ = Class.objects.filter(cid=cid)
         R = Request(schedule=schedule, cls=class_[0], user=current_user, time=time, people=people)
         R.save()
+
         #brit, sara querry
-        create_schedule(find_requests_class(cid))
+        #create_schedule(find_requests_class(cid))
+
+    if action == 'schedule':
+        dct = json.loads(dict.get('data'))
+        if Schedule.objects.filter(user=current_user).exists():
+            Schedule.objects.filter(user=current_user).delete()
+        S = Schedule(user=current_user, schedule=dct).save()
+
+        '''
+    elif action == 'email':
+        print dict['data']
+    elif action == 'password':
+        print dict['data']
+    elif action == 'phoneNumber':
+        print dict['data']
+        '''
 
     if action == 'update':
         requests = Request.objects.filter(user=current_user.id)

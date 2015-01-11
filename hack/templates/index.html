@@ -542,7 +542,7 @@
         xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=create&data=' + str );
         closeFunction();
       });
-      
+      scheduleSetData( document.getElementById( 'schedule' ).getElementsByClassName( 'schedule' ).item(), {{schedule|safe}} );
       $("button#buttonSubmitSchedule").click(function() {
         var schedule = scheduleGetData( document.getElementById( 'schedule' ).getElementsByClassName( 'schedule' ).item() );
         var xmlhttp = new XMLHttpRequest();
