@@ -27,10 +27,8 @@ import ast
 import re
 
 def create_schedule(list_of_users):
-    newguy_avail_list = [5,9,12,14]
-    newguy_people = 2 #db query
+#    newguy_avail_list = [5,9,12,14]
     newguy_locations = [1,2,3]
-    newguy_min_time = 2
 
     strings = []
     i = 0
@@ -41,11 +39,14 @@ def create_schedule(list_of_users):
     print "GIVEN:"
     print list_of_users
     print "OLD USERS:"
-    old_guys = list_of_users[:len(list_of_users)-2]
+    old_guys = list_of_users[:len(list_of_users)-1]
     print old_guys
     print "NEW GUY:"
     new_guy = list_of_users[len(list_of_users)-1]
+    new_guy_schedule = new_guy["schedule"]
     print new_guy
+    newguy_min_time = new_guy["minT"]*2 #convert half hrs to hours
+    newguy_people = new_guy["minP"]
 
     #convert string to a dictionary
     #yoyo_d = ast.literal_eval(yoyo)
@@ -54,7 +55,7 @@ def create_schedule(list_of_users):
         days_of_week.append([])
     for persons_dictionary in old_guys:
         
-        persons_availability_dict = persons_dictionary['schedle']
+        persons_availability_dict = persons_dictionary['schedule']
         d = 0
         for day in persons_availability_dict:
 
@@ -68,66 +69,70 @@ def create_schedule(list_of_users):
             while(len(time_tuples) >= start+2):
                 if(time_tuples[start+1] - time_tuples[start] >= newguy_min_time):
                     print " diff was using " + str(time_tuples[start+1]) +  ",  " +  str(time_tuples[start])
-                    print persons_dictionary['sername']
+                    #print persons_dictionary['id']
                     #print "START!!!"
                     #print time_tuples[start]
                     
                     #heart of the algorithm
-                    avail_times_of_day[time_tuples[start]] += persons_dictionary['sername'] + ","
-                    print "JUST ADDED!!!"
-                    print avail_times_of_day[time_tuples[start]]
+                    avail_times_of_day[time_tuples[start]] += persons_dictionary['id'] + ","
                 start += 2
 
     newguy_itor = 0
-    newguy_starttimes = []
-    while(len(newguy_avail_list) >= newguy_itor+2):
-        if(newguy_avail_list[newguy_itor+1] - newguy_avail_list[newguy_itor] >= newguy_min_time):
-            newguy_starttimes.append(newguy_avail_list[newguy_itor])
-            print "start time here: " 
-            print newguy_avail_list[newguy_itor]
-        newguy_itor+=2
+    
+    #this is a list of lists
+    newguy_days_of_week = []
+    for i in range(7):
+        newguy_days_of_week.append([])
+    for i in range(7):
+        newguy_days_of_week[i] = []
+    # guy needs to meet his own needs
+    new_d = -1
+    #day is a list itself
+    for day in new_guy_schedule:
+        new_d += 1
+        newguy_avail_list = new_guy_schedule[day]
+        if (len(newguy_days_of_week) > new_d):
+            print "DAY !!!!!"
+            print day
+            while(len(newguy_avail_list) >= newguy_itor+2):
+                print "IN WHILE LOOP"
+                if(newguy_avail_list[newguy_itor+1] - newguy_avail_list[newguy_itor] >= newguy_min_time):
+                    print "IN IF STMT"
+                    print "LEN IS"
+                    print len(newguy_days_of_week)
+                    print "new_d is"
+                    print new_d
+                    if (len(newguy_days_of_week)-1 >= new_d):
+                        #print newguy_days_of_week[new_d]
+                        print "test"
+                        newguy_days_of_week[new_d].append(newguy_avail_list[newguy_itor])
+                    #print newguy_days_of_week[new_d]
+                    #print new_d
+                    #print "start time here: " 
+                    #print newguy_avail_list[newguy_itor]
+                newguy_itor+=2
 
-
-    print("PRINTING")
-    #FOR EVERY day of the week
-    for day_list in days_of_week:
-        #in each day, there is an array. lets iterate through each time.
-        # 7 time loop 
-        #day = day_list[d]
-        #d += 1
-        for i in range(0,len(day_list)-1):
-            #if something was scheduled that hour
-            if (day_list[i] is not ""):
-                #100 or something
-                size = len(day_list[i].split(","))
-                if(i in newguy_avail_list and size >= newguy_people):
-                    print day_list[i]
-                    print "for start time: " +  str(i)
-
-    #want to find a group of people that works
-    #get a listing of all the users with a valid starttime for every start time
-    #for key, value in enumerate(d[1:]):
-
-    #now find which people in the string match the user's needs
-    #make sure to check the needs of all of these users before returning
-    potential_start = 0
-    for starttimes in strings:
-        candidates = starttimes.split(",")
-        if(len(candidates)>=newguy_people):
-            #check every candidate to see if they have this minimum
-            for person in candidates:
-                #use the index or mapping to do a lookup on their min # of people
-                # if (blahblahblah)
-                nothing = "sdf"
-            #I will add them until I can do the lookup
-            print "SOLUTION:" + strings[potential_start] #adding a 1 becuase index starts at 0
-    print "CONTENTS"
-    for item in strings:
-        print item
+    print "OUT OF LOOP"
+    print newguy_days_of_week
+    curr_day = -1
+    for old_guy_day in days_of_week:
+        curr_day += 1
+        #look through all the avail times of newguy
+        print "NEW GUY TIMES FOR CURR DAY"
+        print newguy_days_of_week[curr_day]
+        if (len(newguy_days_of_week) > curr_day):
+           for newg_start_time in newguy_days_of_week[curr_day]:
+               #if that index in the old_guy_day is not empty
+               print "ARRAY WE ARE WORKING WITH"
+               print old_guy_day[newg_start_time]
+               #check that the length after .split is atleast min
+               if(len(old_guy_day[newg_start_time].split(",")) >= newguy_min_time):
+                   #save the match (print it for now)
+                   print "THIS START TIME WORKS IN BOTH:"
+                   print newg_start_time
+                   print "HERE ARE THE FRIENDS:"
+                   print old_guy_day[newg_start_time]
     print "END OF FUNCITON"
-
-
-
 
 def index_view(request):
     context = RequestContext(request)
