@@ -15,6 +15,10 @@ class UserProfile(models.Model):
 class Class(models.Model):
 	cid = models.CharField(max_length=50, default="Empty Class")
 
+class Schedule(models.Model):
+    user = models.ForeignKey(User)
+    schedule = models.CharField(max_length= 999)
+
 class Request(models.Model):
     cls = models.ForeignKey(Class)
     user = models.ForeignKey(User)
@@ -23,15 +27,16 @@ class Request(models.Model):
     schedule = models.CharField(max_length= 999)
 
     def brit_dump(self):
+        overall = {}
         dct = eval(self.schedule)
         dct = dict((k.encode('ascii'), v) for (k, v) in dct.items())  
-        dct['id'] = str(self.user.username)
-        dct['minT'] = self.time
-        dct['minP'] = self.people
+        overall['schedule'] = dct
+        overall['id'] = str(self.user.username)
+        overall['minT'] = self.time
+        overall['minP'] = self.people
         #dct['phone'] = UserProfile.objects.filter(user=self.user).phone
         #print dct['phone']
-        return dct
-
+        return overall
 
 class Session(models.Model):
 	length = models.IntegerField(default=0)
