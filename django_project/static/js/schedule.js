@@ -12,7 +12,7 @@ function scheduleInit() {
 			if ( hours == 0 ) hours += 12;
 			if ( hours < 10 ) hours = "0" + hours;
 			var td = document.createElement( "th" );
-			td.innerHTML = hours + ':' + ( i%2 ? '3' : '0' ) + "0 " + ( i < 24 ? 'A' : 'P' ) + 'M';
+			td.innerHTML = hours + ':' + ( i%2 ? '3' : '0' ) + "0 " + ( i < 24 ? 'A' : 'P' ) + 'M'+"&nbsp;";
 			tr.appendChild( td );
 			for ( j = 0; j < 7; ++j ) {
 				td = document.createElement( "td" );
