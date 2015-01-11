@@ -526,8 +526,8 @@
 		}
 		xmlhttp.open( 'POST', 'rest', true );
 		//xmlhttp.responseType = 'json'
-		xmlhttp.send( '?action=create&data=' + str );
-		console.log( str );
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+		xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=create&data=' + str );
     closeFunction();
 	});
     });
