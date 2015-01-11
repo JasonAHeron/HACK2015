@@ -41,6 +41,7 @@ class Request(models.Model):
         overall['minT'] = self.time
         overall['minP'] = self.people
         overall['phone'] = self.phone
+        overall['reqid'] = self.id
         #dct['phone'] = UserProfile.objects.filter(user=self.user).phone
         #print dct['phone']
         return overall

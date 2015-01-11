@@ -74,7 +74,7 @@ def create_schedule(list_of_users):
                     #print time_tuples[start]
                     
                     #heart of the algorithm
-                    avail_times_of_day[time_tuples[start]] += persons_dictionary['id'] + ","
+                    avail_times_of_day[time_tuples[start]] += persons_dictionary['reqid'] + ","
                 start += 2
 
     newguy_itor = 0
