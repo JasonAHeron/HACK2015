@@ -54,10 +54,7 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
-		    <li>
-		       <a class="page-scroll" href="#about">About this Site</a>
-		    </li>
-		    <!-- User Page
+		    {% if user.is_authenticated %}
                     <li>
                         <a class="page-scroll" href="#sessions">My Study Sessions</a>
                     </li>
@@ -66,8 +63,13 @@
                     </li>
                     <li>
                         <a class="page-scroll" href="#settings">Account Settings</a>
+			<button type="button" class="logout btn-x2">Logout</button>
                     </li>
-                    -->
+		    {% else }
+		    <li>
+		       <a class="page-scroll" href="#about">About this Site</a>
+		    </li>
+		    {% endif %}
                 </ul>
             </div>
         </div>
@@ -79,18 +81,18 @@
             <div class="intro-text">
                 <div class="intro-lead-in">Welcome to the Study Session Manager!</div>
 		<div class="intro-heading">Are you ready to study?</div>
+		{% if user.is_authenticated %}
+                <a href="#openModal" class="btn-x2">Create a new study session</a>
+		{% else %}
 		<a href="/register/" class="btn-x2">Register</a>
 		 OR 
                 <button type="button" class="btn-x2" data-toggle="modal" data-target="#login_modal">Login</button>
-		<!-- User Page
-                <a href="#openModal" class="btn-x2">Create a new study session</a>
-                -->
+		{% endif %}
             </div>
         </div>
     </header>
 
     <!-- Class Form -->
-    <!-- User Page
 <form id="classForm">
 <div id="openModal" class="modalDialog">
     <div>
