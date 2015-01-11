@@ -316,7 +316,7 @@
                     <br>
                     <br>
                     <div class="schedule"></div>
-                    <button type="button" class="button1" id="#buttonSubmitSchedule">Update Schedule</button>
+                    <button type="button" class="button1" id="buttonSubmitSchedule">Update Schedule</button>
                 </div>
             </div>
         </div>
@@ -451,38 +451,43 @@
       scheduleInit();
       console.log("document ready\n");
       $("button.edit").click(function() {
-         // if the option is disabled
-         if (!$(this).hasClass("Save")){
-             // enable the input
-             $(this).parent().closest('td').prev().children('input').prop('disabled', false);
-             // change the text of the button to Save
-             $(this).children("span").text("Save");
-         // if the option is enabled
-         } else {
-             // add code to update database
-             var inputSection = $(this).parent().closest('td').prev().children('input');
-             console.log(inputSection);
-             if ($(inputSection).is("input:text")){
-                console.log("text has been saved");
-          var newValue = $(inputSection).val();
-          console.log(newValue);
-          if ($(inputSection).hasClass("Email")){
-             // save email
-          } else if ($(inputSection).hasClass("Password")){
-             // save password
+        // if the option is disabled
+        if (!$(this).hasClass("Save")){
+          // enable the input
+          $(this).parent().closest('td').prev().children('input').prop('disabled', false);
+          // change the text of the button to Save
+          $(this).children("span").text("Save");
+        // if the option is enabled
+        } else {
+          // add code to update database
+          var inputSection = $(this).parent().closest('td').prev().children('input');
+          console.log(inputSection);
+          if ($(inputSection).is("input:text")){
+            console.log("text has been saved");
+            var newValue = $(inputSection).val();
+            console.log(newValue);
+            var action;
+            if ($(inputSection).hasClass("Email")) action = "email";
+            else if ($(inputSection).hasClass("Password")){
+              action="password"
+              newValue = newValue; //encrypt!!!
+            } else action="phoneNumber"
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+              if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 )
+                alert("Your new account setting has been saved!");
+            }
+            xmlhttp.open( 'POST', 'rest', true );
+            xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=' +action + '&data=' + newValue );
           } else {
-             // save phone number
+            console.log("checkboxes have been saved");
           }
-             } else {
-                console.log("checkboxes have been saved");
-          //if ($(inputSection.hasClass
-             }
-             // disable the input
-             $(inputSection).prop('disabled', true);
-             // change the text of the button to Edit
-             $(this).children("span").text("Edit");
-         }
-         $(this).toggleClass("Save");
+          // disable the input
+          $(inputSection).prop('disabled', true);
+          // change the text of the button to Edit
+          $(this).children("span").text("Edit");
+        }
+        $(this).toggleClass("Save");
       });
 
       var availableClasses = {{classes|safe}};
@@ -493,9 +498,10 @@
       });
 
       $("button.moveToSchedule").click(function() {
-         console.log( $("#classSelector").prop("value"));
-               closeFunction();
-               window.location.href = '#openScheduleModal';
+        closeFunction();
+        window.location.href = '#openScheduleModal';
+        var data = scheduleGetData( document.getElementById( 'schedule' ).getElementsByClassName( 'schedule' ).item() );
+				scheduleSetData( document.getElementById( 'openScheduleModal' ).getElementsByClassName( 'schedule' ).item(), data );
       });
       
       $("button.submitRequest").click(function() {
@@ -530,35 +536,17 @@
         closeFunction();
       });
       
-      $("#buttonSubmitSchedule").click(function() {
-        var dict = {};
-        var schedule = scheduleGetData( document.getElementById( 'openScheduleModal' ).getElementsByClassName( 'schedule' ).item() );
-        var date = new Date();
-        date.setHours( 0, 0, 0, 0 );
-        while ( date.getDay() > 0 ) date.setDate( date.getDate() - 1 )
-        dict = {};
-        for ( i = 0; i < 7; ++i ) {
-          dict[ date.getTime() ] = schedule[ i ];
-          date.setDate( date.getDate() + 1 );
-        }
-        dict = {'schedule': dict};
-        dict['class'] = $('#classSelector').val();
-        dict['minTime'] = $('input[name=time]:checked', '#classForm').val();
-        dict['minUsers'] = $('input[name=people]:checked', '#classForm').val();
-        dict['location'] = ( $('input[name=location-library]', '#classForm').prop( 'checked' ) ? 1 : 0 ) +
-          ( $('input[name=location-oncampus]', '#classForm').prop( 'checked' ) ? 2 : 0 ) +
-          ( $('input[name=location-offcampus]', '#classForm').prop( 'checked' ) ? 4 : 0 );
-        var str = escape( JSON.stringify( dict ) );
-        console.log( JSON.stringify( dict ) );
+      $("button#buttonSubmitSchedule").click(function() {
+        var schedule = scheduleGetData( document.getElementById( 'schedule' ).getElementsByClassName( 'schedule' ).item() );
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
           if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
-            updateSessions();
+            alert( "Youre schedule has been saved!" );
           }
         }
         xmlhttp.open( 'POST', 'rest', true );
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded")
-        xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=create&data=' + str );
+        xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=schedule&data=' + JSON.stringify( schedule ) );
         closeFunction();
       });
     });
