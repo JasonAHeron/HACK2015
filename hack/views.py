@@ -99,7 +99,7 @@ def rest_view(request):
 	
 def register(request):
     # Like before, get the request's context.
-    send_message()
+    #send_message() /// this sends text messages to people in the dict in this function
     context = RequestContext(request)
 
     # A boolean value for telling the template whether the registration was successful.
