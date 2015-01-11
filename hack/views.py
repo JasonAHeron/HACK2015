@@ -26,7 +26,7 @@ from twilio.rest import TwilioRestClient
 import ast
 import re
 
-def create_schedule():
+def create_schedule(list_of_users):
     newguy_avail_list = [5,9,12,14]
     newguy_people = 2 #db query
     newguy_locations = [1,2,3]
@@ -36,7 +36,18 @@ def create_schedule():
     i = 0
     index_start = 0
 
-    old_guys = []
+    #get data for the cid. as a list of dictionaries.
+
+    print "GIVEN:"
+    print list_of_users
+    print "OLD USERS:"
+    old_guys = list_of_users[:len(list_of_users)-2]
+    print old_guys
+    print "NEW GUY:"
+    new_guy = list_of_users[len(list_of_users)-1]
+    print new_guy
+
+    '''
     yo = "{'username': 'coolcat1@ucsc.edu', u'minTime': u'1', u'location': 0, u'minUsers': u'2', u'class': u'AMS 80B', u'schedule': {u'1421308800000': [1,2,5,10],  u'1421222400000': [],  u'1421395200000': [], u'1421136000000': [], u'1420963200000': [], u'1421481600000': [], u'1421049600000': []}}"
     yo = re.sub('[u]','',yo)
     yo_d = ast.literal_eval(yo)
@@ -51,6 +62,7 @@ def create_schedule():
     yo = re.sub('[u]','',yo)
     yo_d = ast.literal_eval(yo)
     old_guys.append(yo_d)
+    '''
 
     #convert string to a dictionary
     #yoyo_d = ast.literal_eval(yoyo)
@@ -108,45 +120,10 @@ def create_schedule():
                 if(i in newguy_avail_list and size >= newguy_people):
                     print day_list[i]
                     print "for start time: " +  str(i)
-                '''
-                for k in range(0,len(day_list[i])-1):
-                    if(avail_times_of_day[k] is not ""):
-                        size = len(day_list[i].split(",")) -1
-                        if (size >= newguy_people):
-                            print day_list[i]
-                            print "for start time: " + str(k)
-'''
+
     #want to find a group of people that works
     #get a listing of all the users with a valid starttime for every start time
     #for key, value in enumerate(d[1:]):
-    '''
-    for key, value in d.iteritems():
-        print "PROCESSING"
-        print "user is " + key + "   " + str(value[index_start+1]) + "     " + str(value[index_start])
-        #check for out of bounds
-        while(len(value) >= index_start+2):
-        #check if the new value meets newguy hour minimum
-            if((value[index_start+1]-value[index_start])>=newguy_length):
-                if(i <= len(strings)-1):
-                    print "1>> user #" + str(i)
-                    strings[i] += str(i) + ","
-                else:
-                    print "2>> user #" + str(i)
-                    strings.append(str(i))
-            else:
-                #we want an index for every possible start time 
-                if(i <= len(strings)-1):
-                    #print ">> X" 
-                    strings[i] += "X"
-                else:
-                    #print ">> X" 
-                    strings.append("X")
-            index_start += 2
-        index_start = 0
-        #increment the userID number - the index they appeared in the dictionary
-        i += 1
-    print "FINISHED WITH FIRST STEP"
-    '''
 
     #now find which people in the string match the user's needs
     #make sure to check the needs of all of these users before returning
@@ -270,7 +247,7 @@ def rest_view(request):
         class_ = Class.objects.filter(cid=cid)
         R = Request(schedule=schedule, cls=class_[0], user=current_user, time=time, people=people)
         R.save()
-        #brit querry
+        #brit, sara querry
         print find_requests_class(cid)
 
     if action == 'update':
