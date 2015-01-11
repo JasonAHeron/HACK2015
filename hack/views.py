@@ -16,13 +16,16 @@ from twilio.twiml import Response
 from twilio.rest import TwilioRestClient
 
 def index_view(request):
-    send_message()
-    if request.POST.get('approveSchedule'):
-        print request.POST.get('people')
-	print request
-        print request.POST.get('gender')
-        print request.POST.get('time')
     context = RequestContext(request)
+    current_user = request.user
+    if request.POST.get('approveSchedule'):
+        cid = request.POST.get('class')
+        people = request.POST.get('people')
+        gender = request.POST.get('gender')
+        time = request.POST.get('time')
+        class_ = Class.objects.filter(cid=cid)
+        Request(cls=class_[0], user=current_user, time=time, people=people).save()
+
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
