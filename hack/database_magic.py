@@ -1,4 +1,5 @@
 from .models import Class, Request, Session
+from django.contrib.auth.models import User
 
 def find_requests_class(class_name):
 	solution = []
@@ -11,10 +12,12 @@ def find_requests_class(class_name):
 
 
 def create_session(people, time, length):
-	Session(length=length, start=time).save()
-	for person in people:
+	S = Session(length=length, start=time)
+	S.save()
+	print "STARTING LOOP"
+	for person in people.split(','):
 		U = User.objects.filter(username=person)
 		print U
-		R = Request.objects.filter(User=U)
+		R = Request.objects.filter(user=U)
 		R.session = S
 		R.save()
