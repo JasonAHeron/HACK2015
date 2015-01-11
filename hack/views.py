@@ -168,20 +168,17 @@ def index_view(request):
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
         if not user or not user.is_active:
             print "Sorry, that login was invalid. Please try again."
-            create_schedule()
             return render_to_response('issues.html', {'username': request.POST.get('username'), 'password':request.POST.get('password')}, context)
         else:
             login(request, user)
     if request.POST.get('logout'):
         print "TRYING TO LOGOUT"
         logout(request)
-        create_schedule()
         return HttpResponseRedirect("")
 
     solution = []
     for c_object in Class.objects.all():
         solution.append("{}".format(c_object.cid))
-    create_schedule()
     return render_to_response('index.html', {'classes': solution}, context)
 
 def issues(request):
@@ -248,7 +245,7 @@ def rest_view(request):
         R = Request(schedule=schedule, cls=class_[0], user=current_user, time=time, people=people)
         R.save()
         #brit, sara querry
-        print find_requests_class(cid)
+        create_schedule(find_requests_class(cid))
 
     if action == 'update':
         requests = Request.objects.filter(user=current_user.id)
