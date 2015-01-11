@@ -485,8 +485,8 @@
 
 	$("button.submitSchedule").click(function() {
 	    // do stuff on sumbit
-	    closeFunction();
-	});
+	  //  closeFunction();
+	)};
     });
     </script>
 

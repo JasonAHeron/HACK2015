@@ -1127,6 +1127,6 @@ ul.ui-autocomplete {
 
 /*------ Weekly Schedule --------*/
 div.schedule{
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
