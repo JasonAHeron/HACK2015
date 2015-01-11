@@ -197,6 +197,7 @@ def rest_view(request):
         class_ = Class.objects.filter(cid=cid)
         R = Request(schedule=schedule, cls=class_[0], user=current_user, time=time, people=people)
         R.save()
+
         #brit, sara querry
         create_schedule(find_requests_class(cid))
         '''
