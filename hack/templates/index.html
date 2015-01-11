@@ -153,7 +153,7 @@
         <input type="radio" name="gender" value="both">&nbsp;Both Men and Women
         <br><br>
     </div>
-    <button type="submit" class="moveToSchedule" name="approveSchedule" value="1"> Next </button>
+    <button type="button" class="moveToSchedule" name="approveSchedule" value="1"> Next </button>
     </div>
 
 </div>
@@ -161,18 +161,20 @@
 
 <script>
     function closeFunction(){
-        if (confirm("Are you sure you want to close this window?") == true) {
+        //if (confirm("Are you sure you want to close this window?") == true) {
             //<a href="#close"></a> 
             window.location.href = '#close';
-        }
+        //}
 }
 </script>
 
 <!-- Schedule Modal -->
-<div id="openModal" class="modalDialog">
+<div id="openScheduleModal" class="modalDialog">
     <div>
         <button class="close" onclick="closeFunction()">X</button>
         <div class="intro-lead-in1">Create Study Session</div>
+        <div class="schedule" style="height: 600px;"></div>
+	<button type="button" class="submitSchedule"> Create New Study Session </button>
     </div>
 </div>
 
@@ -476,10 +478,14 @@
 	});
 
 	$("button.moveToSchedule").click(function() {
-	   //var selectedClass = $("input#classSelector").val();
-	   //console.log(selectedClass);
-	   //$("#classSelector").prop("value", selectedClass);
 	   console.log( $("#classSelector").prop("value"));
+           closeFunction();
+           window.location.href = '#openScheduleModal';
+	});
+
+	$("button.submitSchedule").click(function() {
+	    // do stuff on sumbit
+	    closeFunction();
 	});
     });
     </script>
