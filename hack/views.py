@@ -211,6 +211,7 @@ def rest_view(request):
         schedule = str(dct.get('schedule'))
         time = dct.get('minTime')
         class_ = Class.objects.filter(cid=cid)
+        print "PHONE NUMER {}".format(phone)
         R = Request(phone=phone, schedule=schedule, cls=class_[0], user=current_user, time=time, people=people)
         R.save()
 
