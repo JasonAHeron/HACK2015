@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from hack.forms import UserForm, UserProfileForm
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login
-from .models import Class, Request
+from .models import Class, Request, UserProfile
 from .build_classes import scrape_classes
 from django.contrib.auth.views import logout
 import json
@@ -199,6 +199,14 @@ def rest_view(request):
         R.save()
         #brit, sara querry
         create_schedule(find_requests_class(cid))
+        '''
+    elif action == 'email':
+        print dict['data']
+    elif action == 'password':
+        print dict['data']
+    elif action == 'phoneNumber':
+        print dict['data']
+        '''
 
     if action == 'update':
         requests = Request.objects.filter(user=current_user.id)
