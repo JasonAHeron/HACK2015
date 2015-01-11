@@ -12,7 +12,7 @@
     <title>Study Session Scheduler</title>
 
     <!-- jquery-ui -->
-    <link href="{% static "css/jquery-ui.css" %}" rel="stylesheet">
+    <link href="{% static "css/jquery-ui.css" %}" rel="stylesheet"> 
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
@@ -167,6 +167,14 @@
         }
 }
 </script>
+
+<!-- Schedule Modal -->
+<div id="openModal" class="modalDialog">
+    <div>
+        <button class="close" onclick="closeFunction()">X</button>
+        <div class="intro-lead-in1">Create Study Session</div>
+    </div>
+</div>
 
 
 <!-- Privacy Modal -->
@@ -461,8 +469,10 @@
 	});
 
 	var availableClasses = {{classes|safe}};
+	console.log($("#classSelector"));
 	$("#classSelector").autocomplete({
-	   source: availableClasses
+	   source: availableClasses,
+	   disabled: false
 	});
     });
     </script>
