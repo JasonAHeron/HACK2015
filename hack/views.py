@@ -137,9 +137,9 @@ def index_view(request):
         if len(S) > 0:
             schedule = json.loads(S[0].schedule)
         else:
-            schedule = None
+            schedule = [[],[],[],[],[],[],[]]
     else:
-        schedule = None
+        schedule = [[],[],[],[],[],[],[]]
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
