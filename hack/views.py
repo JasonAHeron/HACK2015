@@ -14,15 +14,15 @@ import json
 from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
 
+
 def index_view(request):
     context = RequestContext(request)
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
-        
         if not user or not user.is_active:
             print "Sorry, that login was invalid. Please try again."
-            return render_to_response('issues.html', {'user_form': request.POST.get('username'), 'password':request.POST.get('password')}, context)
+            return render_to_response('issues.html', {'username': request.POST.get('username'), 'password':request.POST.get('password')}, context)
         else:
             login(request, user)
     if request.POST.get('logout'):
@@ -37,16 +37,18 @@ def index_view(request):
     return render_to_response('index.html', {'classes': solution}, context)
 
 def issues(request):
-    return render_to_response('register.html', context)
+    return render_to_response('index.html', context)
 
 def test(request):
 	return render_to_response('base.html', {'test': 1})
 
 @twilio_view
 def sms(request):
-
-	twiml = '<Response><Message>Hey Study Student!</Message></Response>'
-	return HttpResponse(twiml, content_type='text/xml')
+    name = request.POST.get('Body', '')
+    msg = 'Hey %s, how are you today?' % (name)
+    r = Response()
+    r.message(name)
+    return r
 
 def rest_view(request):
 	current_user = request.user
@@ -67,6 +69,7 @@ def rest_view(request):
 			dict['name'] = request.cls.cid
 			sol.append(dict)
 		content = json.dumps(sol)
+		#content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
 	else:
 		content = '';
 	response = HttpResponse(content_type = 'text/json')

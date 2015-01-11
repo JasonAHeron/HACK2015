@@ -3,25 +3,90 @@
 <html>
     <head>
         <title>Registration</title>
-        <!-- Bootstrap Core CSS -->
-        <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <!-- Custom CSS -->
-        <link href="{% static "css/registration.css" %}" rel="stylesheet">
+    <title>Study Session Scheduler</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 
-        <!-- Bootstrap Core JavaScript 
-        <script src="{% static "js/bootstrap.min.js" %}"></script>
-        <script src="{% static "js/bootstrap.js" %}"></script> 
+    <!-- Custom CSS -->
+    <link href="{% static "css/agency.css" %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static "font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link href="{% static "css/registration.css" %}" rel="stylesheet">
+
+    <style>
+    p {
+    border: 5px solid red;
+    border-radius: 25px;
+    }
+    </style>
     </head>
 
-    <body>
+    <body id="page-top" class="index">
+
+        <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">UCSC Study Group Scheduler</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+            {% if user.is_authenticated %}
+                    <li>
+                        <a class="page-scroll" href="#sessions">My Study Sessions</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#schedule">My Schedule</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#settings">Account Settings</a>
+
+            <form method="post">
+            {% csrf_token %}
+                 <div class="form-group">
+                     <button type="submit" name="logout" id="logout" value=1 class="logout btn-x2">Logout</button>
+                </div>
+            </form>
+                    </li>
+            {% else %}
+            <li>
+               <a href="/">GO BACK</a>
+            </li>
+            {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
 
         {% if registered %}
         <strong>thank you for registering!</strong>
         <a href="/">Return to the homepage.</a><br />
         {% else %}
 
-         <!-- Registration JavaScript -->
+
+
+         <!-- Registration JavaScript 
         <script src="{% static "js/registration.js" %}"></script>
 
 <div class="row">
@@ -35,7 +100,7 @@
                  (<p>) element. This ensures each element appears on a new line,
                  making everything look neater. -->
 
-            <div class="container">
+            <div class="container" style="padding-top: 6em;">
 
             <h2>Please Sign Up</h2>
             <div class="row">
@@ -78,16 +143,60 @@
                </div>
             </div>
             
-            <hr class="colorgraph">
+            <div class="col-xs-8"> 
+                <hr class="colorgraph">
+            </div>
             <div class="row">
                 <div class="col-xs-8"><input type="submit" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
             </div>
         </form>
     </div>
 </div>
-            <!-- Provide a button to click to submit the form. -->
-            <input type="submit" name="submit" value="Register" />
         </form>
         {% endif %}
+
+        <!-- Privacy Modal -->
+<div id="openPrivacyPolicyModal" class="modalDialog">
+    <div>
+        <a href="#close" title="Close" class="close">X</a>
+        <div class="intro-lead-in1">Privacy Policy</div>
+    <div class="termsOfUseTexts">
+        <p>
+           Phone numbers and emails will not be shared with anyone. 
+       </p> 
+    </div>
+    </div>
+</div>
+
+<!-- Terms Modal -->
+<div id="openTermsOfUseModal" class="modalDialog">
+    <div>
+        <a href="#close" title="Close" class="close">X</a>
+        <div class="intro-lead-in1">Terms of Use</div>
+    <div class="termsOfUseTexts">
+        <p>Interactions between students should reflect a growth mindset.  A growth (or incremental) mindset reflects one's beliefs about intelligence or ability and how it develops.  A growth mindset reflects an emphasis on effort and task relevant behaviors such as practice and other cognitive efforts as the catalyst for intelligence and ability.  The growth mindset is aligned with the notion of brain plasticity.  That is, the capacity of the brain to reorganize itself via neural pathways and synapses through efforts and action with respect to given tasks.  Hence by engaging in certain actions we can enhance the brain's capabilities. </p>    
+    </div>
+    </div>
+</div>
+            <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <span class="copyright">Copyright &copy; Study Scheduler 2014</span>
+                </div>
+                <div class="col-xs-6">
+                    <ul class="list-inline quicklinks">
+                        <li>
+               <a href="#openPrivacyPolicyModal">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="#openTermsOfUseModal">Terms of Use</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
     </body>
 </html>
