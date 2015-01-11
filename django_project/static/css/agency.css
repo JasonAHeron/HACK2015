@@ -1057,4 +1057,14 @@ button.edit {
     //padding: 5px 5px 5px 5px;
     vertical-align:center;
 }
+.scheduledSessionTable{
+    color: #777;
+    border-color: #fed136;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 15px;
+    padding: 10px 10px 10px 10px;
+    vertical-align:middle;
+
+}
 

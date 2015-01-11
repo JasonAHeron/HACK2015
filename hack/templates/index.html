@@ -123,6 +123,11 @@
         <input type="radio" name ="recurrence" value="once" checked>&nbsp;One Time
         <input type="radio" name ="recurrence" value="weekly">&nbsp;Once a Week (recurring)
         <br><br>
+        What Gender Do You Prefer to Study With?<br>
+        <input type="radio" name ="gender" value="men" checked>&nbsp;Men
+        <input type="radio" name ="gender" value="women">&nbsp;Women
+        <input type="radio" name="gender" value="both">&nbsp;Both Men and Women
+        <br><br>
     </div>
         <input type="button" class="submitButton" onclick="alert('Your Study Session Has Been Submitted!')" value="Create My Study Session">
     </div>
@@ -159,24 +164,42 @@
                     <h3 class="service-heading">&nbsp;&nbsp;&nbsp;&nbsp;Scheduled Sessions</h3>
 
 		    <ul class="scheduledSess">
-                    <div class="text-mutedSession">CMPS 130</div>
-                   <!-- <table style="width:100%">
+                    <div class="scheduledSessionTable">
+                        <table style="width:100%">
                         <tr>
-                            <td id="classScheduled1">
-
+                            <td id="classScheduledName">
+                                Class 
                             </td>
-                            <td id="classScheduled1">
-
+                            <td id="classScheduledTime">
+                                Time
                             </td>
-                            <td id="classScheduled1">
-
+                            <td id="classScheduledLoc">
+                                Location
                             </td>
                         </tr>
-                    </table>-->
+                         <tr>
+                            <td id="classScheduled1">
+                                Test1
+                            </td>
+                            <td id="classScheduled1">
+                                Test2
+                            </td>
+                            <td id="classScheduled1">
+                                Test3
+                            </td>
+                            <td id="classScheduledDelete">
+                                <input type="button" class="edit leaveGroupBtn" onclick="alert('You are leaving this study group.')" value="Can't Make Session&#x00AThis Week">
+                            </td>
+                            <td>
+                                <input type="button" class=" edit deleteGroupBtn" onclick="alert('You are deleting this study group')" value="Remove Session&#x00APermanently">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 	            </ul>
-        		    <ul class="scheduledSess">
+        		  <!--  <ul class="scheduledSess">
                             <li class="text-mutedSession">CMPS 130</li>
-        	        </ul>
+        	        </ul>-->
 
                 </div>
             </div>
@@ -190,7 +213,7 @@
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">My Schedule</h2>
 
-                    <button type="button" class="importCal">Import Google Calendar</button>
+                    <button type="button" class="button1 importCal">Import Google Calendar</button>
                     <br>
                     <br>
                     <div class="calendar">Click and drag to select times you are busy, which will be indicated by the color red.
@@ -198,7 +221,7 @@
                     <br>
                     <br>
 
-                    <button type="button" class="button1 importCal">Import Google Calendar</button>
+                    <!--<button type="button" class="button1 importCal">Import Google Calendar</button>-->
 
                     <div class="schedule"></div>
                 </div>
@@ -318,6 +341,7 @@
     <script>
     $(document).ready(function() {
 	scheduleInit();
+    scheduledSessions();
         console.log("document ready\n");
 	$("button.edit").click(function() {
 	   // if the option is disabled
