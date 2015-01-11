@@ -323,7 +323,7 @@
                     <br>
                     <br>
                     <div class="schedule"></div>
-                    <button type="button" class="button1" id="#buttonSubmitSchedule">Update Schedule</button>
+                    <button type="button" class="button1" id="buttonSubmitSchedule">Update Schedule</button>
                 </div>
             </div>
         </div>
@@ -507,12 +507,9 @@
       $("button.moveToSchedule").click(function() {
         closeFunction();
         window.location.href = '#openScheduleModal';
+        var data = scheduleGetData( document.getElementById( 'schedule' ).getElementsByClassName( 'schedule' ).item() );
+				scheduleSetData( document.getElementById( 'openScheduleModal' ).getElementsByClassName( 'schedule' ).item(), data );
       });
-      
-      $("#openScheduleModal").on( 'shown.bs.modal', function() {
-        var data = scheduleGetData( document.getElementById( 'schedule' ).getElementsByClassName( 'schedule' ).item() )
-        console.log( data );
-      } );
       
       $("button.submitRequest").click(function() {
         var dict = {};
@@ -546,35 +543,17 @@
         closeFunction();
       });
       
-      $("#buttonSubmitSchedule").click(function() {
-        var dict = {};
-        var schedule = scheduleGetData( document.getElementById( 'openScheduleModal' ).getElementsByClassName( 'schedule' ).item() );
-        var date = new Date();
-        date.setHours( 0, 0, 0, 0 );
-        while ( date.getDay() > 0 ) date.setDate( date.getDate() - 1 )
-        dict = {};
-        for ( i = 0; i < 7; ++i ) {
-          dict[ date.getTime() ] = schedule[ i ];
-          date.setDate( date.getDate() + 1 );
-        }
-        dict = {'schedule': dict};
-        dict['class'] = $('#classSelector').val();
-        dict['minTime'] = $('input[name=time]:checked', '#classForm').val();
-        dict['minUsers'] = $('input[name=people]:checked', '#classForm').val();
-        dict['location'] = ( $('input[name=location-library]', '#classForm').prop( 'checked' ) ? 1 : 0 ) +
-          ( $('input[name=location-oncampus]', '#classForm').prop( 'checked' ) ? 2 : 0 ) +
-          ( $('input[name=location-offcampus]', '#classForm').prop( 'checked' ) ? 4 : 0 );
-        var str = escape( JSON.stringify( dict ) );
-        console.log( JSON.stringify( dict ) );
+      $("button#buttonSubmitSchedule").click(function() {
+        var schedule = scheduleGetData( document.getElementById( 'schedule' ).getElementsByClassName( 'schedule' ).item() );
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
           if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
-            updateSessions();
+            alert( "Youre schedule has been saved!" );
           }
         }
         xmlhttp.open( 'POST', 'rest', true );
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded")
-        xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=create&data=' + str );
+        xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=schedule&data=' + JSON.stringify( schedule ) );
         closeFunction();
       });
     });
