@@ -105,7 +105,8 @@
 <!-- MODALS -->
 
     <!-- Class Scheduler Modal -->
-<form id="classForm">
+<form id="classForm" method="post">
+{% csrf_token %}
 <div id="openModal" class="modalDialog">
     <div>
         <!--<p title="Close" class="close" onclick="closeFunction()">X</p>
@@ -152,7 +153,7 @@
         <input type="radio" name="gender" value="both">&nbsp;Both Men and Women
         <br><br>
     </div>
-        <input type="button" class="submitButton" onclick="alert('Your Study Session Has Been Submitted!')" value="Create My Study Session">
+        <button type="submit" class="submitButton" name="new_sesh" value="1">
     </div>
 
 </div>
