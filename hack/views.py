@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from hack.forms import UserForm, UserProfileForm
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login
-from .models import Class, Request, UserProfile
+from .models import Class, Request, UserProfile, Schedule
 from .build_classes import scrape_classes
 from django.contrib.auth.views import logout
 import json
@@ -136,7 +136,15 @@ def create_schedule(list_of_users):
 
 def index_view(request):
     context = RequestContext(request)
-    #send_message()
+    current_user = request.user
+    if current_user.is_active:
+        S = Schedule.objects.filter(user=current_user)
+        if len(S) > 0:
+            schedule = json.loads(S[0].schedule)
+        else:
+            schedule = [[],[],[],[],[],[],[]]
+    else:
+        schedule = [[],[],[],[],[],[],[]]
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
@@ -153,7 +161,7 @@ def index_view(request):
     solution = []
     for c_object in Class.objects.all():
         solution.append("{}".format(c_object.cid))
-    return render_to_response('index.html', {'classes': solution}, context)
+    return render_to_response('index.html', {'classes': solution, 'schedule': schedule}, context)
 
 def issues(request):
     return render_to_response('index.html', context)
@@ -204,7 +212,14 @@ def rest_view(request):
         R.save()
 
         #brit, sara querry
-        create_schedule(find_requests_class(cid))
+        #create_schedule(find_requests_class(cid))
+
+    if action == 'schedule':
+        dct = json.loads(dict.get('data'))
+        if Schedule.objects.filter(user=current_user).exists():
+            Schedule.objects.filter(user=current_user).delete()
+        S = Schedule(user=current_user, schedule=dct).save()
+
         '''
     elif action == 'email':
         print dict['data']
@@ -311,9 +326,9 @@ def register(request):
     #return r
 
 def send_email(sendtoemail, firstname):
-    subject = 'Welcome Banana Slug to Team SexyMagic Study time!'
+    subject = 'Welcome Banana Slug to Your UCSC Study Group Scheduler!'
     from_email = 'learnallthethings1@gmail.com'
-    html_content = render_to_string('index.html', {'varname':'value', 'first_name':firstname})
+   # html_content = render_to_string('index.html', {'varname':'value', 'first_name':firstname})
     text_content = strip_tags(html_content) 
     msg = EmailMultiAlternatives(subject, text_content, from_email, [sendtoemail])
     msg.attach_alternative(html_content, "text/html")

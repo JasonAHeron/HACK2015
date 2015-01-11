@@ -15,6 +15,10 @@ class UserProfile(models.Model):
 class Class(models.Model):
 	cid = models.CharField(max_length=50, default="Empty Class")
 
+class Schedule(models.Model):
+    user = models.ForeignKey(User)
+    schedule = models.CharField(max_length= 999)
+
 class Request(models.Model):
     cls = models.ForeignKey(Class)
     user = models.ForeignKey(User)
@@ -33,7 +37,6 @@ class Request(models.Model):
         #dct['phone'] = UserProfile.objects.filter(user=self.user).phone
         #print dct['phone']
         return overall
-
 
 class Session(models.Model):
 	length = models.IntegerField(default=0)

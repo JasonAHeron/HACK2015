@@ -74,7 +74,7 @@ function onScheduleDragEnd( e ) {
 	}
 	for ( i = from; i <= to; ++i )
 		schedule_table.childNodes[ i + 1 ].childNodes[ schedule_drag_col + 1 ].highlighted = highlight;
-	scheduleColorCells( from, to, false );
+	scheduleColorCells( from, to, schedule_drag_col, false );
 	event.preventDefault();
 }
 
@@ -83,23 +83,23 @@ function onScheduleDragOver( e ) {
 	var m = e.target.row;
 	if ( m == schedule_drag_row_to ) return false;
 	if ( schedule_drag_row_to < schedule_drag_row && m > schedule_drag_row ) {
-		scheduleColorCells( schedule_drag_row_to, schedule_drag_row - 1, false );
+		scheduleColorCells( schedule_drag_row_to, schedule_drag_row - 1, schedule_drag_col, false );
 		schedule_drag_row_to = schedule_drag_row;
 	} else if ( schedule_drag_row_to > schedule_drag_row && m < schedule_drag_row ) {
-		scheduleColorCells( schedule_drag_row + 1, schedule_drag_row_to, false );
+		scheduleColorCells( schedule_drag_row + 1, schedule_drag_row_to, schedule_drag_col, false );
 		schedule_drag_row_to = schedule_drag_row;
 	}
 	if ( m > schedule_drag_row_to ) {
 		if ( schedule_drag_row_to >= schedule_drag_row )
-			scheduleColorCells( schedule_drag_row_to + 1, m, true );
+			scheduleColorCells( schedule_drag_row_to + 1, m, schedule_drag_col, true );
 		else
-			scheduleColorCells( schedule_drag_row_to, m - 1, false );
+			scheduleColorCells( schedule_drag_row_to, m - 1, schedule_drag_col, false );
 		schedule_drag_row_to = m;
 	} else if ( m < schedule_drag_row_to ) {
 		if ( schedule_drag_row_to <= schedule_drag_row )
-			scheduleColorCells( m, schedule_drag_row_to - 1, true );
+			scheduleColorCells( m, schedule_drag_row_to - 1, schedule_drag_col, true );
 		else
-			scheduleColorCells( m + 1, schedule_drag_row_to, false );
+			scheduleColorCells( m + 1, schedule_drag_row_to, schedule_drag_col, false );
 		schedule_drag_row_to = m;
 	}
 	return false;
@@ -113,15 +113,14 @@ function onScheduleMouseUp( e ) {
 	}
 }
 
-function scheduleColorCells( from, to, select ) {
+function scheduleColorCells( from, to, col, select ) {
 	for ( ; from <= to; ++from ) {
-		var cell = schedule_table.childNodes[ from + 1 ].childNodes[ schedule_drag_col + 1 ];
+		var cell = schedule_table.childNodes[ from + 1 ].childNodes[ col + 1 ];
 		if ( select ) cell.setAttribute( "class", "selected" )
 		else if ( cell.highlighted ) cell.setAttribute( "class", "highlighted" )
 		else cell.removeAttribute( "class" )
 	}
 };
-
 
 function scheduleGetData(	schedule ) {
 	schedule = schedule.childNodes[ 0 ];
@@ -143,30 +142,19 @@ function scheduleGetData(	schedule ) {
 		list.push( periods );
 	}
 	return list;
-	/*
-	var date = new Date();
-	date.setHours( 0, 0, 0, 0 );
-	while ( date.getDay() > 0 )
-		date.setDate( date.getDate() - 1 )
-	dict = {};
-	for ( i = 0; i < 7; ++i ) {
-		var on = false;
-		var periods = [];
-		for ( j = 0; j < 48; ++j ) {
-			var highlighted = schedule.childNodes[ j + 1 ].childNodes[ i + 1 ].highlighted
-			if ( highlighted && !on ) {
-				on = true;
-				periods.push( j );
-			} else if ( !highlighted && on ) {
-				on = false;
-				periods.push( j );
-			}
-		}
-		if ( on ) periods.push( 47 );
-		dict[ date.getTime() ] = periods;
-		date.setDate( date.getDate() + 1 );
-	}
-	return dict;
-	*/
 }
 
+function scheduleSetData( schedule, data ) {
+	var old_table = schedule_table;
+	schedule_table = schedule.childNodes[ 0 ]
+	console.log( data );
+	for ( i = 0; i < 7; ++i ) {
+		var rangeList = data[ i ];
+		for ( k = 0; k < 48; ++k ) schedule_table.childNodes[ k + 1 ].childNodes[ i + 1 ].highlighted = false;
+		for ( j = 0; j < rangeList.length; j += 2 )
+			for ( k = rangeList[ j ]; k < rangeList[ j + 1 ]; ++k )
+				schedule_table.childNodes[ k + 1 ].childNodes[ i + 1 ].highlighted = true;
+		scheduleColorCells( 0, 47, i, false );
+	}
+	schedule_table = old_table;
+}
