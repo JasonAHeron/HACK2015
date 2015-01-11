@@ -123,7 +123,26 @@ function scheduleColorCells( from, to, select ) {
 };
 
 function scheduleGetData(	schedule ) {
-	schedule = schedule.childNodes[ 0 ]
+	schedule = schedule.childNodes[ 0 ];
+	var list = [];
+	for ( i = 0; i < 7; ++i ) {
+		var on = false;
+		var periods = [];
+		for ( j = 0; j < 48; ++j ) {
+			var highlighted = schedule.childNodes[ j + 1 ].childNodes[ i + 1 ].highlighted
+			if ( highlighted && !on ) {
+				on = true;
+				periods.push( j );
+			} else if ( !highlighted && on ) {
+				on = false;
+				periods.push( j );
+			}
+		}
+		if ( on ) periods.push( 47 );
+		list.push( periods );
+	}
+	return list;
+	/*
 	var date = new Date();
 	date.setHours( 0, 0, 0, 0 );
 	while ( date.getDay() > 0 )
@@ -147,4 +166,5 @@ function scheduleGetData(	schedule ) {
 		date.setDate( date.getDate() + 1 );
 	}
 	return dict;
+	*/
 }
