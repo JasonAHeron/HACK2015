@@ -86,18 +86,22 @@ def create_schedule(list_of_users):
     for i in range(7):
         newguy_days_of_week[i] = []
     # guy needs to meet his own needs
-    new_d = 0
+    new_d = -1
     #day is a list itself
     for day in new_guy_schedule:
+        new_d += 1
         newguy_avail_list = new_guy_schedule[day]
         if (len(newguy_days_of_week) > new_d):
             print "DAY !!!!!"
             print day
-            new_d += 1
             while(len(newguy_avail_list) >= newguy_itor+2):
                 print "IN WHILE LOOP"
                 if(newguy_avail_list[newguy_itor+1] - newguy_avail_list[newguy_itor] >= newguy_min_time):
                     print "IN IF STMT"
+                    print "LEN IS"
+                    print len(newguy_days_of_week)
+                    print "new_d is"
+                    print new_d
                     if (len(newguy_days_of_week)-1 >= new_d):
                         #print newguy_days_of_week[new_d]
                         print "test"
@@ -110,12 +114,12 @@ def create_schedule(list_of_users):
 
     print "OUT OF LOOP"
     print newguy_days_of_week
-    curr_day = 0
+    curr_day = -1
     for old_guy_day in days_of_week:
+        curr_day += 1
         #look through all the avail times of newguy
         print "NEW GUY TIMES FOR CURR DAY"
         print newguy_days_of_week[curr_day]
-        curr_day += 1
         if (len(newguy_days_of_week) > curr_day):
            for newg_start_time in newguy_days_of_week[curr_day]:
                #if that index in the old_guy_day is not empty
@@ -129,51 +133,6 @@ def create_schedule(list_of_users):
                    print "HERE ARE THE FRIENDS:"
                    print old_guy_day[newg_start_time]
     print "END OF FUNCITON"
-       
-'''
-    print("PRINTING")
-    #FOR EVERY day of the week for the old people
-    for day_list in days_of_week:
-        #in each day, there is an array. lets iterate through each time.
-        # 7 time loop 
-        #day = day_list[d]
-        #d += 1
-        #lets look at each day individually
-        for i in range(0,len(day_list)-1):
-            #if something was scheduled that hour
-            if (day_list[i] is not ""):
-                #100 or something
-                size = len(day_list[i].split(","))
-                if(i in newguy_avail_list and size >= newguy_people):
-                    print day_list[i]
-                    print "for start time: " +  str(i)
-
-    #want to find a group of people that works
-    #get a listing of all the users with a valid starttime for every start time
-    #for key, value in enumerate(d[1:]):
-
-   
-    #now find which people in the string match the user's needs
-    #make sure to check the needs of all of these users before returning
-    potential_start = 0
-    for starttimes in strings:
-        candidates = starttimes.split(",")
-        if(len(candidates)>=newguy_people):
-            #check every candidate to see if they have this minimum
-            for person in candidates:
-                #use the index or mapping to do a lookup on their min # of people
-                # if (blahblahblah)
-                nothing = "sdf"
-            #I will add them until I can do the lookup
-            print "SOLUTION:" + strings[potential_start] #adding a 1 becuase index starts at 0
-    print "CONTENTS"
-    for item in strings:
-        print item
-   '''
-
-
-
-
 
 def index_view(request):
     context = RequestContext(request)
