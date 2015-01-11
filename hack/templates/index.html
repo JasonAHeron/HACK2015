@@ -58,7 +58,7 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
-		    {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
                     <li>
                         <a class="page-scroll" href="#sessions">My Study Sessions</a>
                     </li>
@@ -72,16 +72,16 @@
            <form method="post">
             {% csrf_token %}
                  <div class="form-group">
-			         <button type="submit" name="logout" id="logout" value=1 class="logout btn-x3">Logout</button>
+                  <button type="submit" name="logout" id="logout" value=1 class="logout btn-x3">Logout</button>
                 </div>
                
             </form>
                     </li>
-		    {% else %}
-		    <li>
-		       <a class="page-scroll" href="#about">About this Site</a>
-		    </li>
-		    {% endif %}
+        {% else %}
+        <li>
+           <a class="page-scroll" href="#about">About this Site</a>
+        </li>
+        {% endif %}
                 </ul>
             </div>
         </div>
@@ -92,14 +92,14 @@
         <div class="container">
             <div class="intro-text">
                 <div class="intro-lead-in">Welcome to the Study Session Manager!</div>
-		<div class="intro-heading">Are you ready to study?</div>
-		{% if user.is_authenticated %}
+    <div class="intro-heading">Are you ready to study?</div>
+    {% if user.is_authenticated %}
                 <a href="#openModal" class="btn-x2">Create a new study session</a>
-		{% else %}
-		<a href="/register/" class="btn-x2">Register</a>
-		 OR 
+    {% else %}
+    <a href="/register/" class="btn-x2">Register</a>
+     OR 
                 <button type="button" class="btn-x2" data-toggle="modal" data-target="#login_modal">Login</button>
-		{% endif %}
+    {% endif %}
             </div>
         </div>
     </header>
@@ -116,9 +116,10 @@
         <button class="close" onclick="closeFunction()">X</button>
         <div class="intro-lead-in1">Create Study Session</div>
         <div class="createSessionText">
-	<div class="ui-widget">
+  <div class="ui-widget">
             <label for="classSelector">Select a Class: </label>
-            <input id="classSelector" name="class" value="0" class="ui-autocomplete-input" autocomplete="off">
+            <input id="classSelector" name="class" value="" class="ui-autocomplete-input" autocomplete="off">
+
         </div>
         Minimum Time for a Study Session (Please Select One):<br>
         <input type="radio" name ="time" value=".5">&nbsp;.5 hr&nbsp;
@@ -167,12 +168,14 @@
 
 <!-- Schedule Modal -->
 <div id="openScheduleModal" class="modalDialog">
+
     <div>
         <button class="close" onclick="closeFunction()">X</button>
         <div class="intro-lead-in1">Create Study Session</div>
         <div class="schedule" style="height: 350px;"></div><br>
 	<button type="button" class="btn-x4 submitSchedule"> Create New Study Session </button>
     </div>
+
 </div>
 
 
@@ -181,13 +184,14 @@
     <div>
         <a href="#close" title="Close" class="close">X</a>
         <div class="intro-lead-in1">Privacy Policy</div>
-	<div class="privacyPolicyText">
-	    <p>
-	       Phone numbers will not be shared with anyone.  Emails will be shared for study session locations that are on or off campus
+  <div class="privacyPolicyText">
+      <p>
+         Phone numbers will not be shared with anyone.  Emails will be shared for study session locations that are on or off campus
            so that students can establish a meeting location. 
-	   </p>	
-	</div>
+     </p>
+  </div>
     </div>
+  </div>
 </div>
 
 <!-- Terms Modal -->
@@ -195,19 +199,19 @@
     <div>
         <a href="#close" title="Close" class="close">X</a>
         <div class="intro-lead-in1">Terms of Use</div>
-	<div class="termsOfUseText">
-		<p>Interactions between students should reflect a growth mindset.  A growth (or incremental) mindset reflects one's beliefs about intelligence or ability and how it develops.  A growth mindset reflects an emphasis on effort and task relevant behaviors such as practice and other cognitive efforts as the catalyst for intelligence and ability.  The growth mindset is aligned with the notion of brain plasticity.  That is, the capacity of the brain to reorganize itself via neural pathways and synapses through efforts and action with respect to given tasks.  Hence by engaging in certain actions we can enhance the brain's capabilities. Interactions between students should convey high expectations and support for learning.  High expectations and supportive interactions reflect the following.</p>	
-	<p>1. Believing and conveying that one's capabilities are not limited to or bound by one's current level of understanding.</p>
-	<p>2. Giving individuals the time and room to formulate their own thoughts, opinions and responses (e.g., when in study sessions).</p>
-		<p>3. Reframing statements when others are unclear of the meaning.</p>
-		<p>4. Prompting others to develop their ideas through questioning.</p>
-		<p>5. Recognizing the value of others' ideas and adding to them as necessary to enhance understanding of concepts and methods.</p>
-		<p>6. Providing positive and encouraging feedback to show others what you appreciate about how they approached tasks.</p>
-		<p>Student interactions should avoid stereotypes through words and deeds.  This is enhanced by the following.</p>
-		<p>1. Utilizing multiple and diverse role models.  This may involve speakers, individuals contributing to study sessions or group knowledge, and examples of content.</p>
-		<p>2. Avoid bringing up students' group identities (e.g., gender, ethnicity and race) during study sessions especially.</p>
-		<p>3. Treat others as individuals.  Get to know who they are on a personal level.</p>
-		<p>4. Recognize that many students need safe spaces where they can express their vulnerabilities (e.g., not understanding the content, feeling confused) without having to worry about being stereotyped by others.</p>
+  <div class="termsOfUseText">
+    <p>Interactions between students should reflect a growth mindset.  A growth (or incremental) mindset reflects one's beliefs about intelligence or ability and how it develops.  A growth mindset reflects an emphasis on effort and task relevant behaviors such as practice and other cognitive efforts as the catalyst for intelligence and ability.  The growth mindset is aligned with the notion of brain plasticity.  That is, the capacity of the brain to reorganize itself via neural pathways and synapses through efforts and action with respect to given tasks.  Hence by engaging in certain actions we can enhance the brain's capabilities. Interactions between students should convey high expectations and support for learning.  High expectations and supportive interactions reflect the following.</p>  
+  <p>1. Believing and conveying that one's capabilities are not limited to or bound by one's current level of understanding.</p>
+  <p>2. Giving individuals the time and room to formulate their own thoughts, opinions and responses (e.g., when in study sessions).</p>
+    <p>3. Reframing statements when others are unclear of the meaning.</p>
+    <p>4. Prompting others to develop their ideas through questioning.</p>
+    <p>5. Recognizing the value of others' ideas and adding to them as necessary to enhance understanding of concepts and methods.</p>
+    <p>6. Providing positive and encouraging feedback to show others what you appreciate about how they approached tasks.</p>
+    <p>Student interactions should avoid stereotypes through words and deeds.  This is enhanced by the following.</p>
+    <p>1. Utilizing multiple and diverse role models.  This may involve speakers, individuals contributing to study sessions or group knowledge, and examples of content.</p>
+    <p>2. Avoid bringing up students' group identities (e.g., gender, ethnicity and race) during study sessions especially.</p>
+    <p>3. Treat others as individuals.  Get to know who they are on a personal level.</p>
+    <p>4. Recognize that many students need safe spaces where they can express their vulnerabilities (e.g., not understanding the content, feeling confused) without having to worry about being stereotyped by others.</p>
 <p>5. Understand there is power in numbers as when multiple members of one minority or underrepresented group are in a class.  This reduces feelings of being potentially pigeonholed due to one's group membership and stereotyped.</p>
 <p>6. Understand that academic achievements are the result of past efforts and exposures. Understand and convey the growth mindset as described previously in other words.</p>
 <p>7. Make clear as necessary the distinction between current and future ability as indicated bythe growth mindset information.  Future success is not guaranteed because of current success.  Future failures or stumbling blocks are not inevitable because of current failures or stumbling blocks.</p>
@@ -215,7 +219,7 @@
 <p>9. Convey that difficulty with new or unfamiliar topics is to be expected and part of the normal learning curve or process.</p>
 <p>10. Provide positive feedback to fellow students.  This includes the belief that individuals are capable of meeting high performance standards.</p>
 <p>More information about this topic can be found at the following link, http://www.reducingstereotypethreat.org/reduce.html</p>
-	</div>
+  </div>
     </div>
 </div>
 
@@ -281,19 +285,19 @@
             <div class="row text-center">
                 <div class="col-xs-6">
                     <h3 class="service-heading">Pending Sessions</h3>
-        	    <ul class="pendingSess">
+              <ul class="pendingSess">
                         <div data-role="content" id="Div1" class="accordion">
                         <div id="accordion" data-role="collapsible-set"/>
                         </div>
-        	    </ul>
+              </ul>
                 </div>
                 <div class="col-xs-6">
                     <h3 class="service-heading">Scheduled Sessions</h3>
-		    <ul class="scheduledSess">
+        <ul class="scheduledSess">
                         <div data-role="content" id="Div2" class="accordion">
                         <div id="accordion" data-role="collapsible-set"/>
                         </div>
-        	    </ul>
+              </ul>
                 </div>
             </div>
         </div>
@@ -311,8 +315,8 @@
                     <br>You can deselect a time by clicking and dragging on red colored blocks. </div>
                     <br>
                     <br>
-
                     <div class="schedule"></div>
+                    <button type="button" class="button1" id="#buttonSubmitSchedule">Update Schedule</button>
                 </div>
             </div>
         </div>
@@ -326,52 +330,52 @@
                     <h2 class="section-heading">Account Settings</h2>
                 </div>
             </div>
-	    <div class="row">
-	       <table style="width:50%" align="center">
-	           <tr>
-	               <td>Email</td>
-		       <td>
-			       <input type="text" class="accountInfo Email" name="Email" value="{{ user.email }}" disabled><br>
-		       </td> 
-		       <td>
-		            <button type="button" class="edit Email">
-			        <span class="button-text">Edit</span>
-			    </button>
-		       </td>
-		   </tr>
+      <div class="row">
+         <table style="width:50%" align="center">
+             <tr>
+                 <td>Email</td>
+           <td>
+             <input type="text" class="accountInfo Email" name="Email" value="{{ user.email }}" disabled><br>
+           </td> 
+           <td>
+                <button type="button" class="edit Email">
+              <span class="button-text">Edit</span>
+          </button>
+           </td>
+       </tr>
                    <tr>
-		       <td>Password</td>
-   		       <td>
-	    	           <input type="text" class="accountInfo Password" name="Password" hint="******" disabled><br>
-    		       </td> 
-		       <td>
-		           <button type="button" class="edit Password">
-		               <span class="button-text">Edit</span>
-			   </button>
-    		       </td>
-  		   </tr>
-  		   <tr>
-    		       <td>Phone Number</td>
-    		       <td>
-		           <input type="text" class="accountInfo PhoneNumber" name="Phone Number" value="{{ user.phone }}" disabled><br>
-		       </td> 
-		       <td>
-		           <button type="button" class="edit PhoneNumber">
-		               <span class="button-text">Edit</span>
-			   </button>
-    		       </td>
-  		   </tr>
-  		   <tr>
-	  	       <td>Notification Settings</td>
-	  	       <td>
-		          <input type="checkbox" class="accountInfo Notification emailNotify" value="email" checked disabled>Notify me by email<br>
-		          <input type="checkbox" class="accountInfo Notification textNotify" value="phone" disabled>Notify me by text<br>
+           <td>Password</td>
+              <td>
+                   <input type="text" class="accountInfo Password" name="Password" hint="******" disabled><br>
+               </td> 
+           <td>
+               <button type="button" class="edit Password">
+                   <span class="button-text">Edit</span>
+         </button>
+               </td>
+         </tr>
+         <tr>
+               <td>Phone Number</td>
+               <td>
+               <input type="text" class="accountInfo PhoneNumber" name="Phone Number" value="{{ user.phone }}" disabled><br>
+           </td> 
+           <td>
+               <button type="button" class="edit PhoneNumber">
+                   <span class="button-text">Edit</span>
+         </button>
+               </td>
+         </tr>
+         <tr>
+             <td>Notification Settings</td>
+             <td>
+              <input type="checkbox" class="accountInfo Notification emailNotify" value="email" checked disabled>Notify me by email<br>
+              <input type="checkbox" class="accountInfo Notification textNotify" value="phone" disabled>Notify me by text<br>
                       </td>
-		      <td>
-		          <button type="button" class="edit Notification">
-		              <span class="button-text">Edit</span>
-			  </button>
-    		      </td>
+          <td>
+              <button type="button" class="edit Notification">
+                  <span class="button-text">Edit</span>
+        </button>
+              </td>
                   <tr>
                 </table>
             </div>
@@ -383,16 +387,16 @@
     <!-- About Section -->
     <section id="about">
         <div class="container">
-	    <div class="row">
-		    <div class="col-lg-12 text-center">
-			    <h2 class="section-heading">About This Site</h2>
-	            </div>
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">About This Site</h2>
+              </div>
              </div>
-	     <div class="row text-center">
-		     <p> This website was made by team Sexy Magic whose members are Brittany Arthur, Jeremy Criquet, Jason Heron, Sofia Herrero, Remington Maxwell, and Sara Woods. Study Scheduler is designed to find study session times for you and other students in your class. It tries to find times that allow for an adequate amount of study time with the ability to reserve rooms
+       <div class="row text-center">
+         <p> This website was made by team Sexy Magic whose members are Brittany Arthur, Jeremy Criquet, Jason Heron, Sofia Herrero, Remington Maxwell, and Sara Woods. Study Scheduler is designed to find study session times for you and other students in your class. It tries to find times that allow for an adequate amount of study time with the ability to reserve rooms
              in the library or form study groups at on and off campus locations. </p>
-	     </div>
-	</div>
+       </div>
+  </div>
     </section>
 
     {% endif %}
@@ -407,7 +411,7 @@
                 <div class="col-xs-6">
                     <ul class="list-inline quicklinks">
                         <li>
-			   <a href="#openPrivacyPolicyModal">Privacy Policy</a>
+         <a href="#openPrivacyPolicyModal">Privacy Policy</a>
                         </li>
                         <li>
                             <a href="#openTermsOfUseModal">Terms of Use</a>
@@ -444,97 +448,121 @@
 
     <script>
     $(document).ready(function() {
-			scheduleInit();
-    //scheduledSessions();
-    //var elem=document.getElementById("pageLogout")
-    //elem.style.color=yellow;
-    
-        console.log("document ready\n");
-	$("button.edit").click(function() {
-	   // if the option is disabled
-	   if (!$(this).hasClass("Save")){
-	       // enable the input
-	       $(this).parent().closest('td').prev().children('input').prop('disabled', false);
-	       // change the text of the button to Save
-	       $(this).children("span").text("Save");
-	   // if the option is enabled
-	   } else {
-	       // add code to update database
-	       var inputSection = $(this).parent().closest('td').prev().children('input');
-	       console.log(inputSection);
-	       if ($(inputSection).is("input:text")){
-	          console.log("text has been saved");
-		  var newValue = $(inputSection).val();
-		  console.log(newValue);
-		  var action;
-		  if ($(inputSection).hasClass("Email")){
-		     action = "email";
-		     // save email
+      scheduleInit();
+      console.log("document ready\n");
+      $("button.edit").click(function() {
+         // if the option is disabled
+         if (!$(this).hasClass("Save")){
+             // enable the input
+             $(this).parent().closest('td').prev().children('input').prop('disabled', false);
+             // change the text of the button to Save
+             $(this).children("span").text("Save");
+         // if the option is enabled
+         } else {
+             // add code to update database
+             var inputSection = $(this).parent().closest('td').prev().children('input');
+             console.log(inputSection);
+             if ($(inputSection).is("input:text")){
+                console.log("text has been saved");
+          var newValue = $(inputSection).val();
+          console.log(newValue);
+          if ($(inputSection).hasClass("Email")){
+             // save email
+          } else if ($(inputSection).hasClass("Password")){
+             // save password
+          } else {
+             // save phone number
+          }
+             } else {
+                console.log("checkboxes have been saved");
+          //if ($(inputSection.hasClass
+             }
+             // disable the input
+             $(inputSection).prop('disabled', true);
+             // change the text of the button to Edit
+             $(this).children("span").text("Edit");
+         }
+         $(this).toggleClass("Save");
+      });
 
-		  } else if ($(inputSection).hasClass("Password")){
-		     // save password
-		     action="password"
-		     newValue = newValue; //encrypt!!!
-		  } else {
-		     // save phone number
-		     action="phoneNumber"
-		  }
-		  var xmlhttp = new XMLHttpRequest();
-		  xmlhttp.onreadystatechange = function() {
-		     if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
-		        alert("Your new account setting has been saved!");
-		     }
-		  }
-		  xmlhttp.open( 'POST', 'rest', true );
-		  xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=' +action + '&data=' + newValue );
-	       } else {
-	          console.log("checkboxes have been saved");
-	       }
-	       // disable the input
-	       $(inputSection).prop('disabled', true);
-	       // change the text of the button to Edit
-	       $(this).children("span").text("Edit");
-	   }
-	   $(this).toggleClass("Save");
-	});
+      var availableClasses = {{classes|safe}};
+      console.log($("#classSelector"));
+      $("#classSelector").autocomplete({
+         source: availableClasses,
+         disabled: false
+      });
 
-	var availableClasses = {{classes|safe}};
-	console.log($("#classSelector"));
-	$("#classSelector").autocomplete({
-	   source: availableClasses,
-	   disabled: false
-	});
-
-	$("button.moveToSchedule").click(function() {
-	   console.log( $("#classSelector").prop("value"));
-           closeFunction();
-           window.location.href = '#openScheduleModal';
-	});
-
-	$("button.submitSchedule").click(function() {
-		var dict = {};
-		dict['schedule'] = scheduleGetData( document.getElementById( 'openScheduleModal' ).getElementsByClassName( 'schedule' ).item() );
-		dict['class'] = $('#classSelector').val();
-		dict['minTime'] = $('input[name=time]:checked', '#classForm').val();
-		dict['minUsers'] = $('input[name=people]:checked', '#classForm').val();
-		dict['location'] = ( $('input[name=location-library]', '#classForm').prop( 'checked' ) ? 1 : 0 ) +
-			( $('input[name=location-oncampus]', '#classForm').prop( 'checked' ) ? 2 : 0 ) +
-			( $('input[name=location-offcampus]', '#classForm').prop( 'checked' ) ? 4 : 0 );
-		var str = escape( JSON.stringify( dict ) );
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
-				updateSessions();
-			}
-		}
-		xmlhttp.open( 'POST', 'rest', true );
-		//xmlhttp.responseType = 'json'
+      $("button.moveToSchedule").click(function() {
+         console.log( $("#classSelector").prop("value"));
+               closeFunction();
+               window.location.href = '#openScheduleModal';
+      });
+      
+      $("button.submitRequest").click(function() {
+        var dict = {};
+        var schedule = scheduleGetData( document.getElementById( 'openScheduleModal' ).getElementsByClassName( 'schedule' ).item() );
+        var date = new Date();
+        date.setHours( 0, 0, 0, 0 );
+        while ( date.getDay() > 0 ) date.setDate( date.getDate() - 1 )
+        dict = {};
+        for ( i = 0; i < 7; ++i ) {
+          dict[ date.getTime() ] = schedule[ i ];
+          date.setDate( date.getDate() + 1 );
+        }
+        dict = {'schedule': dict};
+        dict['class'] = $('#classSelector').val();
+        dict['minTime'] = $('input[name=time]:checked', '#classForm').val();
+        dict['minUsers'] = $('input[name=people]:checked', '#classForm').val();
+        dict['location'] = ( $('input[name=location-library]', '#classForm').prop( 'checked' ) ? 1 : 0 ) +
+          ( $('input[name=location-oncampus]', '#classForm').prop( 'checked' ) ? 2 : 0 ) +
+          ( $('input[name=location-offcampus]', '#classForm').prop( 'checked' ) ? 4 : 0 );
+        var str = escape( JSON.stringify( dict ) );
+        console.log( JSON.stringify( dict ) );
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+            updateSessions();
+          }
+        }
+        xmlhttp.open( 'POST', 'rest', true );
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded")
-		xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=create&data=' + str );
-    closeFunction();
-	});
+        xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=create&data=' + str );
+        closeFunction();
+      });
+      
+      $("#buttonSubmitSchedule").click(function() {
+        var dict = {};
+        var schedule = scheduleGetData( document.getElementById( 'openScheduleModal' ).getElementsByClassName( 'schedule' ).item() );
+        var date = new Date();
+        date.setHours( 0, 0, 0, 0 );
+        while ( date.getDay() > 0 ) date.setDate( date.getDate() - 1 )
+        dict = {};
+        for ( i = 0; i < 7; ++i ) {
+          dict[ date.getTime() ] = schedule[ i ];
+          date.setDate( date.getDate() + 1 );
+        }
+        dict = {'schedule': dict};
+        dict['class'] = $('#classSelector').val();
+        dict['minTime'] = $('input[name=time]:checked', '#classForm').val();
+        dict['minUsers'] = $('input[name=people]:checked', '#classForm').val();
+        dict['location'] = ( $('input[name=location-library]', '#classForm').prop( 'checked' ) ? 1 : 0 ) +
+          ( $('input[name=location-oncampus]', '#classForm').prop( 'checked' ) ? 2 : 0 ) +
+          ( $('input[name=location-offcampus]', '#classForm').prop( 'checked' ) ? 4 : 0 );
+        var str = escape( JSON.stringify( dict ) );
+        console.log( JSON.stringify( dict ) );
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+            updateSessions();
+          }
+        }
+        xmlhttp.open( 'POST', 'rest', true );
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+        xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=create&data=' + str );
+        closeFunction();
+      });
     });
-    </script>
+  </script>
 
 </body>
 

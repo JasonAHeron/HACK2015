@@ -22,18 +22,116 @@ from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
 from twilio.rest import TwilioRestClient
 
-def index_view(request):
-    #send_message()
-    context = RequestContext(request)
-    current_user = request.user
-    if request.POST.get('approveSchedule'):
-        cid = request.POST.get('class')
-        people = request.POST.get('people')
-        gender = request.POST.get('gender')
-        time = request.POST.get('time')
-        class_ = Class.objects.filter(cid=cid)
-        Request(cls=class_[0], user=current_user, time=time, people=people).save()
+#algorithm
+import ast
+import re
 
+def create_schedule(list_of_users):
+    newguy_avail_list = [5,9,12,14]
+    newguy_people = 2 #db query
+    newguy_locations = [1,2,3]
+    newguy_min_time = 2
+
+    strings = []
+    i = 0
+    index_start = 0
+
+    #get data for the cid. as a list of dictionaries.
+
+    print "GIVEN:"
+    print list_of_users
+    print "OLD USERS:"
+    old_guys = list_of_users[:len(list_of_users)-2]
+    print old_guys
+    print "NEW GUY:"
+    new_guy = list_of_users[len(list_of_users)-1]
+    print new_guy
+
+    #convert string to a dictionary
+    #yoyo_d = ast.literal_eval(yoyo)
+    days_of_week = []
+    for i in range(7):
+        days_of_week.append([])
+    for persons_dictionary in old_guys:
+        
+        persons_availability_dict = persons_dictionary['schedle']
+        d = 0
+        for day in persons_availability_dict:
+
+            avail_times_of_day = days_of_week[d]
+            d += 1
+            for i in range(100 + 1):
+                avail_times_of_day.append("")
+            start = 0
+            time_tuples = persons_availability_dict[day]
+
+            while(len(time_tuples) >= start+2):
+                if(time_tuples[start+1] - time_tuples[start] >= newguy_min_time):
+                    print " diff was using " + str(time_tuples[start+1]) +  ",  " +  str(time_tuples[start])
+                    print persons_dictionary['sername']
+                    #print "START!!!"
+                    #print time_tuples[start]
+                    
+                    #heart of the algorithm
+                    avail_times_of_day[time_tuples[start]] += persons_dictionary['sername'] + ","
+                    print "JUST ADDED!!!"
+                    print avail_times_of_day[time_tuples[start]]
+                start += 2
+
+    newguy_itor = 0
+    newguy_starttimes = []
+    while(len(newguy_avail_list) >= newguy_itor+2):
+        if(newguy_avail_list[newguy_itor+1] - newguy_avail_list[newguy_itor] >= newguy_min_time):
+            newguy_starttimes.append(newguy_avail_list[newguy_itor])
+            print "start time here: " 
+            print newguy_avail_list[newguy_itor]
+        newguy_itor+=2
+
+
+    print("PRINTING")
+    #FOR EVERY day of the week
+    for day_list in days_of_week:
+        #in each day, there is an array. lets iterate through each time.
+        # 7 time loop 
+        #day = day_list[d]
+        #d += 1
+        for i in range(0,len(day_list)-1):
+            #if something was scheduled that hour
+            if (day_list[i] is not ""):
+                #100 or something
+                size = len(day_list[i].split(","))
+                if(i in newguy_avail_list and size >= newguy_people):
+                    print day_list[i]
+                    print "for start time: " +  str(i)
+
+    #want to find a group of people that works
+    #get a listing of all the users with a valid starttime for every start time
+    #for key, value in enumerate(d[1:]):
+
+    #now find which people in the string match the user's needs
+    #make sure to check the needs of all of these users before returning
+    potential_start = 0
+    for starttimes in strings:
+        candidates = starttimes.split(",")
+        if(len(candidates)>=newguy_people):
+            #check every candidate to see if they have this minimum
+            for person in candidates:
+                #use the index or mapping to do a lookup on their min # of people
+                # if (blahblahblah)
+                nothing = "sdf"
+            #I will add them until I can do the lookup
+            print "SOLUTION:" + strings[potential_start] #adding a 1 becuase index starts at 0
+    print "CONTENTS"
+    for item in strings:
+        print item
+    print "END OF FUNCITON"
+
+
+
+
+def index_view(request):
+    context = RequestContext(request)
+    #send_message()
     if request.POST.get('signin'):
         print "THE CONDITION WAS ACCEPTED"
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
@@ -56,7 +154,7 @@ def issues(request):
     return render_to_response('index.html', context)
 
 def test(request):
-	return render_to_response('base.html', {'test': 1})
+    return render_to_response('base.html', {'test': 1})
 
 @twilio_view
 def sms(request):
@@ -88,7 +186,7 @@ def rest_view(request):
         dict = request.POST
     else:
         dict = {}
-	
+    	
     action = dict.get( 'action' ) if 'action' in dict else ''
     if action == 'create':
         dct = json.loads(request.POST.get('data'))
@@ -99,8 +197,8 @@ def rest_view(request):
         class_ = Class.objects.filter(cid=cid)
         R = Request(schedule=schedule, cls=class_[0], user=current_user, time=time, people=people)
         R.save()
-        #brit querry
-        print find_requests_class(cid)
+        #brit, sara querry
+        create_schedule(find_requests_class(cid))
 
     if action == 'update':
         requests = Request.objects.filter(user=current_user.id)
@@ -179,9 +277,9 @@ def register(request):
         # Print problems to the terminal.
         # They'll also be shown to the user.
         else:
-			print "THERE WAS AN ERROR"
-			print user_form.errors, profile_form.errors
-			render_to_response('register.html', context)
+            print "THERE WAS AN ERROR"
+            print user_form.errors, profile_form.errors
+        render_to_response('register.html', context)
 
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
@@ -189,14 +287,14 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    # Render the template depending on the context.
-    return render_to_response(
+        # Render the template depending on the context.
+        return render_to_response(
             'register.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
             context)
-	#r = Response()
-	#r.message('Hello from your Django app!')
-	#return r
+    #r = Response()
+    #r.message('Hello from your Django app!')
+    #return r
 
 def send_email(sendtoemail, firstname):
     subject = 'Welcome Banana Slug to Team SexyMagic Study time!'
@@ -208,7 +306,7 @@ def send_email(sendtoemail, firstname):
     msg.send() #make this on another threading
 
 def build_classes(request):
-	classes = scrape_classes()
-	for class_ in classes:
-		Class(cid=class_).save()
-	return render_to_response('build.html', {'classes': Class.objects.all()})
+    classes = scrape_classes()
+    for class_ in classes:
+        Class(cid=class_).save()
+    return render_to_response('build.html', {'classes': Class.objects.all()})
