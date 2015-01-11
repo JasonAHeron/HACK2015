@@ -9,6 +9,7 @@ from .models import Class, Request
 from .build_classes import scrape_classes
 from django.contrib.auth.views import logout
 import json
+from .database_magic import find_requests_class
 
 #email 
 import threading
@@ -23,11 +24,6 @@ from twilio.rest import TwilioRestClient
 
 def index_view(request):
     #send_message()
-    if request.POST.get('approveSchedule'):
-        print request.POST.get('people')
-	print request
-        print request.POST.get('gender')
-        print request.POST.get('time')
     context = RequestContext(request)
     current_user = request.user
     if request.POST.get('approveSchedule'):
@@ -84,30 +80,41 @@ def send_message():
         print message.sid
 
 def rest_view(request):
-	current_user = request.user
+    current_user = request.user
 
-	if request.method == 'GET':
-		dict = request.GET
-	elif request.method == 'POST':
-		dict = request.POST
-	else:
-		dict = {}
+    if request.method == 'GET':
+        dict = request.GET
+    elif request.method == 'POST':
+        dict = request.POST
+    else:
+        dict = {}
 	
-	action = dict.get( 'action' ) if 'action' in dict else ''
-	if action == 'update':
-		requests = Request.objects.filter(user=current_user.id)
-		sol = []
-		for request in requests:
-			dict = {}
-			dict['name'] = request.cls.cid
-			sol.append(dict)
-		content = json.dumps(sol)
-	#	content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
-	else:
-		content = '';
-	response = HttpResponse(content_type = 'text/json')
-	response.content = content
-	return response
+    action = dict.get( 'action' ) if 'action' in dict else ''
+    if action == 'create':
+        dct = json.loads(request.POST.get('data'))
+        cid = dct.get('class')
+        people = dct.get('minUsers')
+        schedule = str(dct.get('schedule'))
+        time = dct.get('minTime')
+        class_ = Class.objects.filter(cid=cid)
+        R = Request(schedule=schedule, cls=class_[0], user=current_user, time=time, people=people)
+        R.save()
+        #brit querry
+        print find_requests_class(cid)
+
+    if action == 'update':
+        requests = Request.objects.filter(user=current_user.id)
+        sol = []
+        for request in requests:
+            dict = {}
+            dict['name'] = request.cls.cid
+            sol.append(dict)
+        content = json.dumps(sol)
+    else:
+        content = '';
+    response = HttpResponse(content_type = 'text/json')
+    response.content = content
+    return response
 	
 def register(request):
     # Like before, get the request's context.

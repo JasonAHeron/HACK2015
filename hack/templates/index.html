@@ -337,53 +337,53 @@
                 </div>
             </div>
 	    <div class="row">
-		    <table style="width:50%" align="center">
-			    <tr>
-				    <td>Email</td>
-				    <td>
-					    <input type="text" class="accountInfo Email" name="Email" value="samwoods@ucsc.edu" disabled><br>
-			            </td> 
-				    <td>
-					    <button type="button" class="edit Email">
-						    <span class="button-text">Edit</span>
-					    </button>
-			            </td>
-			    </tr>
-                            <tr>
-				    <td>Password</td>
-   				    <td>
-	    				    <input type="text" class="accountInfo Password" name="Password" value="******" disabled><br>
-    			 	    </td> 
-				    <td>
-					    <button type="button" class="edit Password">
-						    <span class="button-text">Edit</span>
-					    </button>
-    				    </td>
-  			    </tr>
-  		 	    <tr>
-    				    <td>Phone Number</td>
-    				    <td>
-					    <input type="text" class="accountInfo PhoneNumber" name="Phone Number" value="888-888-8888" disabled><br>
-				    </td> 
-				    <td>
-					    <button type="button" class="edit PhoneNumber">
-						    <span class="button-text">Edit</span>
-					    </button>
-    				    </td>
-  			    </tr>
-  			    <tr>
-	  			    <td>Notification Settings</td>
-	  			    <td>
-					    <input type="checkbox" class="accountInfo Notification emailNotify" value="email" checked disabled>Notify me by email<br>
-		                            <input type="checkbox" class="accountInfo Notification textNotify" value="phone" disabled>Notify me by text<br>
-                                    </td>
-				    <td>
-					    <button type="button" class="edit Notification">
-						    <span class="button-text">Edit</span>
-					    </button>
-    				    </td>
-                            <tr>
-                    </table>
+	       <table style="width:50%" align="center">
+	           <tr>
+	               <td>Email</td>
+		       <td>
+			       <input type="text" class="accountInfo Email" name="Email" value="{{ user.email }}" disabled><br>
+		       </td> 
+		       <td>
+		            <button type="button" class="edit Email">
+			        <span class="button-text">Edit</span>
+			    </button>
+		       </td>
+		   </tr>
+                   <tr>
+		       <td>Password</td>
+   		       <td>
+	    	           <input type="text" class="accountInfo Password" name="Password" hint="******" disabled><br>
+    		       </td> 
+		       <td>
+		           <button type="button" class="edit Password">
+		               <span class="button-text">Edit</span>
+			   </button>
+    		       </td>
+  		   </tr>
+  		   <tr>
+    		       <td>Phone Number</td>
+    		       <td>
+		           <input type="text" class="accountInfo PhoneNumber" name="Phone Number" value="{{ user.phone }}" disabled><br>
+		       </td> 
+		       <td>
+		           <button type="button" class="edit PhoneNumber">
+		               <span class="button-text">Edit</span>
+			   </button>
+    		       </td>
+  		   </tr>
+  		   <tr>
+	  	       <td>Notification Settings</td>
+	  	       <td>
+		          <input type="checkbox" class="accountInfo Notification emailNotify" value="email" checked disabled>Notify me by email<br>
+		          <input type="checkbox" class="accountInfo Notification textNotify" value="phone" disabled>Notify me by text<br>
+                      </td>
+		      <td>
+		          <button type="button" class="edit Notification">
+		              <span class="button-text">Edit</span>
+			  </button>
+    		      </td>
+                  <tr>
+                </table>
             </div>
         </div>
     </section>
@@ -476,16 +476,29 @@
 	          console.log("text has been saved");
 		  var newValue = $(inputSection).val();
 		  console.log(newValue);
+		  var action;
 		  if ($(inputSection).hasClass("Email")){
+		     action = "email";
 		     // save email
+
 		  } else if ($(inputSection).hasClass("Password")){
 		     // save password
+		     action="password"
+		     newValue = newValue; //encrypt!!!
 		  } else {
 		     // save phone number
+		     action="phoneNumber"
 		  }
+		  var xmlhttp = new XMLHttpRequest();
+		  xmlhttp.onreadystatechange = function() {
+		     if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+		        alert("Your new account setting has been saved!");
+		     }
+		  }
+		  xmlhttp.open( 'POST', 'rest', true );
+		  xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=' +action + '&data=' + newValue );
 	       } else {
 	          console.log("checkboxes have been saved");
-		  //if ($(inputSection.hasClass
 	       }
 	       // disable the input
 	       $(inputSection).prop('disabled', true);
@@ -526,8 +539,8 @@
 		}
 		xmlhttp.open( 'POST', 'rest', true );
 		//xmlhttp.responseType = 'json'
-		xmlhttp.send( '?action=create&data=' + str );
-		console.log( str );
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+		xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=create&data=' + str );
     closeFunction();
 	});
     });
