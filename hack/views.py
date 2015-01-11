@@ -200,6 +200,9 @@ def rest_view(request):
 
         #brit, sara querry
         create_schedule(find_requests_class(cid))
+
+    if action == 'schedule':
+        dct = json.loads(dict)
         '''
     elif action == 'email':
         print dict['data']
