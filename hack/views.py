@@ -39,13 +39,13 @@ def create_schedule(list_of_users):
     print "GIVEN:"
     print list_of_users
     print "OLD USERS:"
-    old_guys = list_of_users[:len(list_of_users)-2]
+    old_guys = list_of_users[:len(list_of_users)-1]
     print old_guys
     print "NEW GUY:"
     new_guy = list_of_users[len(list_of_users)-1]
     new_guy_schedule = new_guy["schedule"]
     print new_guy
-    newguy_min_time = new_guy["minT"]
+    newguy_min_time = new_guy["minT"]*2 #convert half hrs to hours
     newguy_people = new_guy["minP"]
 
     #convert string to a dictionary
@@ -69,14 +69,12 @@ def create_schedule(list_of_users):
             while(len(time_tuples) >= start+2):
                 if(time_tuples[start+1] - time_tuples[start] >= newguy_min_time):
                     print " diff was using " + str(time_tuples[start+1]) +  ",  " +  str(time_tuples[start])
-                    print persons_dictionary['id']
+                    #print persons_dictionary['id']
                     #print "START!!!"
                     #print time_tuples[start]
                     
                     #heart of the algorithm
                     avail_times_of_day[time_tuples[start]] += persons_dictionary['id'] + ","
-                    print "JUST ADDED!!!"
-                    print avail_times_of_day[time_tuples[start]]
                 start += 2
 
     newguy_itor = 0
@@ -85,36 +83,51 @@ def create_schedule(list_of_users):
     newguy_days_of_week = []
     for i in range(7):
         newguy_days_of_week.append([])
+    for i in range(7):
+        newguy_days_of_week[i] = []
     # guy needs to meet his own needs
     new_d = 0
     #day is a list itself
     for day in new_guy_schedule:
         newguy_avail_list = new_guy_schedule[day]
-        newguy_days_of_week[new_d] = []
-        newguy_starttimes = newguy_days_of_week[new_d]
+        if (len(newguy_days_of_week) > new_d):
+            print "DAY !!!!!"
+            print day
+            new_d += 1
+            while(len(newguy_avail_list) >= newguy_itor+2):
+                print "IN WHILE LOOP"
+                if(newguy_avail_list[newguy_itor+1] - newguy_avail_list[newguy_itor] >= newguy_min_time):
+                    print "IN IF STMT"
+                    if (len(newguy_days_of_week)-1 >= new_d):
+                        #print newguy_days_of_week[new_d]
+                        print "test"
+                        newguy_days_of_week[new_d].append(newguy_avail_list[newguy_itor])
+                    #print newguy_days_of_week[new_d]
+                    #print new_d
+                    #print "start time here: " 
+                    #print newguy_avail_list[newguy_itor]
+                newguy_itor+=2
 
-        new_d += 1
-        while(len(newguy_avail_list) >= newguy_itor+2):
-            if(newguy_avail_list[newguy_itor+1] - newguy_avail_list[newguy_itor] >= newguy_min_time):
-                newguy_starttimes.append(newguy_avail_list[newguy_itor])
-                print "start time here: " 
-                print newguy_avail_list[newguy_itor]
-            newguy_itor+=2
-
-
+    print "OUT OF LOOP"
+    print newguy_days_of_week
     curr_day = 0
     for old_guy_day in days_of_week:
         #look through all the avail times of newguy
-        for newg_start_time in newguy_days_of_week[curr_day]:
-            curr_day += 1
-            #if that index in the old_guy_day is not empty
-            #check that the length after .split is atleast min
-            if(len(old_guy_day[newg_start_time].split(",")) >= newguy_min_time):
-                #save the match (print it for now)
-                print "THIS START TIME WORKS IN BOTH:"
-                print newg_start_time
-                print "HERE ARE THE FRIENDS:"
-                print old_guy_day[newg_start_time]
+        print "NEW GUY TIMES FOR CURR DAY"
+        print newguy_days_of_week[curr_day]
+        curr_day += 1
+        if (len(newguy_days_of_week) > curr_day):
+           for newg_start_time in newguy_days_of_week[curr_day]:
+               #if that index in the old_guy_day is not empty
+               print "ARRAY WE ARE WORKING WITH"
+               print old_guy_day[newg_start_time]
+               #check that the length after .split is atleast min
+               if(len(old_guy_day[newg_start_time].split(",")) >= newguy_min_time):
+                   #save the match (print it for now)
+                   print "THIS START TIME WORKS IN BOTH:"
+                   print newg_start_time
+                   print "HERE ARE THE FRIENDS:"
+                   print old_guy_day[newg_start_time]
     print "END OF FUNCITON"
        
 '''
