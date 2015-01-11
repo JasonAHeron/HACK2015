@@ -6,6 +6,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
 	url(r'^$', v.index_view),
+	url(r'rest$', v.rest_view),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^test/',v.test),
     # Registration Page
