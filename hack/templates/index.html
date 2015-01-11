@@ -10,7 +10,6 @@
     <meta name="author" content="">
 
     <title>Study Session Scheduler</title>
-
     <!-- Bootstrap Core CSS -->
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 
@@ -39,7 +38,6 @@
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -50,12 +48,15 @@
                 <a class="navbar-brand page-scroll" href="#page-top">UCSC Study Group Scheduler</a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
+		    <li>
+		       <a class="page-scroll" href="#about">About this Site</a>
+		    </li>
+		    <!-- User Page
                     <li>
                         <a class="page-scroll" href="#sessions">My Study Sessions</a>
                     </li>
@@ -65,24 +66,30 @@
                     <li>
                         <a class="page-scroll" href="#settings">Account Settings</a>
                     </li>
+                    -->
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container-fluid -->
     </nav>
 
     <!-- Header -->
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">Welcome to Your Study Session Manager!</div>
-		<!--<div class="intro-heading">It's Nice To Meet You</div> -->
+                <div class="intro-lead-in">Welcome to the Study Session Manager!</div>
+		<div class="intro-heading">Are you ready to study?</div>
+		<a href="/register/" class="btn-x2">Register</a>
+		 OR 
+                <button type="button" class="btn-x2" data-toggle="modal" data-target="#login_modal">Login</button>
+		<!-- User Page
                 <a href="#openModal" class="btn-x2">Create a new study session</a>
+                -->
             </div>
         </div>
     </header>
-    <!--<a href="#openModal">Open Modal</a>-->
+
+    <!-- Class Form -->
+    
 <form id="classForm">
 <div id="openModal" class="modalDialog">
     <div>
@@ -135,7 +142,6 @@
 </div>
 </form>
 
-
 <script>
     function closeFunction(){
         if (confirm("Are you sure you want to close this window?") == true) {
@@ -144,18 +150,78 @@
         }
 }
 </script>
+
+
+
+<div id="openPrivacyPolicyModal" class="modalDialog">
+    <div>
+        <a href="#close" title="Close" class="close">X</a>
+        <div class="intro-lead-in1">Privacy Policy</div>
+	<div class="termsOfUseTexts">
+	    <p>
+	       Phone numbers and emails will not be shared with anyone. 
+	   </p>	
+	</div>
+    </div>
+</div>
+
+<div id="openTermsOfUseModal" class="modalDialog">
+    <div>
+        <a href="#close" title="Close" class="close">X</a>
+        <div class="intro-lead-in1">Terms of Use</div>
+	<div class="termsOfUseTexts">
+		<p>Interactions between students should reflect a growth mindset.  A growth (or incremental) mindset reflects one's beliefs about intelligence or ability and how it develops.  A growth mindset reflects an emphasis on effort and task relevant behaviors such as practice and other cognitive efforts as the catalyst for intelligence and ability.  The growth mindset is aligned with the notion of brain plasticity.  That is, the capacity of the brain to reorganize itself via neural pathways and synapses through efforts and action with respect to given tasks.  Hence by engaging in certain actions we can enhance the brain's capabilities. </p>	
+	</div>
+    </div>
+</div>
+<!-- Login Modal Start -->
+<div class="modal fade" id="login_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Login Modal End -->
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+	    <div class="row">
+		    <div class="col-lg-12 text-center">
+			    <h2 class="section-heading">About This Site</h2>
+	            </div>
+             </div>
+	     <div class="row text-center">
+		     <p> This website was made by team Sexy Magic whos members are Brittany Arthur, Jeremy Criquet, Jason Heron, Sofia Herrero, Remington Maxwell, and Sara Woods. Study Scheduler is designed to find study session times for you and other students in your class. It tries to find times that allow for an adequate amount of study time with  </p>
+	     </div>
+	</div>
+    </section>
+
+
     <!-- Study Sessions Section -->
     <section id="sessions">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">My Sessions</h2>
-		    <!--<h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>-->
+                  <h2 class="section-heading">My Sessions</h2>
                 </div>
             </div>
             <div class="row text-center">
                 <div class="col-xs-6">
                     <h3 class="service-heading">&nbsp;&nbsp;&nbsp;&nbsp;Pending Sessions</h3>
+
         		    <ul class="pendingSess">
         		    	<li class="text-mutedSession">CMPS 104A</li>
         		    </ul>
@@ -197,17 +263,32 @@
                     </table>
                 </div>
 	            </ul>
+            </div>
+                <br>
         		  <!--  <ul class="scheduledSess">
                             <li class="text-mutedSession">CMPS 130</li>
-        	        </ul>-->
+        	        </ul>
+
+
+                    <ul class="pendingSess"></ul>
+                </div>
+                <div class="col-xs-6">
+                    <h3 class="service-heading">&nbsp;&nbsp;&nbsp;&nbsp;Scheduled Sessions</h3>
+                    <ul class="scheduledSess"></ul>
 
                 </div>
             </div>
         </div>
     </section>
+    -->
 
-    <!-- Schedule Section -->
+    <!-- Schedule Section 
+
     <section id="schedule">
+
+    <!-- User Page-->
+    <br><br>
+    <section id="schedule" ><!--class="bg-light-gray"-->
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -230,6 +311,7 @@
     </section>
 
     <!-- Account Settings Section -->
+    <!-- User Page
     <section id="settings">
         <div class="container1">
             <div class="row">
@@ -288,28 +370,21 @@
             </div>
         </div>
     </section>
+    -->
 
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <span class="copyright">Copyright &copy; Your Website 2014</span>
+                <div class="col-xs-6">
+                    <span class="copyright">Copyright &copy; Study Scheduler 2014</span>
                 </div>
-                <div class="col-md-4">
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
+                <div class="col-xs-6">
                     <ul class="list-inline quicklinks">
-                        <li><a href="#">Privacy Policy</a>
+                        <li>
+			   <a href="#openPrivacyPolicyModal">Privacy Policy</a>
                         </li>
-                        <li><a href="#">Terms of Use</a>
+                        <li>
+                            <a href="#openTermsOfUseModal">Terms of Use</a>
                         </li>
                     </ul>
                 </div>
@@ -337,6 +412,7 @@
     <script src="{% static "js/agency.js" %}"></script>
 
     <script src="{% static "js/schedule.js" %}"></script>
+    <script src="{% static "js/update.js" %}"></script>
 
     <script>
     $(document).ready(function() {
