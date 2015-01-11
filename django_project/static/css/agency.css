@@ -980,11 +980,40 @@ body {
 
 }
 
+.button1 {
+    padding: 5px 10px;
+    border-color: #fed136;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #fed136;
+
+}
+
+.edit {
+    border-color: #fed136;
+    border-radius: 3px;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    color: #fff;
+    background-color: #fed136;
+}
+
+
+
 ul.pendingSess, ul.scheduledSess {
     list-style-type: none;
     vertical-align:center;
     margin:5px auto;
     display:block;
+    padding:0;
 }
 
 button.edit {
@@ -993,15 +1022,100 @@ button.edit {
 
 .schedule td div {
 	opacity: 0;
+
 }
 .schedule td {
-	background: blue;
-	width: 2em;
+	background:#fed136 ;
+	width: 10em;
+    border-bottom:2pt solid black;
+    border-left:2pt solid black;
+    border-right:2pt solid black;
+    border-top:2pt solid black;
+
+}
+.schedule th {
+    text-align:center;
+
 }
 .schedule td.highlighted {
-	background: red;
+	background: #610B0B;
 }
 .schedule td.selected, .schedule td:hover {
-	background: yellow;
+	background: black;
 }
 
+.container1{
+    padding-top:10px;
+    padding-bottom:10px;
+    margin-right:60px;
+    margin-left:60px;
+    color: #777;
+    border-color: #fed136;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 15px;
+    //padding: 5px 5px 5px 5px;
+    vertical-align:center;
+}
+.scheduledSessionTable{
+    color: #777;
+    border-color: #fed136;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 15px;
+    padding: 10px 10px 10px 10px;
+    vertical-align:middle;
+
+}
+
+
+//accordion
+/*----- Accordion -----*/
+.accordion, .accordion * {
+    -webkit-box-sizing:border-box; 
+    -moz-box-sizing:border-box; 
+    box-sizing:border-box;
+}
+ 
+.accordion {
+    overflow:hidden;
+    box-shadow:0px 1px 3px rgba(0,0,0,0.25);
+    border-radius:3px;
+    background:#f7f7f7;
+
+}
+ 
+/*----- Section Titles -----*/
+.accordion-section-title {
+    width:100%;
+    padding:15px;
+    display:inline-block;
+    //border-bottom:1px solid #1a1a1a;
+    border:2px solid #fed136;
+    border-radius:6px;
+    background:black;
+    transition:all linear 0.15s;
+    /* Type */
+    font-size:1.200em;
+    text-shadow:0px 1px 0px #1a1a1a;
+    color:#fff;
+}
+ 
+.accordion-section-title.active, .accordion-section-title:hover {
+    background:#fed136;
+    /* Type */
+    text-decoration:none;
+    border:2px solid black;
+
+}
+ 
+.accordion-section:last-child .accordion-section-title {
+    //border-bottom:none;
+
+}
+ 
+/*----- Section Content -----*/
+.accordion-section-content {
+    padding:15px;
+    display:none;
+}
