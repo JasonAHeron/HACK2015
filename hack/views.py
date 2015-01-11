@@ -22,8 +22,160 @@ from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
 from twilio.rest import TwilioRestClient
 
+#algorithm
+import ast
+import re
+
+def create_schedule():
+    newguy_avail_list = [5,9,12,14]
+    newguy_people = 2 #db query
+    newguy_locations = [1,2,3]
+    newguy_min_time = 2
+
+    strings = []
+    i = 0
+    index_start = 0
+
+    old_guys = []
+    yo = "{'username': 'coolcat1@ucsc.edu', u'minTime': u'1', u'location': 0, u'minUsers': u'2', u'class': u'AMS 80B', u'schedule': {u'1421308800000': [1,2,5,10],  u'1421222400000': [],  u'1421395200000': [], u'1421136000000': [], u'1420963200000': [], u'1421481600000': [], u'1421049600000': []}}"
+    yo = re.sub('[u]','',yo)
+    yo_d = ast.literal_eval(yo)
+    old_guys.append(yo_d)
+
+    yo = "{'username': 'coolcat2@ucsc.edu', u'minTime': u'1', u'location': 0, u'minUsers': u'2', u'class': u'AMS 80B', u'schedule': {u'1421308800000': [1,3,5,8],  u'1421222400000': [],  u'1421395200000': [], u'1421136000000': [], u'1420963200000': [], u'1421481600000': [], u'1421049600000': []}}"
+    yo = re.sub('[u]','',yo)
+    yo_d = ast.literal_eval(yo)
+    old_guys.append(yo_d)
+
+    yo = "{'username': 'coolcat3@ucsc.edu', u'minTime': u'1', u'location': 0, u'minUsers': u'2', u'class': u'AMS 80B', u'schedule': {u'1421308800000': [3,4,5,12],  u'1421222400000': [],  u'1421395200000': [], u'1421136000000': [], u'1420963200000': [], u'1421481600000': [], u'1421049600000': []}}"
+    yo = re.sub('[u]','',yo)
+    yo_d = ast.literal_eval(yo)
+    old_guys.append(yo_d)
+
+    #convert string to a dictionary
+    #yoyo_d = ast.literal_eval(yoyo)
+    days_of_week = []
+    for i in range(7):
+        days_of_week.append([])
+    for persons_dictionary in old_guys:
+        
+        persons_availability_dict = persons_dictionary['schedle']
+        d = 0
+        for day in persons_availability_dict:
+
+            avail_times_of_day = days_of_week[d]
+            d += 1
+            for i in range(100 + 1):
+                avail_times_of_day.append("")
+            start = 0
+            time_tuples = persons_availability_dict[day]
+
+            while(len(time_tuples) >= start+2):
+                if(time_tuples[start+1] - time_tuples[start] >= newguy_min_time):
+                    print " diff was using " + str(time_tuples[start+1]) +  ",  " +  str(time_tuples[start])
+                    print persons_dictionary['sername']
+                    #print "START!!!"
+                    #print time_tuples[start]
+                    
+                    #heart of the algorithm
+                    avail_times_of_day[time_tuples[start]] += persons_dictionary['sername'] + ","
+                    print "JUST ADDED!!!"
+                    print avail_times_of_day[time_tuples[start]]
+                start += 2
+
+    newguy_itor = 0
+    newguy_starttimes = []
+    while(len(newguy_avail_list) >= newguy_itor+2):
+        if(newguy_avail_list[newguy_itor+1] - newguy_avail_list[newguy_itor] >= newguy_min_time):
+            newguy_starttimes.append(newguy_avail_list[newguy_itor])
+            print "start time here: " 
+            print newguy_avail_list[newguy_itor]
+        newguy_itor+=2
+
+
+    print("PRINTING")
+    #FOR EVERY day of the week
+    for day_list in days_of_week:
+        #in each day, there is an array. lets iterate through each time.
+        # 7 time loop 
+        #day = day_list[d]
+        #d += 1
+        for i in range(0,len(day_list)-1):
+            #if something was scheduled that hour
+            if (day_list[i] is not ""):
+                #100 or something
+                size = len(day_list[i].split(","))
+                if(i in newguy_avail_list and size >= newguy_people):
+                    print day_list[i]
+                    print "for start time: " +  str(i)
+                '''
+                for k in range(0,len(day_list[i])-1):
+                    if(avail_times_of_day[k] is not ""):
+                        size = len(day_list[i].split(",")) -1
+                        if (size >= newguy_people):
+                            print day_list[i]
+                            print "for start time: " + str(k)
+'''
+    #want to find a group of people that works
+    #get a listing of all the users with a valid starttime for every start time
+    #for key, value in enumerate(d[1:]):
+    '''
+    for key, value in d.iteritems():
+        print "PROCESSING"
+        print "user is " + key + "   " + str(value[index_start+1]) + "     " + str(value[index_start])
+        #check for out of bounds
+        while(len(value) >= index_start+2):
+        #check if the new value meets newguy hour minimum
+            if((value[index_start+1]-value[index_start])>=newguy_length):
+                if(i <= len(strings)-1):
+                    print "1>> user #" + str(i)
+                    strings[i] += str(i) + ","
+                else:
+                    print "2>> user #" + str(i)
+                    strings.append(str(i))
+            else:
+                #we want an index for every possible start time 
+                if(i <= len(strings)-1):
+                    #print ">> X" 
+                    strings[i] += "X"
+                else:
+                    #print ">> X" 
+                    strings.append("X")
+            index_start += 2
+        index_start = 0
+        #increment the userID number - the index they appeared in the dictionary
+        i += 1
+    print "FINISHED WITH FIRST STEP"
+    '''
+
+    #now find which people in the string match the user's needs
+    #make sure to check the needs of all of these users before returning
+    potential_start = 0
+    for starttimes in strings:
+        candidates = starttimes.split(",")
+        if(len(candidates)>=newguy_people):
+            #check every candidate to see if they have this minimum
+            for person in candidates:
+                #use the index or mapping to do a lookup on their min # of people
+                # if (blahblahblah)
+                nothing = "sdf"
+            #I will add them until I can do the lookup
+            print "SOLUTION:" + strings[potential_start] #adding a 1 becuase index starts at 0
+    print "CONTENTS"
+    for item in strings:
+        print item
+    print "END OF FUNCITON"
+
+
+
+
 def index_view(request):
     #send_message()
+    if request.POST.get('approveSchedule'):
+        print request.POST.get('people')
+    print request
+    print request.POST.get('gender')
+    print request.POST.get('time')
     context = RequestContext(request)
     current_user = request.user
     if request.POST.get('approveSchedule'):
@@ -39,24 +191,27 @@ def index_view(request):
         user = authenticate (username=request.POST.get('username') , password=request.POST.get('password'))
         if not user or not user.is_active:
             print "Sorry, that login was invalid. Please try again."
+            create_schedule()
             return render_to_response('issues.html', {'username': request.POST.get('username'), 'password':request.POST.get('password')}, context)
         else:
             login(request, user)
     if request.POST.get('logout'):
         print "TRYING TO LOGOUT"
         logout(request)
+        create_schedule()
         return HttpResponseRedirect("")
 
     solution = []
     for c_object in Class.objects.all():
         solution.append("{}".format(c_object.cid))
+    create_schedule()
     return render_to_response('index.html', {'classes': solution}, context)
 
 def issues(request):
     return render_to_response('index.html', context)
 
 def test(request):
-	return render_to_response('base.html', {'test': 1})
+    return render_to_response('base.html', {'test': 1})
 
 @twilio_view
 def sms(request):
@@ -88,6 +243,22 @@ def rest_view(request):
         dict = request.POST
     else:
         dict = {}
+    
+    action = dict.get( 'action' ) if 'action' in dict else ''
+    if action == 'update':
+        requests = Request.objects.filter(user=current_user.id)
+        sol = []
+    for request in requests:
+        dict = {}
+        dict['name'] = request.cls.cid
+        sol.append(dict)
+        content = json.dumps(sol)
+    #    content = '[{"name":"CMPS 101"}, {"name":"CMPS 130", "session":"blah"}]'
+    else:
+        content = '';
+        response = HttpResponse(content_type = 'text/json')
+        response.content = content
+    return response
 	
     action = dict.get( 'action' ) if 'action' in dict else ''
     if action == 'create':
@@ -179,9 +350,9 @@ def register(request):
         # Print problems to the terminal.
         # They'll also be shown to the user.
         else:
-			print "THERE WAS AN ERROR"
-			print user_form.errors, profile_form.errors
-			render_to_response('register.html', context)
+            print "THERE WAS AN ERROR"
+            print user_form.errors, profile_form.errors
+        render_to_response('register.html', context)
 
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
@@ -189,14 +360,14 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    # Render the template depending on the context.
-    return render_to_response(
+        # Render the template depending on the context.
+        return render_to_response(
             'register.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
             context)
-	#r = Response()
-	#r.message('Hello from your Django app!')
-	#return r
+    #r = Response()
+    #r.message('Hello from your Django app!')
+    #return r
 
 def send_email(sendtoemail, firstname):
     subject = 'Welcome Banana Slug to Team SexyMagic Study time!'
@@ -208,7 +379,7 @@ def send_email(sendtoemail, firstname):
     msg.send() #make this on another threading
 
 def build_classes(request):
-	classes = scrape_classes()
-	for class_ in classes:
-		Class(cid=class_).save()
-	return render_to_response('build.html', {'classes': Class.objects.all()})
+    classes = scrape_classes()
+    for class_ in classes:
+        Class(cid=class_).save()
+    return render_to_response('build.html', {'classes': Class.objects.all()})
