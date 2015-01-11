@@ -26,8 +26,8 @@
 
     <style>
     p {
-    border: 5px solid red;
-    border-radius: 25px;
+    //border: 5px solid red;
+    //border-radius: 25px;
     }
     </style>
     </head>
@@ -70,7 +70,7 @@
             </form>
                     </li>
             {% else %}
-            <li>
+            <li class="goBack">
                <a href="/">GO BACK</a>
             </li>
             {% endif %}
@@ -80,7 +80,7 @@
     </nav>
 
         {% if registered %}
-        <strong>thank you for registering!</strong>
+        <strong>Thank you for registering!</strong>
         <a href="/">Return to the homepage.</a><br />
         {% else %}
 
@@ -100,8 +100,8 @@
                  (<p>) element. This ensures each element appears on a new line,
                  making everything look neater. -->
 
-            <div class="container" style="padding-top: 6em;">
-
+            <div class="container" style="width:60%;padding-top: 6em;">
+            <div class="container2">
             <h2>Please Sign Up</h2>
             <div class="row">
                 <div class="col-xs-8"> 
@@ -121,6 +121,7 @@
                     </div>
                 </div>
             </div>
+            
             
             <div class="row">
                 <div class="col-xs-4"> 
@@ -149,6 +150,7 @@
             <div class="row">
                 <div class="col-xs-8"><input type="submit" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
             </div>
+        </div>
         </form>
     </div>
 </div>
@@ -162,7 +164,8 @@
         <div class="intro-lead-in1">Privacy Policy</div>
     <div class="termsOfUseTexts">
         <p>
-           Phone numbers and emails will not be shared with anyone. 
+           Phone numbers will not be shared with anyone.  Emails will be shared for study session locations that are on or off campus
+           so that students can establish a meeting location.
        </p> 
     </div>
     </div>

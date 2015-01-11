@@ -67,13 +67,15 @@
                     </li>
                     <li>
                         <a class="page-scroll" href="#settings">Account Settings</a>
-
-            <form method="post">
+                    </li>
+           <!-- <form method="post">-->
             {% csrf_token %}
-                 <div class="form-group">
+                 <!--<div class="form-group">
 			         <button type="submit" name="logout" id="logout" value=1 class="logout btn-x2">Logout</button>
-                </div>
-            </form>
+                </div>-->
+                <li>
+                <a href="#logout" name="logout" id="logout" value=1 class="pagelogout" style="background-color:#fed136">Logout</a>
+            <!--</form>-->
                     </li>
 		    {% else %}
 		    <li>
@@ -175,7 +177,8 @@
         <div class="intro-lead-in1">Privacy Policy</div>
 	<div class="termsOfUseTexts">
 	    <p>
-	       Phone numbers and emails will not be shared with anyone. 
+	       Phone numbers will not be shared with anyone.  Emails will be shared for study session locations that are on or off campus
+           so that students can establish a meeting location. 
 	   </p>	
 	</div>
     </div>
@@ -367,7 +370,8 @@
 	            </div>
              </div>
 	     <div class="row text-center">
-		     <p> This website was made by team Sexy Magic whos members are Brittany Arthur, Jeremy Criquet, Jason Heron, Sofia Herrero, Remington Maxwell, and Sara Woods. Study Scheduler is designed to find study session times for you and other students in your class. It tries to find times that allow for an adequate amount of study time with  </p>
+		     <p> This website was made by team Sexy Magic whose members are Brittany Arthur, Jeremy Criquet, Jason Heron, Sofia Herrero, Remington Maxwell, and Sara Woods. Study Scheduler is designed to find study session times for you and other students in your class. It tries to find times that allow for an adequate amount of study time with the ability to reserve rooms
+             in the library or form study groups at on and off campus locations. </p>
 	     </div>
 	</div>
     </section>
@@ -423,6 +427,9 @@
     $(document).ready(function() {
 	scheduleInit();
     //scheduledSessions();
+    //var elem=document.getElementById("pageLogout")
+    //elem.style.color=yellow;
+    
         console.log("document ready\n");
 	$("button.edit").click(function() {
 	   // if the option is disabled

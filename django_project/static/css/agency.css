@@ -979,6 +979,31 @@ body {
     background-color: #fed136;
 
 }
+.pagelogout {
+    padding: 15px 25px;
+    border-color: #fed136;
+    border-radius: 3px;
+    text-transform: uppercase;
+    color: #000;
+    background-color: #fed136;
+        text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+
+}
+.goBack {
+    padding: 15px 25px;
+    border-color: black;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #000;
+    //background-color: #fed136;
+
+}
 
 .button1 {
     padding: 5px 10px;
@@ -1027,15 +1052,17 @@ button.edit {
 .schedule td {
 	background:#fed136 ;
 	width: 10em;
-    border-bottom:2pt solid black;
+    height: .5em;
+    //font-size: 0.1px;
+    border-bottom:1pt solid black;
     border-left:2pt solid black;
     border-right:2pt solid black;
-    border-top:2pt solid black;
+   //border-top:2pt solid black;
+   //padding-bottom:50px;
 
 }
-.schedule th {
+.schedule th{
     text-align:center;
-
 }
 .schedule td.highlighted {
 	background: #610B0B;
@@ -1043,7 +1070,20 @@ button.edit {
 .schedule td.selected, .schedule td:hover {
 	background: black;
 }
-
+.schedule tr:first-child th {
+    border-bottom:1pt solid black;f
+}
+.schedule tr:first-child th:first-child {
+    border-bottom:none;
+}
+.schedule th:first-child {
+    font-size: .8em;
+}
+.schedule th:first-child span:first-child {
+    position: relative;
+    bottom: 20px;
+    padding-top:8px;
+}
 .container1{
     padding-top:10px;
     padding-bottom:10px;
@@ -1055,6 +1095,20 @@ button.edit {
     border-width: 3px;
     border-radius: 15px;
     //padding: 5px 5px 5px 5px;
+    vertical-align:center;
+}
+.container2{
+    padding-top:10px;
+    padding-bottom:10px;
+    //margin-right:60px;
+    //margin-left:60px;
+    margin:0 auto;
+    color: #777;
+    border-color: #black;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 15px;
+    padding: 15px 15px 15px 15px;
     vertical-align:center;
 }
 .scheduledSessionTable{
