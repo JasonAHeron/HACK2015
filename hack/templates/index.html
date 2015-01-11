@@ -458,38 +458,43 @@
       scheduleInit();
       console.log("document ready\n");
       $("button.edit").click(function() {
-         // if the option is disabled
-         if (!$(this).hasClass("Save")){
-             // enable the input
-             $(this).parent().closest('td').prev().children('input').prop('disabled', false);
-             // change the text of the button to Save
-             $(this).children("span").text("Save");
-         // if the option is enabled
-         } else {
-             // add code to update database
-             var inputSection = $(this).parent().closest('td').prev().children('input');
-             console.log(inputSection);
-             if ($(inputSection).is("input:text")){
-                console.log("text has been saved");
-          var newValue = $(inputSection).val();
-          console.log(newValue);
-          if ($(inputSection).hasClass("Email")){
-             // save email
-          } else if ($(inputSection).hasClass("Password")){
-             // save password
+        // if the option is disabled
+        if (!$(this).hasClass("Save")){
+          // enable the input
+          $(this).parent().closest('td').prev().children('input').prop('disabled', false);
+          // change the text of the button to Save
+          $(this).children("span").text("Save");
+        // if the option is enabled
+        } else {
+          // add code to update database
+          var inputSection = $(this).parent().closest('td').prev().children('input');
+          console.log(inputSection);
+          if ($(inputSection).is("input:text")){
+            console.log("text has been saved");
+            var newValue = $(inputSection).val();
+            console.log(newValue);
+            var action;
+            if ($(inputSection).hasClass("Email")) action = "email";
+            else if ($(inputSection).hasClass("Password")){
+              action="password"
+              newValue = newValue; //encrypt!!!
+            } else action="phoneNumber"
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+              if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 )
+                alert("Your new account setting has been saved!");
+            }
+            xmlhttp.open( 'POST', 'rest', true );
+            xmlhttp.send( 'csrfmiddlewaretoken={{ csrf_token }}&action=' +action + '&data=' + newValue );
           } else {
-             // save phone number
+            console.log("checkboxes have been saved");
           }
-             } else {
-                console.log("checkboxes have been saved");
-          //if ($(inputSection.hasClass
-             }
-             // disable the input
-             $(inputSection).prop('disabled', true);
-             // change the text of the button to Edit
-             $(this).children("span").text("Edit");
-         }
-         $(this).toggleClass("Save");
+          // disable the input
+          $(inputSection).prop('disabled', true);
+          // change the text of the button to Edit
+          $(this).children("span").text("Edit");
+        }
+        $(this).toggleClass("Save");
       });
 
       var availableClasses = {{classes|safe}};
@@ -500,10 +505,14 @@
       });
 
       $("button.moveToSchedule").click(function() {
-         console.log( $("#classSelector").prop("value"));
-               closeFunction();
-               window.location.href = '#openScheduleModal';
+        closeFunction();
+        window.location.href = '#openScheduleModal';
       });
+      
+      $("#openScheduleModal").on( 'shown.bs.modal', function() {
+        var data = scheduleGetData( document.getElementById( 'schedule' ).getElementsByClassName( 'schedule' ).item() )
+        console.log( data );
+      } );
       
       $("button.submitRequest").click(function() {
         var dict = {};
