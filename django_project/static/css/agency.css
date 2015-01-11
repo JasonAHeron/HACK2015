@@ -1114,10 +1114,10 @@ button.edit {
 .schedule td.selected, .schedule td:hover {
 	background: #714615;
 }
-.schedule tr:nth-child(4n+1) td.selected:nth-child(odd),
-.schedule tr:nth-child(4n+2) td.selected:nth-child(even),
-.schedule tr:nth-child(4n+3) td.selected:nth-child(even),
-.schedule tr:nth-child(4n+4) td.selected:nth-child(odd) {
+.schedule tr:nth-child(4n+1) td.selected:nth-child(odd), .schedule tr:nth-child(4n+1) td:hover:nth-child(odd),
+.schedule tr:nth-child(4n+2) td.selected:nth-child(even), .schedule tr:nth-child(4n+2) td:hover:nth-child(even),
+.schedule tr:nth-child(4n+3) td.selected:nth-child(even), .schedule tr:nth-child(4n+3) td:hover:nth-child(even),
+.schedule tr:nth-child(4n+4) td.selected:nth-child(odd), .schedule tr:nth-child(4n+4) td:hover:nth-child(odd) {
 	background: #5A3811;
 }
 .schedule tr:first-child, .schedule tr:last-child {

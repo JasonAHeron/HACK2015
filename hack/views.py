@@ -332,7 +332,7 @@ def register(request):
 def send_email(sendtoemail, firstname):
     subject = 'Welcome Banana Slug to Your UCSC Study Group Scheduler!'
     from_email = 'learnallthethings1@gmail.com'
-   # html_content = render_to_string('index.html', {'varname':'value', 'first_name':firstname})
+    html_content = render_to_string('email.html', {'varname':'value', 'first_name':firstname})
     text_content = strip_tags(html_content) 
     msg = EmailMultiAlternatives(subject, text_content, from_email, [sendtoemail])
     msg.attach_alternative(html_content, "text/html")
