@@ -60,10 +60,11 @@ def send_message():
     auth_token  = "ACa198b3532f5d2fcd47c28e355eb02a0b"
     client = TwilioRestClient(account_sid, auth_token)
  
-    message = client.messages.create(body="Jenny please?! I love you <3",
-    to="16508687814",
-    from_="16503999494")
-    print message.sid
+    #sms = client.messages.create(
+    #    body="Jenny please?! I love you <3", 
+    #    to="+16508687814", 
+    #    from_="+16503999494")
+    #print sms.sid
 
 def rest_view(request):
 	current_user = request.user
