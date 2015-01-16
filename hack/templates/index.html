@@ -283,7 +283,7 @@
                 </div>
                 <div class="col-xs-6">
                     <h3 class="service-heading">Scheduled Sessions</h3>
-        <ul class="scheduledSess">
+              <ul class="scheduledSess">
                         <div data-role="content" id="Div2" class="accordion">
                         <div id="accordion" data-role="collapsible-set"/>
                         </div>
@@ -511,6 +511,7 @@
         dict['minUsers'] = $('input[name=people]:checked', '#classForm').val();
         dict['location'] = 0;
         var str = escape( JSON.stringify( dict ) );
+        console.log ("PRINTING JSON")
         console.log( JSON.stringify( dict ) );
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {

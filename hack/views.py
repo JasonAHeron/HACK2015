@@ -26,59 +26,40 @@ from twilio.rest import TwilioRestClient
 import ast
 import re
 
-def create_schedule(list_of_users):
-#    newguy_avail_list = [5,9,12,14]
-    newguy_locations = [1,2,3]
-
-    strings = []
-    i = 0
-    index_start = 0
+def create_schedule(list_of_users, cid):
 
     #get data for the cid. as a list of dictionaries.
-
-    print "GIVEN:"
-    print list_of_users
-    print "OLD USERS:"
     old_guys = list_of_users[:len(list_of_users)-1]
-    print old_guys
-    print "NEW GUY:"
     new_guy = list_of_users[len(list_of_users)-1]
     new_guy_schedule = new_guy["schedule"]
-    print new_guy
     newguy_min_time = new_guy["minT"]*2 #convert half hrs to hours
     newguy_people = new_guy["minP"]
+    phone = new_guy["phone"]
+    print "CREATE MODE: PHONE NUMER {}".format(phone)
 
-    #convert string to a dictionary
-    #yoyo_d = ast.literal_eval(yoyo)
+    #Build an array mapping users to eligible start periods
+    i = 0
     days_of_week = []
     for i in range(7):
         days_of_week.append([])
-    for persons_dictionary in old_guys:
-        
+    for persons_dictionary in old_guys:       
         persons_availability_dict = persons_dictionary['schedule']
         d = 0
         for day in persons_availability_dict:
-
             avail_times_of_day = days_of_week[d]
             d += 1
             for i in range(100 + 1):
-                avail_times_of_day.append("")
+                avail_times_of_day.append("") #setup
             start = 0
             time_tuples = persons_availability_dict[day]
-
             while(len(time_tuples) >= start+2):
-                if(time_tuples[start+1] - time_tuples[start] >= newguy_min_time):
-                    print " diff was using " + str(time_tuples[start+1]) +  ",  " +  str(time_tuples[start])
-                    #print persons_dictionary['id']
-                    #print "START!!!"
-                    #print time_tuples[start]
-                    
+                if(time_tuples[start+1] - time_tuples[start] >= newguy_min_time): #check eligibility
                     #heart of the algorithm
                     avail_times_of_day[time_tuples[start]] += persons_dictionary['id'] + ","
                 start += 2
-
     newguy_itor = 0
     
+    #Build storage location listing eligible start times where new guy meets his own needs.
     #this is a list of lists
     newguy_days_of_week = []
     for i in range(7):
@@ -92,49 +73,63 @@ def create_schedule(list_of_users):
         new_d += 1
         newguy_avail_list = new_guy_schedule[day]
         if (len(newguy_days_of_week) > new_d):
-            print "DAY !!!!!"
-            print day
             while(len(newguy_avail_list) >= newguy_itor+2):
-                print "IN WHILE LOOP"
                 if(newguy_avail_list[newguy_itor+1] - newguy_avail_list[newguy_itor] >= newguy_min_time):
-                    print "IN IF STMT"
-                    print "LEN IS"
-                    print len(newguy_days_of_week)
-                    print "new_d is"
-                    print new_d
                     if (len(newguy_days_of_week)-1 >= new_d):
-                        #print newguy_days_of_week[new_d]
-                        print "test"
                         newguy_days_of_week[new_d].append(newguy_avail_list[newguy_itor])
-                    #print newguy_days_of_week[new_d]
-                    #print new_d
-                    #print "start time here: " 
-                    #print newguy_avail_list[newguy_itor]
+                        #while() right here i want to add all of the new times
+
                 newguy_itor+=2
 
-    print "OUT OF LOOP"
     print newguy_days_of_week
+    #Find a match between users and the new guy.
     curr_day = -1
     for old_guy_day in days_of_week:
         curr_day += 1
         #look through all the avail times of newguy
-        print "NEW GUY TIMES FOR CURR DAY"
-        print newguy_days_of_week[curr_day]
         if (len(newguy_days_of_week) > curr_day):
            for newg_start_time in newguy_days_of_week[curr_day]:
                #if that index in the old_guy_day is not empty
-               print "ARRAY WE ARE WORKING WITH"
-               print old_guy_day[newg_start_time]
                #check that the length after .split is atleast min
                if(len(old_guy_day[newg_start_time].split(",")) >= newguy_min_time):
                    #save the match (print it for now)
-                   print "THIS START TIME WORKS IN BOTH:"
-                   print newg_start_time
-                   print "HERE ARE THE FRIENDS:"
-                   print old_guy_day[newg_start_time]
-                   create_session(old_guy_day[newg_start_time], newg_start_time, newguy_min_time)
+                   friends_list = old_guy_day[newg_start_time].split(",")
+                   for friend in friends_list:
+                       if (friend is not ""):
+                           send_session_email(friend, 0, intToHour(newg_start_time), cid)
+                           print "FRIENDS FOUND"
+                           print "friend:"
+                           print friend
+                           print "Time:"
+                           print intToHour(newg_start_time)
+                           #send_schedule("study buddy", phone)
+                           #dct = json.loads(dict.get('data'))
+                           #if Schedule.objects.filter(user=friend).exists():
+                            #  print "TRYING TO GET PHONE "
+                            #  print Schedule.objects.filter(user=current_user)
+                   newguy_email = new_guy["id"]
+                   #send_session_email(newguy_email, 0, intToHour(newg_start_time), cid)
+                   #we were passing in: old_guy_day[newg_start_time] as the first arg. is there a reason?
+                   #create_session(friends_list, newg_start_time, newguy_min_time)
                    return None
-    print "END OF FUNCITON"
+
+def getDay(dayvar):
+    day = "this week"
+    if newguy_days_of_week[curr_day][0] == 0:
+        day = "Sunday"
+    if newguy_days_of_week[curr_day][0] == 1:
+        day = "Monday"
+    if newguy_days_of_week[curr_day][0] == 2:
+        day = "Tuesday"
+    if newguy_days_of_week[curr_day][0] == 3:
+        day = "Wednesday"
+    if newguy_days_of_week[curr_day][0] == 4:
+        day = "Thursday"
+    if newguy_days_of_week[curr_day][0] == 5:
+        day = "Friday"
+    if newguy_days_of_week[curr_day][0] == 6:
+       day = "Saturday"
+    return day
 
 def index_view(request):
     context = RequestContext(request)
@@ -180,6 +175,14 @@ def sms(request):
     r.message(name)
     return r
 
+def send_schedule(name, phone):
+    account_sid = "ACe5e1624beb9d42623af561bdc50544dc"
+    auth_token  = "d6fe80ae0da4aea45bed7c47e5a5dfc3"
+    client = TwilioRestClient(account_sid, auth_token)  
+    message = client.messages.create(body="Hey %s. You are signed up for a study group!" % (name),
+            to = phone, 
+            from_="+16503999494")
+
 def send_message():
     # Your Account Sid and Auth Token from twilio.com/user/account
     account_sid = "ACe5e1624beb9d42623af561bdc50544dc"
@@ -217,11 +220,8 @@ def rest_view(request):
         R = Request(phone=phone, schedule=schedule, cls=class_[0], user=current_user, time=time, people=people)
         R.save()
 
-        #brit, sara querry
-        create_schedule(find_requests_class(cid))
-
-
-
+        #find matches
+        create_schedule(find_requests_class(cid), str(cid))
 
     if action == 'schedule':
         dct = json.loads(dict.get('data'))
@@ -343,10 +343,12 @@ def send_email(sendtoemail, firstname):
     msg.attach_alternative(html_content, "text/html")
     msg.send() #make this on another threading
 
-def send_session_email(sendtoemail, day, starthour):
+def send_session_email(sendtoemail, day, starthour, cid):
+    print "SENDING EMAIL"
+    return 
     subject = 'You have just been added to a new UCSC Study Session!'
     from_email = 'learnallthethings1@gmail.com'
-    html_content = render_to_string('emailSession.html', {'varname':'value', 'studyday':day, 'starthour':starthour})
+    html_content = render_to_string('emailSession.html', {'varname':'value', 'studyday':day, 'starthour':starthour, 'classname':cid})
     text_content = strip_tags(html_content) 
     msg = EmailMultiAlternatives(subject, text_content, from_email, [sendtoemail])
     msg.attach_alternative(html_content, "text/html")
@@ -357,3 +359,29 @@ def build_classes(request):
     for class_ in classes:
         Class(cid=class_).save()
     return render_to_response('build.html', {'classes': Class.objects.all()})
+
+def intToHour(num):
+   print "NUM IS: " 
+   print num
+   #create a mapping between integer and hour representation
+   if num <= 1 or (num >= 24 and num <= 25):
+      i = 12
+   elif num<24:
+      i = num/2
+   #starting at 26, you start the same pattern again, it is just late
+   elif num > 25:
+      i = (num-24)/2
+
+   result = ""
+
+   if num%2 == 0:
+       if num > 24:
+          result = str(i) + ":00 PM"
+       else:
+          result = str(i) + ":00 AM"
+   else:
+       if num > 24:
+          result = str(i) + ":30 PM"
+       else:
+          result = str(i) + ":30 AM"
+   return result
